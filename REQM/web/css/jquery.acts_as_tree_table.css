@@ -1,0 +1,74 @@
+/* ActsAsTreeTable
+ * ========================================================================= */
+.xsldetalle{padding: 5px 0px 15px 15px; color: #FFF;}
+.xsldbox{width:220px;float:left;text-align:left;}
+.xsldtitulos{color:#FFF;}
+.formButtons{vertical-align: top; padding: 0 2px 0 0;}
+.formButtons span{padding-right: 1px;}
+.spacer{padding-left: 10px;}
+.formButtons input{border: 0px; vertical-align: top;padding-left: 1.5px;background-color: transparent;}
+
+#formLink{vertical-align: middle; padding: 0 1px ;}
+#formLink img{border: 0px; }
+#formNew{vertical-align: middle; float: right;}
+#formNew img{border: 0px; }
+
+table {
+    border: 1px solid #888;
+    border-collapse: collapse;
+    line-height: 1;
+    margin: 1em auto;
+}
+table thead {
+    background: #333 url(../imgs/table/header_bkg.png) repeat-x top left;
+    font-size: .9em;
+}
+table thead tr th {
+    /*border: 1px solid #888;
+    /*font-weight: normal;*/
+    /*padding: .2em .2em .2em 1.2em;*/
+    text-align: center;
+    vertical-align:middle;
+}
+table thead tr .col-one{
+    /*border: 1px solid #888;
+    /*font-weight: normal;*/
+    padding: .2em .2em .2em 1.2em;
+    text-align: left;
+    vertical-align:middle;
+}
+table thead tr th a{
+    padding-right: .5em;
+}
+.fix{ padding-top:6px; }
+table tbody tr td {
+    color: #000;
+    background:#fff url(../imgs/table/row_bkg.png) repeat-x scroll center left;
+    border: 1px dashed #888;
+    padding: .3em 1.5em;
+}
+table tbody tr.even {
+    background: #f3f3f3;
+}
+
+table tbody tr.odd {
+    background: #fff;
+}
+/* Expander
+ * ------------------------------------------------------------------------- */
+.acts_as_tree_table tr td .expander {
+    background-image: url(../imgs/buttons/bullet_toggle_minus.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    padding: 0 0 2.5px 0;
+    zoom: 1; /* Hack for IE, works in IE7, I refuse to check in IE6 or older */
+}
+
+.acts_as_tree_table tr.collapsed td .expander {
+    background-image: url(../imgs/buttons/bullet_toggle_plus.png);
+}
+
+.acts_as_tree_table tr.expanded td .expander {
+    background-image: url(../imgs/buttons/bullet_toggle_minus.png);
+}

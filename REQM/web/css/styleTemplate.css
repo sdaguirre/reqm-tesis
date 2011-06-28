@@ -1,0 +1,42 @@
+@import url("style.css");
+/**************---TITLES---**************/
+h1 { color:#444b4e; font-size:18px; font-weight:normal;}
+h1.title { background:none; font-size:17px;}
+h1.title a {color:#fff; text-decoration:none; font-size:30px; line-height:16px;}
+h1.title a:hover{text-decoration:none; color:#31a00b;}
+#tabs-wrapper h2 { background:none; color:#fff !important; padding-bottom:10px; font-size:18px; font-weight:normal;}
+h2 { font-size:25px; color:#fff; padding:10px 0px 7px 0px; text-transform:capitalize; width:100%; font-weight:normal;}
+h2.with-tabs { padding-left:0px; padding-top:10px;}
+.block h2 { display:block; border-bottom:#bcbcbc 1px solid; color:#444b4e; font-size:12px; line-height:22px; margin:0; margin-top:5px; margin-bottom:10px; padding:0;}
+
+h3 { color:#424242; padding:5px 0px;}
+h3 a {color:#424242; text-decoration:none;}
+
+.block .title { padding:0; width:100%;}
+.title h3 { color:#fff; font-size:30px; padding:28px 0px 4px 30px;}
+
+.admin-panel h3 { color:#fff; font-size:13px;}
+
+.submit { padding:3px 0px 0px 3px; overflow:hidden;}
+.submitted, .submit .submitted{ color:#31a00b; font-size:11px; line-height:normal; font-weight:normal;}
+.submitted a { color:#31a00b;}
+/***************/
+.comment { padding:10px 0px 10px 20px;}
+.comment h3 { background:none;}
+.comment h3 a{ color:#fff; font-size:15px;}
+.comment .title { padding-left:0px; padding-bottom:10px;}
+.comment .submitted { margin-left:0px; padding-bottom:10px; color:#fff;}
+.comment .submitted a{ color:#fff;}
+
+.content { padding:0px 10px 0px 0px; color:#877f7c; line-height:18px; font-size:12px;}
+.node .content a { color:#dedeb7; text-decoration:none;}
+.node .content img { border:4px solid #161211}
+.content a:hover{ text-decoration:underline;}
+
+.node { width:100%; padding-bottom:22px;}
+.node .content, #contact-mail-page { padding:34px 15px 8px 0px; overflow:hidden; overflow:hidden;}
+.node div.links { padding-top:5px; padding-bottom:2px; text-align:left;}
+.node .title {padding:5px 0px 0px 0px; width:306px;}
+
+/*---------------------*/
+

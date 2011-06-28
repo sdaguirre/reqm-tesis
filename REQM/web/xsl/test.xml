@@ -1,0 +1,105 @@
+<?xml version="1.0" standalone="yes"?>
+<permisos>
+    <sitio id="100">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="101">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="102">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="103">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="104">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="200">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="201">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="202">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="203">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="204">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="205">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="300">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="400">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="401">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="500">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="501">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+    <sitio id="502">
+        <sel>true</sel>
+        <ins>true</ins>
+        <mod>true</mod>
+        <del>true</del>
+    </sitio>
+</permisos>

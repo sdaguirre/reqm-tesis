@@ -25,7 +25,7 @@ import libs.XMLModder;
  * @author Moncho
  */
 public class Reqm extends HttpServlet {
-
+    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -76,7 +76,6 @@ public class Reqm extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
         try {
             HttpSession session = request.getSession(true);
             UserManager user;

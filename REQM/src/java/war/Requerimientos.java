@@ -68,7 +68,8 @@ public class Requerimientos extends HttpServlet {
         try {
             if (session == null || session.isNew()) {
                 Conexion.getConnection().disconnect();
-                session.invalidate();
+                if(session!=null)
+                    session.invalidate();
                 response.sendRedirect("login.html");
             } else {
                 response.setContentType("text/html;charset=UTF-8");
@@ -80,13 +81,21 @@ public class Requerimientos extends HttpServlet {
 // -------------------------     REGISTRO DE REQUERIMIENTOS      ---------------------
                         Conexion.autoConnect();
                         Long key = (Long) session.getAttribute("ProyectoId");
-                        if (key != null) {
-                            UserManager user = (UserManager) session.getAttribute("user");
-                            SQLXML requerimientos = DAORequerimientos.getXMLRecords(key, DAORequerimientos.f_requerimiento);
-                            out.println(XMLModder.XSLTransform(
+                        Long req = new Long(ins);
+                        SQLXML requerimientos=null;
+                        UserManager user = (UserManager) session.getAttribute("user");
+                        if (req > 0) {
+                            requerimientos = DAORequerimientos.getXMLRecords(req, DAORequerimientos.fo_reqpadre);
+                            
+                        }
+                        else{
+                            if (key != null) {
+                            requerimientos = DAORequerimientos.getXMLRecords(key, DAORequerimientos.fo_proyecto);
+                            }
+                        }
+                        out.println(XMLModder.XSLTransform(
                                     XMLModder.JoinDocs(requerimientos.getString(),
                                     new String[]{user.getPermisos()}), path + "../web/xsl/requerimientos_form.xsl"));
-                        }
                     }
                 } else {
                     UserManager user = (UserManager) session.getAttribute("user");

@@ -51,7 +51,7 @@
                                             <div id="cont-col">
                                                 <div class="ind">
                                                     <xsl:choose>
-                                                        <xsl:when test="/root/row/fkey">
+                                                        <xsl:when test="/root/row/name">
                                                             <h2>Modificar Requerimiento</h2>
                                                         </xsl:when>
                                                         <xsl:otherwise>
@@ -72,7 +72,7 @@
                                                                                     <col width="60%" />
                                                                                 </colgroup>
                                                                                 <xsl:choose>
-                                                                                    <xsl:when test="/root/row/fkey">
+                                                                                    <xsl:when test="/root/row/name">
                                                                                         <xsl:for-each select="/root/row">
                                                                                             <xsl:param name="type" select="type"/>
                                                                                             <xsl:param name="cat" select="cat"/>
@@ -238,29 +238,33 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inFKeyNm">Cliente:</label>
+                                                                                                <label for="inFKeyNm">Proyecto:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <input name="inFKeyNm" type="text" maxlength="255" value="" readonly="true">
-                                                                                                    <xsl:attribute name="value">
-                                                                                                        <xsl:value-of select="/root/clientnm" />
-                                                                                                    </xsl:attribute>
-                                                                                                </input>
+                                                                                                <select name="inFKey" size="1" >
+                                                                                                    <xsl:for-each select="/root/row">
+                                                                                                        <option>
+                                                                                                            <xsl:attribute name="value">
+                                                                                                                <xsl:value-of select="fkey" />
+                                                                                                            </xsl:attribute>
+                                                                                                            <xsl:value-of select="fkeynm" />
+                                                                                                        </option>
+                                                                                                    </xsl:for-each>
+                                                                                                </select>
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inAP">Anteproyecto:</label>
+                                                                                                <label for="inRPadreNm">Req. Padre:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select name="inAP" size="1" >
+                                                                                                <select name="inRPadreNm" size="1" >
                                                                                                     <xsl:for-each select="/root/row">
-                                                                                                        <xsl:sort select="apnm" />
                                                                                                         <option>
                                                                                                             <xsl:attribute name="value">
-                                                                                                                <xsl:value-of select="@key" />
+                                                                                                                <xsl:value-of select="padrekey" />
                                                                                                             </xsl:attribute>
-                                                                                                            <xsl:value-of select="apnm" />
+                                                                                                            <xsl:value-of select="padrenm" />
                                                                                                         </option>
                                                                                                     </xsl:for-each>
                                                                                                 </select>
@@ -273,37 +277,29 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inCats">Categoria:</label>
+                                                                                                <label for="inType">Tipo:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select name="inCats" size="1" >
-                                                                                                    <xsl:for-each select="/root/params[@kind='categorias']/row">
-                                                                                                        <xsl:sort select="name" />
-                                                                                                        <option>
-                                                                                                            <xsl:attribute name="value">
-                                                                                                                <xsl:value-of select="@key" />
-                                                                                                            </xsl:attribute>
-                                                                                                            <xsl:value-of select="name" />
-                                                                                                        </option>
-                                                                                                    </xsl:for-each>
+                                                                                                <select name="inType" size="1" >
+                                                                                                    <option value="1">Pendiente</option>
+                                                                                                    <option value="2">Aprob. Cliente</option>
+                                                                                                    <option value="3">Aprob. Empresa</option>
+                                                                                                    <option value="4">Final</option>
                                                                                                 </select>
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inType">Tipo:</label>
+                                                                                                <label for="inEstado">Estado:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select name="inType" size="1" >
-                                                                                                    <xsl:for-each select="/root/params[@kind='tipos']/row">
-                                                                                                        <xsl:sort select="name" />
-                                                                                                        <option>
-                                                                                                            <xsl:attribute name="value">
-                                                                                                                <xsl:value-of select="@key" />
-                                                                                                            </xsl:attribute>
-                                                                                                            <xsl:value-of select="name" />
-                                                                                                        </option>
-                                                                                                    </xsl:for-each>
+                                                                                                <select name="inEstado" size="1" >
+                                                                                                    <option value="1">Inicial</option>
+                                                                                                    <option value="2">Analisis</option>
+                                                                                                    <option value="3">Asignado</option>
+                                                                                                    <option value="4">Desarrollo</option>
+                                                                                                    <option value="5">Optimizado</option>
+                                                                                                    <option value="6">Terminado</option>
                                                                                                 </select>
                                                                                             </td>
                                                                                         </tr>

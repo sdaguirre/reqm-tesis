@@ -19,8 +19,8 @@ import libs.XMLModder;
 
 public class Requerimientos extends HttpServlet {
 
-    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
-    //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
+    //private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
+    private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -148,10 +148,10 @@ public class Requerimientos extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
-                DAORequerimientos daorequerimiento = new DAORequerimientos(new Long(request.getParameter("inCode")), new Long(request.getParameter("inProyecto")),
-                        new Long(request.getParameter("inRPadre")), new Integer(request.getParameter("inType")), new Integer(request.getParameter("inState")),
+                DAORequerimientos daorequerimiento = new DAORequerimientos(new Long(request.getParameter("inCode")), new Long(request.getParameter("inFKey")),
+                        new Long(request.getParameter("inRPadre")), new Integer(request.getParameter("inType")), new Integer(request.getParameter("inEstado")),
                         new Integer(request.getParameter("inProgress")), request.getParameter("inName"), request.getParameter("inDesc"));
-                if (daorequerimiento.getlProyectoId() == 0) {
+                if (daorequerimiento.getlRequerimientoId() == 0) {
                     daorequerimiento.insert();
                 } else {
                     daorequerimiento.update();
@@ -160,6 +160,7 @@ public class Requerimientos extends HttpServlet {
             } else if (request.getParameter("del.x") != null) {
                 Conexion.autoConnect();
                 DAORequerimientos daorequerimiento = new DAORequerimientos();
+                System.out.println(request.getParameter("keycode"));
                 daorequerimiento.setlProyectoId(new Long(request.getParameter("keycode")));
                 daorequerimiento.delete();
                 user = (UserManager) session.getAttribute("user");

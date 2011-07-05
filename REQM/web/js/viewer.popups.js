@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    $('input[type=image]').click(function(){
+        $('#keycode').val($(this).attr('value'));
+    });
     $("a[rel^='prettyPhoto']").prettyPhoto({
         animation_speed: 'normal',
         default_width: 100,

@@ -22,8 +22,8 @@ import libs.XMLModder;
 
 public class Proyectos extends HttpServlet {
 
-    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
-    //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
+    //private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
+    private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

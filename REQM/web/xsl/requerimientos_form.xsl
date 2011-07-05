@@ -75,7 +75,7 @@
                                                                                     <xsl:when test="/root/row/name">
                                                                                         <xsl:for-each select="/root/row">
                                                                                             <xsl:param name="type" select="type"/>
-                                                                                            <xsl:param name="cat" select="cat"/>
+                                                                                            <xsl:param name="estado" select="estado"/>
                                                                                             <tr>
                                                                                                 <td class="td-label">
                                                                                                     <label for="inCode">Codigo:</label>
@@ -90,17 +90,43 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inFKeyNm">Proyecto:</label>
+                                                                                                    <label for="inFKey">Proyecto:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <select name="inProyecto" size="1" >
-                                                                                                        <option>
-                                                                                                            <xsl:attribute name="value">
-                                                                                                                <xsl:value-of select="fkey" />
-                                                                                                            </xsl:attribute>
-                                                                                                            <xsl:value-of select="fkeynm" />
-                                                                                                        </option>
-                                                                                                </select>
+                                                                                                    <select class="form-select" name="inFKey" size="1">
+                                                                                                        <xsl:for-each select="/root/row">
+                                                                                                            <option>
+                                                                                                                <xsl:attribute name="value">
+                                                                                                                    <xsl:value-of select="fkey" />
+                                                                                                                </xsl:attribute>
+                                                                                                                <xsl:value-of select="fkeynm" />
+                                                                                                            </option>
+                                                                                                        </xsl:for-each>
+                                                                                                    </select>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="td-label">
+                                                                                                    <label for="inRPadre">Req. Padre:</label>
+                                                                                                </td>
+                                                                                                <td class="td-input">
+                                                                                                    <select class="form-select" name="inRPadre" size="1">
+                                                                                                        <xsl:for-each select="/root/row">
+                                                                                                            <xsl:choose>
+                                                                                                                <xsl:when test="padrenm">
+                                                                                                                    <option>
+                                                                                                                        <xsl:attribute name="value">
+                                                                                                                            <xsl:value-of select="padrekey" />
+                                                                                                                        </xsl:attribute>
+                                                                                                                        <xsl:value-of select="padrenm" />
+                                                                                                                    </option>
+                                                                                                                </xsl:when>
+                                                                                                                <xsl:otherwise>
+                                                                                                                    <option value="0">- - - Ninguno - - -</option>
+                                                                                                                </xsl:otherwise>
+                                                                                                            </xsl:choose>
+                                                                                                        </xsl:for-each>
+                                                                                                    </select>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
@@ -110,46 +136,101 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inCats">Categoria:</label>
+                                                                                                    <label for="inType">Tipo:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <select name="inCats" >
-                                                                                                        <xsl:for-each select="/root/params[@kind='categorias']/row">
-                                                                                                            <xsl:sort select="name" />
-                                                                                                            <option>
-                                                                                                                <xsl:attribute name="value">
-                                                                                                                    <xsl:value-of select="@key" />
-                                                                                                                </xsl:attribute>
-                                                                                                                <xsl:if test="$cat=@key">
-                                                                                                                    <xsl:attribute name="selected">selected</xsl:attribute>
-                                                                                                                    <xsl:attribute name="class">marked</xsl:attribute>
-                                                                                                                </xsl:if>
-                                                                                                                <xsl:value-of select="name" />
-                                                                                                            </option>
-                                                                                                        </xsl:for-each>
+                                                                                                    <select class="form-select" name="inType" size="1">
+                                                                                                        <option value="1">
+                                                                                                            <xsl:if test="$type=1">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Pendiente
+                                                                                                        </option>
+                                                                                                        <option value="2">
+                                                                                                            <xsl:if test="$type=2">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Aprob. Cliente
+                                                                                                        </option>
+                                                                                                        <option value="3">
+                                                                                                            <xsl:if test="$type=3">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Aprob. Empresa
+                                                                                                        </option>
+                                                                                                        <option value="4">
+                                                                                                            <xsl:if test="$type=4">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Final
+                                                                                                        </option>
                                                                                                     </select>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inType">Tipo:</label>
+                                                                                                    <label for="inEstado">Estado:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <select name="inType" >
-                                                                                                        <xsl:for-each select="/root/params[@kind='tipos']/row">
-                                                                                                            <xsl:sort select="name" />
-                                                                                                            <option>
-                                                                                                                <xsl:attribute name="value">
-                                                                                                                    <xsl:value-of select="@key" />
-                                                                                                                </xsl:attribute>
-                                                                                                                <xsl:if test="$type=@key">
-                                                                                                                    <xsl:attribute name="selected">selected</xsl:attribute>
-                                                                                                                    <xsl:attribute name="class">marked</xsl:attribute>
-                                                                                                                </xsl:if>
-                                                                                                                <xsl:value-of select="name" />
-                                                                                                            </option>
-                                                                                                        </xsl:for-each>
+                                                                                                    <select class="form-select" name="inEstado" size="1">
+                                                                                                        <option value="1">
+                                                                                                            <xsl:if test="$estado=1">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Inicial
+                                                                                                        </option>
+                                                                                                        <option value="2">
+                                                                                                            <xsl:if test="$estado=2">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Analisis
+                                                                                                        </option>
+                                                                                                        <option value="3">
+                                                                                                            <xsl:if test="$estado=3">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Asignado
+                                                                                                        </option>
+                                                                                                        <option value="4">
+                                                                                                            <xsl:if test="$estado=4">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Desarrollo
+                                                                                                        </option>
+                                                                                                        <option value="5">
+                                                                                                            <xsl:if test="$estado=5">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Optimizado
+                                                                                                        </option>
+                                                                                                        <option value="6">
+                                                                                                            <xsl:if test="$estado=6">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                        Terminado
+                                                                                                        </option>
                                                                                                     </select>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="td-label">
+                                                                                                    <label for="inProgress">Progreso:</label>
+                                                                                                </td>
+                                                                                                <td class="td-input">
+                                                                                                    <input name="inProgress" type="text" maxlength="255" />
+                                                                                                    <xsl:attribute name="value">
+                                                                                                            <xsl:value-of select="avance" />
+                                                                                                        </xsl:attribute>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
@@ -177,30 +258,6 @@
                                                                                                     <div class="hiddenDiv">
                                                                                                         <img class="trigger" id="calImg" src="imgs/buttons/calendar.png" alt="Fecha" />
                                                                                                     </div>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td class="td-label">
-                                                                                                    <label for="inDtFin">Fecha Final:</label>
-                                                                                                </td>
-                                                                                                <td class="td-input">
-                                                                                                    <input name="inDtFin" id="dateFieldB" class="embed" type="text" readonly="true" >
-                                                                                                        <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="dtfin" />
-                                                                                                        </xsl:attribute>
-                                                                                                    </input>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td class="td-label">
-                                                                                                    <label for="inCosto">Costo:</label>
-                                                                                                </td>
-                                                                                                <td class="td-input">
-                                                                                                    <input name="inCosto" type="text" maxlength="255" >
-                                                                                                        <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="value" />
-                                                                                                        </xsl:attribute>
-                                                                                                    </input>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
@@ -238,10 +295,10 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inFKeyNm">Proyecto:</label>
+                                                                                                <label for="inFKey">Proyecto:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select name="inFKey" size="1" >
+                                                                                                <select class="form-select" name="inFKey" size="1">
                                                                                                     <xsl:for-each select="/root/row">
                                                                                                         <option>
                                                                                                             <xsl:attribute name="value">
@@ -255,17 +312,24 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inRPadreNm">Req. Padre:</label>
+                                                                                                <label for="inRPadre">Req. Padre:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select name="inRPadreNm" size="1" >
+                                                                                                <select class="form-select" name="inRPadre" size="1">
                                                                                                     <xsl:for-each select="/root/row">
-                                                                                                        <option>
-                                                                                                            <xsl:attribute name="value">
-                                                                                                                <xsl:value-of select="padrekey" />
-                                                                                                            </xsl:attribute>
-                                                                                                            <xsl:value-of select="padrenm" />
-                                                                                                        </option>
+                                                                                                        <xsl:choose>
+                                                                                                            <xsl:when test="padrenm">
+                                                                                                                <option>
+                                                                                                                    <xsl:attribute name="value">
+                                                                                                                        <xsl:value-of select="padrekey" />
+                                                                                                                    </xsl:attribute>
+                                                                                                                    <xsl:value-of select="padrenm" />
+                                                                                                                </option>
+                                                                                                            </xsl:when>
+                                                                                                            <xsl:otherwise>
+                                                                                                                <option value="0">- - - Ninguno - - -</option>
+                                                                                                            </xsl:otherwise>
+                                                                                                        </xsl:choose>
                                                                                                     </xsl:for-each>
                                                                                                 </select>
                                                                                             </td>
@@ -280,7 +344,7 @@
                                                                                                 <label for="inType">Tipo:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select name="inType" size="1" >
+                                                                                                <select class="form-select" name="inType" size="1">
                                                                                                     <option value="1">Pendiente</option>
                                                                                                     <option value="2">Aprob. Cliente</option>
                                                                                                     <option value="3">Aprob. Empresa</option>
@@ -293,7 +357,7 @@
                                                                                                 <label for="inEstado">Estado:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select name="inEstado" size="1" >
+                                                                                                <select class="form-select" name="inEstado" size="1">
                                                                                                     <option value="1">Inicial</option>
                                                                                                     <option value="2">Analisis</option>
                                                                                                     <option value="3">Asignado</option>
@@ -301,6 +365,14 @@
                                                                                                     <option value="5">Optimizado</option>
                                                                                                     <option value="6">Terminado</option>
                                                                                                 </select>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="td-label">
+                                                                                                <label for="inProgress">Progreso:</label>
+                                                                                            </td>
+                                                                                            <td class="td-input">
+                                                                                                <input name="inProgress" type="text" maxlength="255" value="1" readonly="true"/>
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>

@@ -19,9 +19,9 @@ import libs.XMLModder;
 
 public class Requerimientos extends HttpServlet {
 
-    //private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
-    private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
-    
+    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
+    //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -69,8 +69,9 @@ public class Requerimientos extends HttpServlet {
         try {
             if (session == null || session.isNew()) {
                 Conexion.getConnection().disconnect();
-                if(session!=null)
+                if (session != null) {
                     session.invalidate();
+                }
                 response.sendRedirect("login.html");
             } else {
                 response.setContentType("text/html;charset=UTF-8");
@@ -83,20 +84,18 @@ public class Requerimientos extends HttpServlet {
                         Conexion.autoConnect();
                         Long key = (Long) session.getAttribute("ProyectoId");
                         Long req = new Long(ins);
-                        SQLXML requerimientos=null;
+                        SQLXML requerimientos = null;
                         UserManager user = (UserManager) session.getAttribute("user");
                         if (req > 0) {
                             requerimientos = DAORequerimientos.getXMLRecords(req, DAORequerimientos.fo_reqpadre);
-                            
-                        }
-                        else{
+                        } else {
                             if (key != null) {
-                            requerimientos = DAORequerimientos.getXMLRecords(key, DAORequerimientos.fo_proyecto);
+                                requerimientos = DAORequerimientos.getXMLRecords(key, DAORequerimientos.fo_proyecto);
                             }
                         }
                         out.println(XMLModder.XSLTransform(
-                                    XMLModder.JoinDocs(requerimientos.getString(),
-                                    new String[]{user.getPermisos()}), path + "../web/xsl/requerimientos_form.xsl"));
+                                XMLModder.JoinDocs(requerimientos.getString(),
+                                new String[]{user.getPermisos()}), path + "../web/xsl/requerimientos_form.xsl"));
                     }
                 } else {
                     UserManager user = (UserManager) session.getAttribute("user");
@@ -124,13 +123,6 @@ public class Requerimientos extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -142,7 +134,7 @@ public class Requerimientos extends HttpServlet {
             return;
         }
         try {
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+            //SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
             response.setContentType("text/html;charset=UTF-8");
             UserManager user;
             request.setCharacterEncoding("UTF-8");

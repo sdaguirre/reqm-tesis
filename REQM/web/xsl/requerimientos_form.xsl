@@ -66,7 +66,7 @@
                                                                 <div class="columns">
                                                                     <div class="column-left">
                                                                         <form method="post" action="Requerimientos">
-                                                                            <table width="500px">
+                                                                            <table width="500px" class="form-wider">
                                                                                 <colgroup>
                                                                                     <col width="20%" />
                                                                                     <col width="60%" />
@@ -93,7 +93,7 @@
                                                                                                     <label for="inFKey">Proyecto:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <select class="form-select" name="inFKey" size="1">
+                                                                                                    <select name="inFKey" size="1">
                                                                                                         <xsl:for-each select="/root/row">
                                                                                                             <option>
                                                                                                                 <xsl:attribute name="value">
@@ -110,7 +110,7 @@
                                                                                                     <label for="inRPadre">Req. Padre:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <select class="form-select" name="inRPadre" size="1">
+                                                                                                    <select name="inRPadre" size="1">
                                                                                                         <xsl:for-each select="/root/row">
                                                                                                             <xsl:choose>
                                                                                                                 <xsl:when test="padrenm">
@@ -139,7 +139,7 @@
                                                                                                     <label for="inType">Tipo:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <select class="form-select" name="inType" size="1">
+                                                                                                    <select name="inType" size="1">
                                                                                                         <option value="1">
                                                                                                             <xsl:if test="$type=1">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
@@ -176,7 +176,7 @@
                                                                                                     <label for="inEstado">Estado:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <select class="form-select" name="inEstado" size="1">
+                                                                                                    <select name="inEstado" size="1">
                                                                                                         <option value="1">
                                                                                                             <xsl:if test="$estado=1">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
@@ -227,10 +227,11 @@
                                                                                                     <label for="inProgress">Progreso:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <input name="inProgress" type="text" maxlength="255" />
-                                                                                                    <xsl:attribute name="value">
+                                                                                                    <input name="inProgress" type="text" maxlength="255" >
+                                                                                                        <xsl:attribute name="value">
                                                                                                             <xsl:value-of select="avance" />
                                                                                                         </xsl:attribute>
+                                                                                                    </input>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
@@ -247,7 +248,7 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inDtIn">Fecha Inicio:</label>
+                                                                                                    <label for="inDtIn">Fecha:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
                                                                                                     <input name="inDtIn" id="dateFieldA" class="embed" type="text" readonly="true" >
@@ -298,7 +299,7 @@
                                                                                                 <label for="inFKey">Proyecto:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select class="form-select" name="inFKey" size="1">
+                                                                                                <select name="inFKey" size="1">
                                                                                                     <xsl:for-each select="/root/row">
                                                                                                         <option>
                                                                                                             <xsl:attribute name="value">
@@ -315,7 +316,7 @@
                                                                                                 <label for="inRPadre">Req. Padre:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select class="form-select" name="inRPadre" size="1">
+                                                                                                <select name="inRPadre" size="1">
                                                                                                     <xsl:for-each select="/root/row">
                                                                                                         <xsl:choose>
                                                                                                             <xsl:when test="padrenm">
@@ -344,7 +345,7 @@
                                                                                                 <label for="inType">Tipo:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select class="form-select" name="inType" size="1">
+                                                                                                <select name="inType" size="1">
                                                                                                     <option value="1">Pendiente</option>
                                                                                                     <option value="2">Aprob. Cliente</option>
                                                                                                     <option value="3">Aprob. Empresa</option>
@@ -357,7 +358,7 @@
                                                                                                 <label for="inEstado">Estado:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select class="form-select" name="inEstado" size="1">
+                                                                                                <select name="inEstado" size="1">
                                                                                                     <option value="1">Inicial</option>
                                                                                                     <option value="2">Analisis</option>
                                                                                                     <option value="3">Asignado</option>
@@ -385,7 +386,7 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inDtIn">Fecha Inicio:</label>
+                                                                                                <label for="inDtIn">Fecha:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
                                                                                                 <input name="inDtIn" id="dateFieldA" class="embed" type="text" readonly="true" >

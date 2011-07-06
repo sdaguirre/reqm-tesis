@@ -1,7 +1,6 @@
 package war;
 
 import conexion.Conexion;
-import dao.DAOAnteproyectos;
 import dao.DAOPFisicas;
 import dao.DAOParams;
 import dao.DAOProyectos;
@@ -22,8 +21,8 @@ import libs.XMLModder;
 
 public class Proyectos extends HttpServlet {
 
-    //private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
-    private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
+    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
+    //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

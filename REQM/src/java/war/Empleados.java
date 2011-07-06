@@ -6,7 +6,6 @@ package war;
 
 import conexion.Conexion;
 import dao.DAOEmpleados;
-import dao.DAOPFisicas;
 import dao.DAOParams;
 import java.io.IOException;
 import java.io.PrintWriter;

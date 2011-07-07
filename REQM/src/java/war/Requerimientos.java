@@ -34,7 +34,7 @@ public class Requerimientos extends HttpServlet {
                 String keycode = request.getParameter("prkey");
                 if (keycode != null) {
                     session.setAttribute("ProyectoId", new Long(keycode));
-                    SQLXML requerimientos = DAORequerimientos.getXMLRecords(new Long(keycode), DAORequerimientos.f_proyecto);
+                    SQLXML requerimientos = DAORequerimientos.getXMLRecords(new Long(keycode), DAORequerimientos.F_PROYECTO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(requerimientos.getString(), user.getPermisos()), path + "../web/xsl/requerimientos.xsl"));
@@ -87,10 +87,10 @@ public class Requerimientos extends HttpServlet {
                         SQLXML requerimientos = null;
                         UserManager user = (UserManager) session.getAttribute("user");
                         if (req > 0) {
-                            requerimientos = DAORequerimientos.getXMLRecords(req, DAORequerimientos.fo_reqpadre);
+                            requerimientos = DAORequerimientos.getXMLRecords(req, DAORequerimientos.FO_REQPADRE);
                         } else {
                             if (key != null) {
-                                requerimientos = DAORequerimientos.getXMLRecords(key, DAORequerimientos.fo_proyecto);
+                            requerimientos = DAORequerimientos.getXMLRecords(key, DAORequerimientos.FO_PROYECTO);
                             }
                         }
                         out.println(XMLModder.XSLTransform(
@@ -101,7 +101,7 @@ public class Requerimientos extends HttpServlet {
                     UserManager user = (UserManager) session.getAttribute("user");
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
-                    SQLXML requerimientos = DAORequerimientos.getXMLRecords(new Long(request.getParameter("mod")), DAORequerimientos.f_requerimiento);
+                    SQLXML requerimientos = DAORequerimientos.getXMLRecords(new Long(request.getParameter("mod")), DAORequerimientos.F_REQUERIMIENTO);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(requerimientos.getString(),
                             new String[]{user.getPermisos()}), path + "../web/xsl/requerimientos_form.xsl"));
@@ -156,7 +156,7 @@ public class Requerimientos extends HttpServlet {
                 daorequerimiento.setlProyectoId(new Long(request.getParameter("keycode")));
                 daorequerimiento.delete();
                 user = (UserManager) session.getAttribute("user");
-                SQLXML proyectos = DAORequerimientos.getXMLRecords((Long) session.getAttribute("ProyectoId"), DAORequerimientos.f_proyecto);
+                SQLXML proyectos = DAORequerimientos.getXMLRecords((Long) session.getAttribute("ProyectoId"), DAORequerimientos.F_PROYECTO);
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
                         XMLModder.JoinDocs(proyectos.getString(), user.getPermisos()), path + "../web/xsl/requerimientos.xsl"));

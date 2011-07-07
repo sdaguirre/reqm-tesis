@@ -6,7 +6,7 @@ import java.sql.SQLXML;
 public class DAORequerimientos extends DAO implements IDAO{
 //#Region VarDeclarations
     public static final String tabla="tblRequerimientos";
-    public static final int f_proyecto=1,f_requerimiento=2,fo_proyecto=3,fo_reqpadre=4;
+    public static final int F_PROYECTO=1,F_REQUERIMIENTO=2,FO_PROYECTO=3,FO_REQPADRE=4;
     private long lRequerimientoId,lProyectoId,lReqPadreId;
     private int iTipoFl,iEstadoFl,iAvanceFl;
     private String sRequerimientoNm,sRequerimientoDesc;

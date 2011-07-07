@@ -90,8 +90,8 @@ public class Anteproyectos extends HttpServlet {
                         SQLXML personas = DAOPFisicas.getXMLRecords("" + session.getAttribute("PersonaId"));
                         out.println(XMLModder.XSLTransform(
                                 XMLModder.JoinDocs(personas.getString(),
-                                new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.tipos).getString(),
-                                    DAOParams.getXMLRecords(DAOParams.categorias).getString()}), path + "../web/xsl/anteproyectos_form.xsl"));
+                                new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
+                                    DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/anteproyectos_form.xsl"));
                     }
                 } else {
                     UserManager user = (UserManager) session.getAttribute("user");
@@ -100,8 +100,8 @@ public class Anteproyectos extends HttpServlet {
                     SQLXML anteproyectos = DAOAnteproyectos.getXMLRecords(new Long("0"), new Long(request.getParameter("mod")));
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(anteproyectos.getString(),
-                            new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.tipos).getString(),
-                                DAOParams.getXMLRecords(DAOParams.categorias).getString()}), path + "../web/xsl/anteproyectos_form.xsl"));
+                            new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
+                                DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/anteproyectos_form.xsl"));
                 }
 
             }

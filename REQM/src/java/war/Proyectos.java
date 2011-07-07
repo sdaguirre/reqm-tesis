@@ -100,15 +100,15 @@ public class Proyectos extends HttpServlet {
                             SQLXML proyecto = DAOProyectos.getXMLRecords(key, DAOProyectos.fo_client);
                             out.println(XMLModder.XSLTransform(
                                     XMLModder.JoinDocs(proyecto.getString(),
-                                    new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.tipos).getString(),
-                                        DAOParams.getXMLRecords(DAOParams.categorias).getString()}), path + "../web/xsl/proyectos_form.xsl"));
+                                    new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
+                                        DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/proyectos_form.xsl"));
                         } else {
                             UserManager user = (UserManager) session.getAttribute("user");
                             SQLXML proyecto = DAOProyectos.getXMLRecords((Long) session.getAttribute("AnteproyectoId"), DAOProyectos.fo_ap);
                             out.println(XMLModder.XSLTransform(
                                     XMLModder.JoinDocs(proyecto.getString(),
-                                    new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.tipos).getString(),
-                                        DAOParams.getXMLRecords(DAOParams.categorias).getString()}), path + "../web/xsl/proyectos_form.xsl"));
+                                    new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
+                                        DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/proyectos_form.xsl"));
                         }
 
                     }
@@ -119,8 +119,8 @@ public class Proyectos extends HttpServlet {
                     SQLXML proyectos = DAOProyectos.getXMLRecords(new Long(request.getParameter("mod")), DAOProyectos.f_proyecto);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(proyectos.getString(),
-                            new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.tipos).getString(),
-                                DAOParams.getXMLRecords(DAOParams.categorias).getString()}), path + "../web/xsl/proyectos_form.xsl"));
+                            new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
+                                DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/proyectos_form.xsl"));
                 }
 
             }

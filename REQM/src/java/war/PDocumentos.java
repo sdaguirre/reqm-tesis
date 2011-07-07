@@ -93,7 +93,7 @@ public class PDocumentos extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.documentos).getString()}), path + "../web/xsl/pdocumentos_form.xsl"));
+                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.DOCUMENTOS).getString()}), path + "../web/xsl/pdocumentos_form.xsl"));
                     }
                 } else {
                     UserManager user;
@@ -102,7 +102,7 @@ public class PDocumentos extends HttpServlet {
                     SQLXML daodocumentos = DAOPDocumentos.getXMLRecords(0,new Long(mod));
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daodocumentos.getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.documentos).getString()}), path + "../web/xsl/pdocumentos_form.xsl"));
+                            XMLModder.JoinDocs(daodocumentos.getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.DOCUMENTOS).getString()}), path + "../web/xsl/pdocumentos_form.xsl"));
                 }
 
             }

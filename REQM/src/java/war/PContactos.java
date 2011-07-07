@@ -93,7 +93,7 @@ public class PContactos extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.contactos).getString()}), path + "../web/xsl/pcontactos_form.xsl"));
+                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CONTACTOS).getString()}), path + "../web/xsl/pcontactos_form.xsl"));
                     }
                 } else {
                     UserManager user;
@@ -102,7 +102,7 @@ public class PContactos extends HttpServlet {
                     SQLXML daopcontactos = DAOPContactos.getXMLRecords(0, new Long(mod));
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daopcontactos.getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.contactos).getString()}), path + "../web/xsl/pcontactos_form.xsl"));
+                            XMLModder.JoinDocs(daopcontactos.getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CONTACTOS).getString()}), path + "../web/xsl/pcontactos_form.xsl"));
                 }
 
             }

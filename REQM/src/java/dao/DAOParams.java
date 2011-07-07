@@ -6,9 +6,9 @@ import java.sql.SQLXML;
 public class DAOParams extends DAO implements IDAO {
 // <editor-fold defaultstate="collapsed" desc="VarDeclarations">
 
-    public static final String cargos = "tblPCargos", rubros = "tblPRubros", documentos = "tblPDocumentos",
-            contactos = "tblPContactos", tipos = "tblPTipos", categorias = "tblPCategorias", componentes = "tblComponentes",
-            productos="tblProductos",equipos="tblEquipos";
+    public static final String CARGOS = "tblPCargos", RUBROS = "tblPRubros", DOCUMENTOS = "tblPDocumentos",
+            CONTACTOS = "tblPContactos", TIPOS = "tblPTipos", CATEGORIAS = "tblPCategorias", COMPONENTES = "tblComponentes",
+            PRODUCTOS="tblProductos",EQUIPOS="tblEquipos",SITIOS="tblSitios";
     private String tabla;
     private Long lParamId;
     private String sParamNm;

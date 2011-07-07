@@ -84,7 +84,7 @@ public class Empleados extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.cargos).getString()}), path + "../web/xsl/empleados_form.xsl"));
+                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CARGOS).getString()}), path + "../web/xsl/empleados_form.xsl"));
                     }
                 } else {
                     UserManager user;
@@ -93,7 +93,7 @@ public class Empleados extends HttpServlet {
                     SQLXML daoempleados = DAOEmpleados.getXMLRecords(new Long(mod));
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoempleados.getString(),  new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.cargos).getString()}), path + "../web/xsl/empleados_form.xsl"));
+                            XMLModder.JoinDocs(daoempleados.getString(),  new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CARGOS).getString()}), path + "../web/xsl/empleados_form.xsl"));
                 }
 
             }
@@ -149,7 +149,7 @@ public class Empleados extends HttpServlet {
                     empleado.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOEmpleados.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.cargos).getString()}), path + "../web/xsl/empleados.xsl"));
+                            XMLModder.JoinDocs(DAOEmpleados.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CARGOS).getString()}), path + "../web/xsl/empleados.xsl"));
                 } 
             }
         } catch (Exception ex) {

@@ -6,6 +6,7 @@ import java.sql.SQLXML;
 public class DAOPermisos extends DAO implements IDAO{
 //#Region VarDeclarations
     public static final String tabla="tblPermisos";
+    public static final int F_ROL=1,F_PERMISO=2;
     private long lPermisoId;
     private int iRolId,iSitioId;
     private boolean bConsultarFl,bInsertarFl,bModificarFl,bEliminarFl;
@@ -24,8 +25,8 @@ public class DAOPermisos extends DAO implements IDAO{
     }
     //#End
 //#Region SearchAndRecords
-    public static SQLXML getXMLRecords() throws SQLException{
-        return getXMLTable(tabla);
+    public static SQLXML getXMLRecords(long lKeyId,int filter) throws SQLException {
+        return getProcessXML("gxml_", tabla, new Object[]{lKeyId,filter});
     }
 
     public static SQLXML search(String value) throws SQLException {

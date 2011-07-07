@@ -41,6 +41,10 @@
         <servlet-class>war.Requerimientos</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Roles</servlet-name>
+        <servlet-class>war.Roles</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Permisos</servlet-name>
         <servlet-class>war.Permisos</servlet-class>
     </servlet>
@@ -83,6 +87,10 @@
     <servlet-mapping>
         <servlet-name>Requerimientos</servlet-name>
         <url-pattern>/Requerimientos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Roles</servlet-name>
+        <url-pattern>/Roles</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Permisos</servlet-name>

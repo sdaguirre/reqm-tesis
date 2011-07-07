@@ -66,7 +66,7 @@
                                                                 <div class="columns">
                                                                     <div class="column-left">
                                                                         <form method="post" action="Requerimientos">
-                                                                            <table width="500px" class="form-wider">
+                                                                            <table width="500px">
                                                                                 <colgroup>
                                                                                     <col width="20%" />
                                                                                     <col width="60%" />

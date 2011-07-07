@@ -23,6 +23,9 @@ public class DAORoles extends DAO implements IDAO{
     public static SQLXML getXMLRecords() throws SQLException{
         return getXMLTable(tabla);
     }
+    public static SQLXML getXMLRecords(String key) throws SQLException{
+        return getXMLRecords(tabla, new Long(key));
+    }
 
     public static SQLXML search(String value) throws SQLException {
         return searchXMLRecords(tabla,"%"+value+"%");

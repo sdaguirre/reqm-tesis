@@ -221,7 +221,8 @@ h3 a {color:#424242; text-decoration:none;}
 
 /*------Custom Login-Form------*/
 INPUT, TEXTAREA,SELECT {background-color: #303030; border-color: #171614; color:#DDD; border-style: solid;}
-.form-wider input[type=text]{width: 200px;}
+input[type=text]{width: 200px;}
+input[type=password]{width: 200px;}
 .form-wider select{width: 204px;}
 option.marked{background-color: #c00000;}
 .userlogin { font-size:15px; color:#313030; padding:0px 0px 0px 28px; margin-left:18px; margin-top:20px; font-weight:bold;}

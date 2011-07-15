@@ -40,7 +40,7 @@ public class DAORoles extends DAO implements IDAO{
             return updateRecord(tabla, new Object[]{iRolId,sRolNm,iEstadoFl});
     }
     public boolean delete() throws SQLException {
-            return deleteRecord(tabla, iRolId,0);
+            return deleteRecord(tabla, Long.parseLong(""+iRolId));
     }
     //#End
 //#Region Accessors

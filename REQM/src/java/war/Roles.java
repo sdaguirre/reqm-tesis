@@ -105,7 +105,7 @@ public class Roles extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
-                DAORoles daorol = new DAORoles(new Integer(request.getParameter("inCode")), request.getParameter("inName"),new Integer(request.getParameter("inEstado")));
+                DAORoles daorol = new DAORoles(new Integer(request.getParameter("inCode")), request.getParameter("inName"),new Integer(request.getParameter("inActive")));
                 if (daorol.getiRolId() == 0) {
                     daorol.insert();
                 } else {
@@ -124,7 +124,7 @@ public class Roles extends HttpServlet {
                 }
             }
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
+            ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
             out.close();

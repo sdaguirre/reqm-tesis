@@ -6,7 +6,7 @@ import java.sql.SQLXML;
 public class DAOPermisos extends DAO implements IDAO{
 //#Region VarDeclarations
     public static final String tabla="tblPermisos";
-    public static final int F_ROL=1,F_PERMISO=2;
+    public static final int F_ROL=1,F_PERMISO=2,F_NEW=3;
     private long lPermisoId;
     private int iRolId,iSitioId;
     private boolean bConsultarFl,bInsertarFl,bModificarFl,bEliminarFl;

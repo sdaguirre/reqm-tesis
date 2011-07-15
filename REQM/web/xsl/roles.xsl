@@ -68,7 +68,7 @@
                             <div id="header">
                                 <div class="head-row1">
                                     <div class="col1">
-                                        <a href="http://www.sd-bo.com" title="Home">
+                                        <a href="Reqm" title="Home">
                                             <img src="imgs/SDLogo2.png" alt="Soluciones Digitales" class="logo" />
                                         </a>
                                     </div>
@@ -165,7 +165,7 @@
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <form method="GET" action="Roles" accept-charset="UTF-8" id="search-theme-form">
+                                        <form method="POST" action="Roles" accept-charset="UTF-8" id="search-theme-form">
                                             <div>
                                                 <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"

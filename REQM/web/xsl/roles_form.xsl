@@ -21,17 +21,12 @@
                 <link type="text/css" rel="stylesheet" media="all" href="css/form.css" />
                 <link type="text/css" rel="stylesheet" media="all" href="css/style.css" />
                 <link type="text/css" rel="stylesheet" media="all" href="css/tableview.css"  />
-                <link type="text/css" rel="stylesheet" media="all" href="css/jquery.datepick.css" />
-                <link type="text/css" rel="stylesheet" media="all" href="css/ui-blitzer.datepick.css" />
                 <!--script-->
                 <script type="text/javascript" src="js/cufon-yui.js"></script>
                 <script type="text/javascript" src="js/cufon-replace.js"></script>
                 <script type="text/javascript" src="js/Myriad_Pro_400.js"></script>
                 <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
                 <script type="text/javascript" src="js/jquery-ui-1.8.1.min.js"></script>
-                <script type="text/javascript" src="js/jquery.datepick.js"></script>
-                <script type="text/javascript" src="js/jquery.datepick-es.js"></script>
-                <script type="text/javascript" src="js/DateField.js"></script>
             </head>
             <body class="yui-skin-sam" id="body">
                 <div class="min-width">
@@ -52,10 +47,10 @@
                                                 <div class="ind">
                                                     <xsl:choose>
                                                         <xsl:when test="/root/row">
-                                                            <h2>Modificar Empleado</h2>
+                                                            <h2>Modificar Rol</h2>
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            <h2>Nuevo Empleado</h2>
+                                                            <h2>Nuevo Rol</h2>
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                     <!-- start main content -->
@@ -95,67 +90,6 @@
                                                                                                     <input name="inName" type="text" maxlength="255" >
                                                                                                         <xsl:attribute name="value">
                                                                                                             <xsl:value-of select="name" />
-                                                                                                        </xsl:attribute>
-                                                                                                    </input>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td class="td-label">
-                                                                                                    <label for="inType">Cargo:</label>
-                                                                                                </td>
-                                                                                                <td class="td-input">
-                                                                                                    <select name="inType" >
-                                                                                                        <xsl:for-each select="/root/params/row">
-                                                                                                        <xsl:sort select="name" />
-                                                                                                        <option>
-                                                                                                            <xsl:attribute name="value">
-                                                                                                                <xsl:value-of select="@key" />
-                                                                                                            </xsl:attribute>
-                                                                                                            <xsl:if test="$type=@key">
-                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
-                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
-                                                                                                            </xsl:if>
-                                                                                                            <xsl:value-of select="name" />
-                                                                                                        </option>
-                                                                                                        </xsl:for-each>
-                                                                                                    </select>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td class="td-label">
-                                                                                                    <label for="inPay">Salario:</label>
-                                                                                                </td>
-                                                                                                <td class="td-input">
-                                                                                                    <input name="inPay" type="text" maxlength="255" >
-                                                                                                        <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="pay" />
-                                                                                                        </xsl:attribute>
-                                                                                                    </input>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td class="td-label">
-                                                                                                    <label for="inDtIn">Fecha Ingreso:</label>
-                                                                                                </td>
-                                                                                                <td class="td-input">
-                                                                                                    <input name="inDtIn" id="dateFieldA" class="embed" type="text" readonly="true" >
-                                                                                                        <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="dtin" />
-                                                                                                        </xsl:attribute>
-                                                                                                    </input>
-                                                                                                    <div class="hiddenDiv">
-                                                                                                        <img class="trigger" id="calImg" src="imgs/buttons/calendar.png" alt="Fecha" />
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td class="td-label">
-                                                                                                    <label for="inDtOut">Fecha Egreso:</label>
-                                                                                                </td>
-                                                                                                <td class="td-input">
-                                                                                                    <input name="inDtOut" id="dateFieldB" class="embed" type="text" readonly="true" >
-                                                                                                        <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="dtout" />
                                                                                                         </xsl:attribute>
                                                                                                     </input>
                                                                                                 </td>
@@ -202,45 +136,10 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inType">Cargo:</label>
-                                                                                            </td>
-                                                                                            <td class="td-input">
-                                                                                                <select name="inType" size="1" >
-                                                                                                    <xsl:for-each select="/root/params/row">
-                                                                                                    <xsl:sort select="name" />
-                                                                                                    <option><xsl:attribute name="value">
-                                                                                                        <xsl:value-of select="@key" />
-                                                                                                        </xsl:attribute><xsl:value-of select="name" />
-                                                                                                    </option>
-                                                                                                    </xsl:for-each>
-                                                                                                </select>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td class="td-label">
                                                                                                 <label for="inName">Nombre:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
                                                                                                 <input name="inName" type="text" maxlength="255" value="" />
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td class="td-label">
-                                                                                                <label for="inPay">Salario:</label>
-                                                                                            </td>
-                                                                                            <td class="td-input">
-                                                                                                <input name="inPay" type="text" maxlength="255" />
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td class="td-label">
-                                                                                                <label for="inDtIn">Fecha Ingreso:</label>
-                                                                                            </td>
-                                                                                            <td class="td-input">
-                                                                                                <input name="inDtIn" id="dateField" class="embed" type="text" readonly="true" />
-                                                                                                <div class="hiddenDiv">
-                                                                                                    <img class="trigger" id="calImg" src="imgs/buttons/calendar.png" alt="Fecha" />
-                                                                                                </div>
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>

@@ -25,24 +25,22 @@ import libs.XMLModder;
  * @author Moncho
  */
 public class Reqm extends HttpServlet {
-    //private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
-    private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
+    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
+    //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Reqm</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Reqm at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-             */
+            HttpSession session = request.getSession(false);
+            UserManager user = (UserManager) session.getAttribute("user");
+            if (!session.isNew() && user.isLogged()) {
+                out.println(XMLModder.XSLTransform(user.getPermisos(), path + "xsl/template.xsl"));
+            } else {
+                session.invalidate();
+                response.sendRedirect("login.html");
+            }
         } finally {
             out.close();
         }
@@ -87,6 +85,7 @@ public class Reqm extends HttpServlet {
                     user = new UserManager();
                     user.setUsername(request.getParameter("usr"));
                     user.setPermisos(permisos.getString());
+                    user.setLogged(true);
                     session.setAttribute("user", user);
                     out.println(XMLModder.XSLTransform(permisos.getString(), path + "xsl/template.xsl"));
                 } else {

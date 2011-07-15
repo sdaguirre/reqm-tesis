@@ -5,7 +5,6 @@
 package war;
 
 import conexion.Conexion;
-import dao.DAOPContactos;
 import dao.DAOParams;
 import dao.DAOPermisos;
 import java.io.IOException;
@@ -25,8 +24,8 @@ import libs.XMLModder;
  */
 public class Permisos extends HttpServlet {
 
-    //private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
-    private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
+    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
+    //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

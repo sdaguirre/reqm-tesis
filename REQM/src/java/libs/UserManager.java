@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class UserManager implements Serializable{
     private String username="";
     private String permisos;
+    private boolean logged=false;
 
     public UserManager() {
     }
@@ -28,6 +29,15 @@ public class UserManager implements Serializable{
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged = logged;
+    }
+    
 
     
 }

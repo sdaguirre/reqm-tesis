@@ -255,7 +255,7 @@
                                                                                                         <li>
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">Permisos?fkey=<xsl:value-of select="$fkey" /></xsl:attribute>
+                                                                                                                    <xsl:attribute name="href">Permisos?fkey=<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                                     <img src="imgs/buttons/cellphone.png" alt="Administrar Permisos" />
                                                                                                                 </a>Adm. Permisos
                                                                                                             </span>

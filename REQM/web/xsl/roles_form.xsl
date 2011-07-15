@@ -60,7 +60,7 @@
                                                             <div class="services">
                                                                 <div class="columns">
                                                                     <div class="column-left">
-                                                                        <form method="post" action="Empleados">
+                                                                        <form method="post" action="Roles">
                                                                             <table width="500px">
                                                                                 <colgroup>
                                                                                     <col width="20%" />
@@ -100,12 +100,12 @@
                                                                                                 </td>
                                                                                                 <td class="td-input">
                                                                                                     <input name="inActive" type="radio" value="1">
-                                                                                                        <xsl:if test="active=1">
+                                                                                                        <xsl:if test="state=1">
                                                                                                             <xsl:attribute name="checked">checked</xsl:attribute>
                                                                                                         </xsl:if>Activo
                                                                                                     </input>
-                                                                                                    <input name="inActive" type="radio" value="0">
-                                                                                                        <xsl:if test="active=0">
+                                                                                                    <input name="inActive" type="radio" value="2">
+                                                                                                        <xsl:if test="state=2">
                                                                                                             <xsl:attribute name="checked">checked</xsl:attribute>
                                                                                                         </xsl:if>Inactivo
                                                                                                     </input>
@@ -148,7 +148,7 @@
                                                                                             </td>
                                                                                             <td class="td-input">
                                                                                                 <input name="inActive" type="radio" value="1" checked="checked" />Activo
-                                                                                                <input name="inActive" type="radio" value="0" />Inactivo
+                                                                                                <input name="inActive" type="radio" value="2" />Inactivo
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>

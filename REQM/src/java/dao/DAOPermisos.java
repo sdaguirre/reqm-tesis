@@ -32,6 +32,7 @@ public class DAOPermisos extends DAO implements IDAO{
     public static SQLXML search(String value) throws SQLException {
         return searchXMLRecords(tabla,"%"+value+"%");
     }
+
     //#End
 //#Region IUD
     public boolean insert() throws SQLException {
@@ -43,6 +44,9 @@ public class DAOPermisos extends DAO implements IDAO{
     }
     public boolean delete() throws SQLException {
             return deleteRecord(tabla, lPermisoId,0);
+    }
+    public static boolean changeAccess(String value,String checker) throws SQLException {
+        return processRecord("chk_", tabla, new Object[]{new Long(value),new Integer(checker)})>0;
     }
     //#End
 //#Region Accessors

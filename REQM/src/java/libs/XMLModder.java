@@ -35,14 +35,13 @@ public class XMLModder {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         try {
             //System.out.println(principal);
-            //System.out.println(secundario);
+            System.out.println(secundario);
             Document prin;
             if(principal == null || principal.length()==0)
                 prin = builder.parse(new InputSource(new StringReader("<root></root>")));
             else
                 prin = builder.parse(new InputSource(new StringReader(principal)));
             Document sec = builder.parse(new InputSource(new StringReader(secundario)));
-            System.out.println(prin.getChildNodes().getLength());
             Node nodo = prin.importNode(sec.getDocumentElement(), true);
             prin.getDocumentElement().appendChild(nodo);
             /*System.out.println("============================================");

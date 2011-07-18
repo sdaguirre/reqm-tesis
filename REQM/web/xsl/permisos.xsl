@@ -46,7 +46,7 @@
                 <script type="text/javascript" src="js/viewer.popups.js"></script>
                 <script type="text/javascript">
                     $('form').submit(function(){
-                        this.post(PFisicas);
+                        this.post(Permisos);
                     });
                 </script>
 
@@ -68,7 +68,7 @@
                             <div id="header">
                                 <div class="head-row1">
                                     <div class="col1">
-                                        <a href="http://www.sd-bo.com" title="Home">
+                                        <a href="Reqm" title="Home">
                                             <img src="imgs/SDLogo2.png" alt="Soluciones Digitales" class="logo" />
                                         </a>
                                     </div>
@@ -190,9 +190,8 @@
                                                                 </div>
                                                                 <div class="content">
                                                                     <ul class="menu">
-                                                                        <li class="leaf first"><div id="selected">Informaci&#243;n B&#225;sica</div></li>
-                                                                        <li class="leaf">Contactos</li>
-                                                                        <li class="leaf last">Documentos</li>
+                                                                        <li class="leaf first"><a href="Roles">Detalles de Rol</a></li>
+                                                                        <li class="leaf"><div id="selected">Permisos</div></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -202,28 +201,41 @@
                                             </div>
                                             <div id="cont-col">
                                                 <div class="ind">
-                                                    <h2>Administrador de Clientes</h2>
+                                                    <h2>Administrador de Permisos</h2>
                                                     <!-- start main content -->
                                                     <div class="node">
                                                         <div class="taxonomy"></div>
                                                         <div class="content">
-                                                            <div class="services">Esta interfaz permite la administracion de personas fisicas y juridicas del sistema
+                                                            <div class="services">Esta interfaz permite la administraci&#243;n de permisos de un rol del sistema
                                                                 <br />
                                                                 <a href="#" class="cont-more">mas ayuda</a>
                                                                 <br class="clear" />
                                                                 <br />
                                                                 <div class="columns">
                                                                     <div class="column-left">
-                                                                        <form method="post" action="PFisicas">
+                                                                        <form method="post" action="Permisos">
                                                                             <input type="hidden" id="keycode" name="keycode" value="" />
-                                                                            <table id="report" width="500px">
+                                                                            <table id="report" width="710px">
+                                                                                <colgroup>
+                                                                                    <col width="10px"/>
+                                                                                    <col width="*"/>
+                                                                                    <col width="10px"/>
+                                                                                    <col width="10px"/>
+                                                                                    <col width="10px"/>
+                                                                                    <col width="10px"/>
+                                                                                    <col width="70px"/>
+                                                                                </colgroup>
                                                                                 <tr>
                                                                                     <th>Codigo</th>
                                                                                     <th>Nombre</th>
-                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=101]">
+                                                                                    <th>Sel.</th>
+                                                                                    <th>Ins.</th>
+                                                                                    <th>Mod.</th>
+                                                                                    <th>Elim.</th>
+                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=503]">
                                                                                         <xsl:if test="./ins='true'">
                                                                                             <th id="former">
-                                                                                                <a id="formNew" rel="prettyPhoto[new]" href="PFisicas?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
+                                                                                                <a id="formNew" rel="prettyPhoto[new]" href="Permisos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
                                                                                                     <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
                                                                                                 </a><div>Nuevo</div>
                                                                                             </th>
@@ -231,69 +243,168 @@
                                                                                     </xsl:for-each>
                                                                                 </tr>
                                                                                 <xsl:for-each select="/root/row">
-                                                                                    <xsl:sort select="name" />
+                                                                                    <xsl:sort select="sitenm"/>
                                                                                     <xsl:param name="key" select="@key"/>
+                                                                                    <xsl:param name="fkey" select="fkey"/>
                                                                                     <tr>
                                                                                         <td>
                                                                                             <xsl:value-of select="$key" />
                                                                                         </td>
                                                                                         <td>
-                                                                                            <xsl:value-of select="name" />
+                                                                                            <xsl:value-of select="sitenm" />
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <xsl:choose>
+                                                                                                <xsl:when test="bsel='true'">
+                                                                                                    <a>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=1</xsl:attribute>
+                                                                                                        <img src="imgs/buttons/check.png" alt="Anular Permiso" />
+                                                                                                    </a>
+                                                                                                </xsl:when>
+                                                                                                <xsl:otherwise>
+                                                                                                    <a>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=2</xsl:attribute>
+                                                                                                        <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
+                                                                                                    </a>
+                                                                                                </xsl:otherwise>
+                                                                                            </xsl:choose>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <xsl:choose>
+                                                                                                <xsl:when test="bins='true'">
+                                                                                                    <a>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=3</xsl:attribute>
+                                                                                                        <img src="imgs/buttons/check.png" alt="Anular Permiso" />
+                                                                                                    </a>
+                                                                                                </xsl:when>
+                                                                                                <xsl:otherwise>
+                                                                                                    <a>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=4</xsl:attribute>
+                                                                                                        <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
+                                                                                                    </a>
+                                                                                                </xsl:otherwise>
+                                                                                            </xsl:choose>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <xsl:choose>
+                                                                                                <xsl:when test="bmod='true'">
+                                                                                                    <a>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=5</xsl:attribute>
+                                                                                                        <img src="imgs/buttons/check.png" alt="Anular Permiso" />
+                                                                                                    </a>
+                                                                                                </xsl:when>
+                                                                                                <xsl:otherwise>
+                                                                                                    <a>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=6</xsl:attribute>
+                                                                                                        <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
+                                                                                                    </a>
+                                                                                                </xsl:otherwise>
+                                                                                            </xsl:choose>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <xsl:choose>
+                                                                                                <xsl:when test="bdel='true'">
+                                                                                                    <a>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=7</xsl:attribute>
+                                                                                                        <img src="imgs/buttons/check.png" alt="Anular Permiso" />
+                                                                                                    </a>
+                                                                                                </xsl:when>
+                                                                                                <xsl:otherwise>
+                                                                                                    <a>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=8</xsl:attribute>
+                                                                                                        <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
+                                                                                                    </a>
+                                                                                                </xsl:otherwise>
+                                                                                            </xsl:choose>
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="arrow"></div>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="5">
+                                                                                        <td colspan="7">
+                                                                                            <h1 class="xsldtitulos">Informacion Adicional</h1>
+                                                                                            <div class="xsldetalle">
+                                                                                                <div>Visible:
+                                                                                                    <xsl:choose>
+                                                                                                        <xsl:when test="bsel='true'">
+                                                                                                            <a>
+                                                                                                                <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=1</xsl:attribute>
+                                                                                                                <img style="padding-left:24px;" src="imgs/buttons/check.png" alt="Anular Permiso" />
+                                                                                                            </a>
+                                                                                                        </xsl:when>
+                                                                                                        <xsl:otherwise>
+                                                                                                            <a>
+                                                                                                                <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=2</xsl:attribute>
+                                                                                                                <img style="padding-left:24px;" src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
+                                                                                                            </a>
+                                                                                                        </xsl:otherwise>
+                                                                                                    </xsl:choose>
+                                                                                                </div>
+                                                                                                <div class="xsldbox">Insertar:
+                                                                                                    <xsl:choose>
+                                                                                                        <xsl:when test="bins='true'">
+                                                                                                            <a>
+                                                                                                                <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=3</xsl:attribute>
+                                                                                                                <img src="imgs/buttons/check.png" alt="Anular Permiso" />
+                                                                                                            </a>
+                                                                                                        </xsl:when>
+                                                                                                        <xsl:otherwise>
+                                                                                                            <a>
+                                                                                                                <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=4</xsl:attribute>
+                                                                                                                <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
+                                                                                                            </a>
+                                                                                                        </xsl:otherwise>
+                                                                                                    </xsl:choose>
+                                                                                                </div>
+                                                                                                <div class="xsldbox">Modificar:
+                                                                                                    <xsl:choose>
+                                                                                                        <xsl:when test="bmod='true'">
+                                                                                                            <a>
+                                                                                                                <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=5</xsl:attribute>
+                                                                                                                <img src="imgs/buttons/check.png" alt="Anular Permiso" />
+                                                                                                            </a>
+                                                                                                        </xsl:when>
+                                                                                                        <xsl:otherwise>
+                                                                                                            <a>
+                                                                                                                <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=6</xsl:attribute>
+                                                                                                                <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
+                                                                                                            </a>
+                                                                                                        </xsl:otherwise>
+                                                                                                    </xsl:choose>
+                                                                                                </div>
+                                                                                                <div>Eliminar:
+                                                                                                    <xsl:choose>
+                                                                                                        <xsl:when test="bdel='true'">
+                                                                                                            <a>
+                                                                                                                <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=7</xsl:attribute>
+                                                                                                                <img src="imgs/buttons/check.png" alt="Anular Permiso" />
+                                                                                                            </a>
+                                                                                                        </xsl:when>
+                                                                                                        <xsl:otherwise>
+                                                                                                            <a>
+                                                                                                                <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=8</xsl:attribute>
+                                                                                                                <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
+                                                                                                            </a>
+                                                                                                        </xsl:otherwise>
+                                                                                                    </xsl:choose>
+                                                                                                </div>
+                                                                                            </div>
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=103]">
-                                                                                                    <xsl:if test="./sel='true'">
-                                                                                                        <li>
-                                                                                                            <!--<input class="formButtons" type="image" src="imgs/buttons/cellphone.png" alt="Administrar Contactos" name="cts" >
-                                                                                                                <xsl:attribute name="value">
-                                                                                                                    <xsl:value-of select="$key" />
-                                                                                                                </xsl:attribute>
-                                                                                                            </input>-->
-                                                                                                            <span class="formButtons">
-                                                                                                                <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">PContactos?fkey=<xsl:value-of select="$key" /></xsl:attribute>
-                                                                                                                    <img src="imgs/buttons/cellphone.png" alt="Administrar Contactos" />
-                                                                                                                </a>Adm. Contactos</span>
-                                                                                                        </li>
-                                                                                                    </xsl:if>
-                                                                                                </xsl:for-each>
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=104]">
-                                                                                                    <xsl:if test="./sel='true'">
-                                                                                                        <li>
-                                                                                                            <!--<input class="formButtons" type="image" src="imgs/buttons/document.png" alt="Administrar Documentos" name="docs" >
-                                                                                                                <xsl:attribute name="value">
-                                                                                                                    <xsl:value-of select="$key" />
-                                                                                                                </xsl:attribute>
-                                                                                                            </input>-->
-                                                                                                            <span class="formButtons">
-                                                                                                                <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">PDocumentos?fkey=<xsl:value-of select="$key" /></xsl:attribute>
-                                                                                                                    <img src="imgs/buttons/document.png" alt="Administrar Documentos" />
-                                                                                                                </a>Adm. Documentos</span>
-                                                                                                        </li>
-                                                                                                    </xsl:if>
-                                                                                                </xsl:for-each>
-
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=101]">
+                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=503]">
                                                                                                     <li>
                                                                                                         <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
-                                                                                                                    <xsl:attribute name="href">PFisicas?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                    <xsl:attribute name="href">Permisos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=650&#38;height=100%</xsl:attribute>
                                                                                                                     <img src="imgs/buttons/edit.png" alt="Modificar Registro" />
                                                                                                                 </a>Modificar
                                                                                                             </span>
                                                                                                         </xsl:if>
                                                                                                         <xsl:if test="./del='true'">
                                                                                                             <span style="padding-left: 70px;">
-                                                                                                                <input class="formButtons" type="image" src="imgs/buttons/trash.png" alt="Eliminar" name="del" >
+                                                                                                                <input class="formButtons" type="image" src="imgs/buttons/trash.png" alt="Eliminar Registro" name="del" >
                                                                                                                     <xsl:attribute name="value"><xsl:value-of select="$key" /></xsl:attribute>
                                                                                                                 </input>
                                                                                                                 <span class="formButtons">Eliminar</span>

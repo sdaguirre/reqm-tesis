@@ -71,8 +71,14 @@ public class Permisos extends HttpServlet {
                 response.sendRedirect("login.html");
             } else {
                 response.setContentType("text/html;charset=UTF-8");
-                String mod = request.getParameter("mod"), nuevo = request.getParameter("ins");
-                if (mod == null) {
+                String mod = request.getParameter("mod"), nuevo = request.getParameter("ins"),checker = request.getParameter("checker");
+                if(checker != null){
+                    DAOPermisos.changeAccess(request.getParameter("key"), checker);
+                    SQLXML daopermisos = DAOPermisos.getXMLRecords((Long)session.getAttribute("RolId"),DAOPermisos.F_ROL);
+                    UserManager user = (UserManager) session.getAttribute("user");
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(daopermisos.getString(), user.getPermisos()), path + "../web/xsl/permisos.xsl"));
+                }else if (mod == null) {
                     if (nuevo == null) {
                         processRequest(request, response);
                     } else {

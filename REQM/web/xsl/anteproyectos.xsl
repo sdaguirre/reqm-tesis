@@ -252,7 +252,7 @@
                                                                                         <h1 class="xsldtitulos">Opciones</h1>
                                                                                         <ul class="gallery clearfix">
                                                                                             <xsl:for-each select="/root/permisos/sitio[@id=201]">
-                                                                                                <xsl:if test="//sel='true'">
+                                                                                                <xsl:if test="./sel='true'">
                                                                                                     <li>
                                                                                                         <span>
                                                                                                             <a id="formLink" >
@@ -264,7 +264,7 @@
                                                                                                         </span>
                                                                                                     </li>
                                                                                                 </xsl:if>
-                                                                                                <xsl:if test="//ins='true'">
+                                                                                                <xsl:if test="./ins='true'">
                                                                                                     <li>
                                                                                                             <!--<input class="formButtons" type="image" src="imgs/buttons/cellphone.png" alt="Administrar Contactos" name="cts" >
                                                                                                                 <xsl:attribute name="value">

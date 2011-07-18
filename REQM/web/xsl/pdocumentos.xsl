@@ -227,7 +227,7 @@
                                                                                     <th>Tipo</th>
                                                                                     <th>Nombre</th>
                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=104]">
-                                                                                        <xsl:if test="//ins='true'">
+                                                                                        <xsl:if test="./ins='true'">
                                                                                             <th id="former">
                                                                                                 <a id="formNew" rel="prettyPhoto[new]" href="PDocumentos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
                                                                                                     <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
@@ -258,7 +258,7 @@
                                                                                             <ul class="gallery clearfix">
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=104]">
                                                                                                     <li>
-                                                                                                        <xsl:if test="//mod='true'">
+                                                                                                        <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
                                                                                                                     <xsl:attribute name="href">PDocumentos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
@@ -266,7 +266,7 @@
                                                                                                                 </a>Modificar
                                                                                                             </span>
                                                                                                         </xsl:if>
-                                                                                                        <xsl:if test="//del='true'">
+                                                                                                        <xsl:if test="./del='true'">
                                                                                                             <span style="padding-left: 70px;">
                                                                                                                 <input class="formButtons" type="image" src="imgs/buttons/trash.png" alt="Eliminar" name="del" >
                                                                                                                     <xsl:attribute name="value"><xsl:value-of select="$key" /></xsl:attribute>

@@ -238,7 +238,7 @@
                                                                                         <h1 class="xsldtitulos">Opciones</h1>
                                                                                         <ul class="gallery clearfix">
                                                                                             <xsl:for-each select="/root/permisos/sitio[@id=202]">
-                                                                                                <xsl:if test="//sel='true'">
+                                                                                                <xsl:if test="./sel='true'">
                                                                                                     <li>
                                                                                                         <span class="formButtons">
                                                                                                             <a id="formLink" >

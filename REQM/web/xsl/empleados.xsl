@@ -227,7 +227,7 @@
                                                                                     <th>Cargo</th>
                                                                                     <th>Nombre</th>
                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=102]">
-                                                                                        <xsl:if test="//ins='true'">
+                                                                                        <xsl:if test="./ins='true'">
                                                                                             <th id="former">
                                                                                                 <a id="formNew" rel="prettyPhoto[new]" href="Empleados?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
                                                                                                     <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
@@ -258,7 +258,7 @@
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=103]">
-                                                                                                    <xsl:if test="//sel='true'">
+                                                                                                    <xsl:if test="./sel='true'">
                                                                                                         <li>
                                                                                                             <!--<input class="formButtons" type="image" src="imgs/buttons/cellphone.png" alt="Administrar Contactos" name="cts" >
                                                                                                                 <xsl:attribute name="value">
@@ -274,7 +274,7 @@
                                                                                                     </xsl:if>
                                                                                                 </xsl:for-each>
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=104]">
-                                                                                                    <xsl:if test="//sel='true'">
+                                                                                                    <xsl:if test="./sel='true'">
                                                                                                         <li>
                                                                                                             <!--<input class="formButtons" type="image" src="imgs/buttons/document.png" alt="Administrar Documentos" name="docs" >
                                                                                                                 <xsl:attribute name="value">
@@ -292,7 +292,7 @@
 
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=102]">
                                                                                                     <li>
-                                                                                                        <xsl:if test="//mod='true'">
+                                                                                                        <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
                                                                                                                     <xsl:attribute name="href">Empleados?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=650&#38;height=100%</xsl:attribute>
@@ -300,7 +300,7 @@
                                                                                                                 </a>Modificar
                                                                                                             </span>
                                                                                                         </xsl:if>
-                                                                                                        <xsl:if test="//del='true'">
+                                                                                                        <xsl:if test="./del='true'">
                                                                                                             <span style="padding-left: 70px;">
                                                                                                                 <input class="formButtons" type="image" src="imgs/buttons/trash.png" alt="Eliminar Registro" name="del" >
                                                                                                                     <xsl:attribute name="value"><xsl:value-of select="$key" /></xsl:attribute>

@@ -241,7 +241,7 @@
                                                                                     <th>Avance</th>
                                                                                     <th class="fix">Operaciones
                                                                                         <xsl:for-each select="/root/permisos/sitio[@id=202]">
-                                                                                            <xsl:if test="//ins='true'">
+                                                                                            <xsl:if test="./ins='true'">
                                                                                                 <a id="formNew" rel="prettyPhoto[new]" href="Requerimientos?ins=00000&#38;iframe=true&#38;width=60%&#38;height=100%" >
                                                                                                 <img src="imgs/buttons/add.png" alt="Nuevo Registro" /></a>
                                                                                             </xsl:if>
@@ -275,7 +275,7 @@
                                                                                                 </td>
                                                                                                 <td><div class="formButtons">
                                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=203]">
-                                                                                                        <xsl:if test="//ins='true'">
+                                                                                                        <xsl:if test="./ins='true'">
                                                                                                             <span>
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
                                                                                                                     <xsl:attribute name="href">Requerimientos?ins=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
@@ -286,7 +286,7 @@
                                                                                                         </xsl:if>
                                                                                                     </xsl:for-each>
                                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=206]">
-                                                                                                        <xsl:if test="//sel='true'">
+                                                                                                        <xsl:if test="./sel='true'">
                                                                                                             <span class="spacer">
                                                                                                                 <a id="formLink" >
                                                                                                                     <xsl:attribute name="href">ReqDocs?fkey=</xsl:attribute><img src="imgs/buttons/document.png" alt="Ver Documentos Registrados" />
@@ -295,7 +295,7 @@
                                                                                                         </xsl:if>
                                                                                                     </xsl:for-each>
                                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=203]">
-                                                                                                        <xsl:if test="//mod='true'">
+                                                                                                        <xsl:if test="./mod='true'">
                                                                                                             <span>
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
                                                                                                                     <xsl:attribute name="href">Requerimientos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
@@ -303,7 +303,7 @@
                                                                                                                 </a>
                                                                                                             </span>
                                                                                                         </xsl:if>
-                                                                                                        <xsl:if test="//del='true'">
+                                                                                                        <xsl:if test="./del='true'">
                                                                                                             <span>
                                                                                                                 <input type="image" src="imgs/buttons/trash.png" alt="Eliminar Registro" name="del" >
                                                                                                                     <xsl:attribute name="value">

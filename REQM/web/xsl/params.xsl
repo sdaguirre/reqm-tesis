@@ -302,17 +302,17 @@
                                                                                 <tr>
                                                                                     <th>Codigo</th>
                                                                                     <th>Nombre</th>
+                                                                                    <th>
                                                                                     <xsl:for-each select="/params/permisos/sitio[@id=402]">
                                                                                         <xsl:if test="./ins='true'">
-                                                                                            <th>
-                                                                                                <a id="formNew" rel="prettyPhoto[new]">
-                                                                                                    <xsl:attribute name="href">Params?ins=true&#38;prm=<xsl:value-of select="$prm"/>&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
-                                                                                                    <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
-                                                                                                </a>
-                                                                                                <div>Nuevo</div>
-                                                                                            </th>
+                                                                                            <a id="formNew" rel="prettyPhoto[new]">
+                                                                                                <xsl:attribute name="href">Params?ins=true&#38;prm=<xsl:value-of select="$prm"/>&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
+                                                                                            </a>
+                                                                                            <div>Nuevo</div>
                                                                                         </xsl:if>
                                                                                     </xsl:for-each>
+                                                                                    </th>
                                                                                 </tr>
                                                                                 <xsl:for-each select="/params/row">
                                                                                     <xsl:param name="key" select="@key"/>

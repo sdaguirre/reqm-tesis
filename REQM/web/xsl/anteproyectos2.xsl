@@ -222,16 +222,16 @@
                                                                                     <th>Codigo</th>
                                                                                     <th>Tipo</th>
                                                                                     <th>Nombre</th>
+                                                                                    <th id="former">
                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=201]">
                                                                                         <xsl:if test="./ins='true'">
-                                                                                            <th id="former">
-                                                                                                <a id="formNew" rel="prettyPhoto[new]" href="Anteproyectos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
-                                                                                                    <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
-                                                                                                </a>
-                                                                                                <div>Nuevo</div>
-                                                                                            </th>
+                                                                                            <a id="formNew" rel="prettyPhoto[new]" href="Anteproyectos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
+                                                                                                <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
+                                                                                            </a>
+                                                                                            <div>Nuevo</div>
                                                                                         </xsl:if>
                                                                                     </xsl:for-each>
+                                                                                    </th>
                                                                                 </tr>
                                                                                 <xsl:for-each select="/root/row">
                                                                                     <xsl:param name="key" select="@key"/>

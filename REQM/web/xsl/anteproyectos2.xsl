@@ -165,17 +165,12 @@
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <form method="GET" action="http://www.google.com/search" accept-charset="UTF-8" id="search-theme-form">
+                                        <form method="POST" action="Roles" accept-charset="UTF-8" id="search-theme-form">
                                             <div>
-                                                <input type="hidden" name="ie" value="UTF-8" />
-                                                <input type="hidden" name="oe" value="UTF-8" />
-                                                <input type="hidden" name="domains" value="www.sd-bo.com" />
-                                                <input maxlength="128" name="q" id="edit-search-theme-form-1"
+                                                <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"
                                                        type="text" />
-                                                <input id="hide" type="radio" name="sitesearch" value="www.sd-bo.com"
-                                                       checked="checked" />
-                                                <input name="op" class="form-submit" value="" type="submit" />
+                                                <input name="srch" class="form-submit" value="" type="submit" />
                                             </div>
                                         </form>
                                     </div>
@@ -228,7 +223,7 @@
                                                                                     <th>Tipo</th>
                                                                                     <th>Nombre</th>
                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=201]">
-                                                                                        <xsl:if test="//ins='true'">
+                                                                                        <xsl:if test="./ins='true'">
                                                                                             <th id="former">
                                                                                                 <a id="formNew" rel="prettyPhoto[new]" href="Anteproyectos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
                                                                                                     <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
@@ -259,7 +254,7 @@
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=204]">
-                                                                                                    <xsl:if test="//sel='true'">
+                                                                                                    <xsl:if test="./sel='true'">
                                                                                                         <li>
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" >
@@ -271,7 +266,7 @@
                                                                                                     </xsl:if>
                                                                                                 </xsl:for-each>
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=202]">
-                                                                                                    <xsl:if test="//sel='true'">
+                                                                                                    <xsl:if test="./sel='true'">
                                                                                                         <li>
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" >
@@ -284,7 +279,7 @@
                                                                                                 </xsl:for-each>
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=201]">
                                                                                                     <li>
-                                                                                                        <xsl:if test="//mod='true'">
+                                                                                                        <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
                                                                                                                     <xsl:attribute name="href">Anteproyectos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
@@ -292,7 +287,7 @@
                                                                                                                 </a>Modificar
                                                                                                             </span>
                                                                                                         </xsl:if>
-                                                                                                        <xsl:if test="//del='true'">
+                                                                                                        <xsl:if test="./del='true'">
                                                                                                             <span style="padding-left: 70px;">
                                                                                                                 <input class="formButtons" type="image" src="imgs/buttons/trash.png" alt="Eliminar" name="del" >
                                                                                                                     <xsl:attribute name="value">

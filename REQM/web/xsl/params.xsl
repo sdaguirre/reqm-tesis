@@ -303,7 +303,7 @@
                                                                                     <th>Codigo</th>
                                                                                     <th>Nombre</th>
                                                                                     <xsl:for-each select="/params/permisos/sitio[@id=402]">
-                                                                                        <xsl:if test="//ins='true'">
+                                                                                        <xsl:if test="./ins='true'">
                                                                                             <th>
                                                                                                 <a id="formNew" rel="prettyPhoto[new]">
                                                                                                     <xsl:attribute name="href">Params?ins=true&#38;prm=<xsl:value-of select="$prm"/>&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
@@ -333,7 +333,7 @@
                                                                                             <ul class="gallery clearfix">
                                                                                                 <xsl:for-each select="/params/permisos/sitio[@id=402]">
                                                                                                     <li>
-                                                                                                        <xsl:if test="//mod='true'">
+                                                                                                        <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
                                                                                                                     <xsl:attribute name="href">Params?mod=<xsl:value-of select="$key" />&#38;prm=<xsl:value-of select="$prm"/>&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
@@ -341,7 +341,7 @@
                                                                                                                 </a>Modificar
                                                                                                             </span>
                                                                                                         </xsl:if>
-                                                                                                        <xsl:if test="//del='true'">
+                                                                                                        <xsl:if test="./del='true'">
                                                                                                             <span style="padding-left: 70px;">
                                                                                                                 <input class="formButtons" type="image" src="imgs/buttons/trash.png" alt="Eliminar" name="del" >
                                                                                                                     <xsl:attribute name="value">

@@ -48,6 +48,10 @@
         <servlet-name>Permisos</servlet-name>
         <servlet-class>war.Permisos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Equipos</servlet-name>
+        <servlet-class>war.Equipos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Reqm</servlet-name>
         <url-pattern>/Reqm</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>Permisos</servlet-name>
         <url-pattern>/Permisos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Equipos</servlet-name>
+        <url-pattern>/Equipos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

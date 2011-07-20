@@ -6,7 +6,7 @@ import java.sql.SQLXML;
 public class DAOPermisos extends DAO implements IDAO{
 //#Region VarDeclarations
     public static final String tabla="tblPermisos";
-    public static final int F_ROL=1,F_PERMISO=2,F_NEW=3;
+    public static final int F_ROL=1,F_NEW=2;
     private long lPermisoId;
     private int iRolId,iSitioId;
     private boolean bConsultarFl,bInsertarFl,bModificarFl,bEliminarFl;
@@ -43,7 +43,7 @@ public class DAOPermisos extends DAO implements IDAO{
             return updateRecord(tabla, new Object[]{lPermisoId,iRolId,iSitioId,bConsultarFl,bInsertarFl,bModificarFl,bEliminarFl});
     }
     public boolean delete() throws SQLException {
-            return deleteRecord(tabla, lPermisoId,0);
+            return deleteRecord(tabla, lPermisoId);
     }
     public static boolean changeAccess(String value,String checker) throws SQLException {
         return processRecord("chk_", tabla, new Object[]{new Long(value),new Integer(checker)})>0;

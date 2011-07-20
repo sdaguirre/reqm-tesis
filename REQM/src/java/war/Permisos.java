@@ -37,7 +37,7 @@ public class Permisos extends HttpServlet {
                 Conexion.autoConnect();
                 Long keycode = new Long(request.getParameter("fkey"));
                 if (keycode != null) {
-                    SQLXML daopermisos = DAOPermisos.getXMLRecords(keycode,DAOPermisos.F_ROL);
+                    SQLXML daopermisos = DAOPermisos.getXMLRecords(keycode, DAOPermisos.F_ROL);
                     session.setAttribute("RolId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
@@ -50,7 +50,7 @@ public class Permisos extends HttpServlet {
                 response.sendRedirect("login.html");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
+            ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
             out.close();
@@ -58,7 +58,6 @@ public class Permisos extends HttpServlet {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -71,37 +70,26 @@ public class Permisos extends HttpServlet {
                 response.sendRedirect("login.html");
             } else {
                 response.setContentType("text/html;charset=UTF-8");
-                String mod = request.getParameter("mod"), nuevo = request.getParameter("ins"),checker = request.getParameter("checker");
-                if(checker != null){
+                String nuevo = request.getParameter("ins"), checker = request.getParameter("checker");
+                if (checker != null) {
                     DAOPermisos.changeAccess(request.getParameter("key"), checker);
-                    SQLXML daopermisos = DAOPermisos.getXMLRecords((Long)session.getAttribute("RolId"),DAOPermisos.F_ROL);
+                    SQLXML daopermisos = DAOPermisos.getXMLRecords((Long) session.getAttribute("RolId"), DAOPermisos.F_ROL);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(daopermisos.getString(), user.getPermisos()), path + "../web/xsl/permisos.xsl"));
-                }else if (mod == null) {
-                    if (nuevo == null) {
-                        processRequest(request, response);
-                    } else {
-                        UserManager user;
-                        request.setCharacterEncoding("UTF-8");
-                        Conexion.autoConnect();
-                        user = (UserManager) session.getAttribute("user");
-                        out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.SITIOS).getString()}), path + "../web/xsl/permisos_form.xsl"));
-                    }
+                } else if (nuevo == null) {
+                    processRequest(request, response);
                 } else {
                     UserManager user;
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
-                    SQLXML daopermisos = DAOPermisos.getXMLRecords(new Long(mod),DAOPermisos.F_PERMISO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daopermisos.getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.SITIOS).getString()}), path + "../web/xsl/permisos_form.xsl"));
+                            XMLModder.JoinDocs(DAOPermisos.getXMLRecords((Long)session.getAttribute("RolId"),DAOPermisos.F_NEW).getString(),user.getPermisos()), path + "../web/xsl/permisos_form.xsl"));
                 }
-
             }
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
+            ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
             out.close();
@@ -125,8 +113,8 @@ public class Permisos extends HttpServlet {
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
                 DAOPermisos daopermiso = new DAOPermisos(new Long(request.getParameter("inCode")),
-                        new Integer(request.getParameter("inFKey")),new Integer(request.getParameter("inSite")), Boolean.valueOf(request.getParameter("inSelect")),
-                        Boolean.valueOf(request.getParameter("inInsert")),Boolean.valueOf(request.getParameter("inMod")),Boolean.valueOf(request.getParameter("inDel")));
+                        new Integer(""+session.getAttribute("RolId")), new Integer(request.getParameter("inSite")), Boolean.valueOf(request.getParameter("inSel")),
+                        Boolean.valueOf(request.getParameter("inIns")), Boolean.valueOf(request.getParameter("inMod")), Boolean.valueOf(request.getParameter("inDel")));
                 if (daopermiso.getlPermisoId() == 0) {
                     daopermiso.insert();
                 } else {
@@ -141,7 +129,7 @@ public class Permisos extends HttpServlet {
                     daopermiso.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOPermisos.getXMLRecords((Long)session.getAttribute("RolId"),DAOPermisos.F_ROL).getString(), user.getPermisos()), path + "../web/xsl/permisos.xsl"));
+                            XMLModder.JoinDocs(DAOPermisos.getXMLRecords((Long) session.getAttribute("RolId"), DAOPermisos.F_ROL).getString(), user.getPermisos()), path + "../web/xsl/permisos.xsl"));
                 }
             }
         } catch (Exception ex) {

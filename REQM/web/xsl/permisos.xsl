@@ -42,7 +42,6 @@
 
                 <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
                 <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
-                <script type="text/javascript" src="js/viewer.table.js"></script>
                 <script type="text/javascript" src="js/viewer.popups.js"></script>
                 <script type="text/javascript">
                     $('form').submit(function(){
@@ -134,6 +133,11 @@
                                                                         <xsl:if test="@id=401">
                                                                             <li>
                                                                                 <a href="Params">Adm. Parametros</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=408">
+                                                                            <li>
+                                                                                <a href="Equipos">Adm. Equipos</a>
                                                                             </li>
                                                                         </xsl:if>
                                                                     </xsl:for-each>
@@ -246,7 +250,7 @@
                                                                                     <xsl:sort select="sitenm"/>
                                                                                     <xsl:param name="key" select="@key"/>
                                                                                     <xsl:param name="fkey" select="fkey"/>
-                                                                                    <tr>
+                                                                                    <tr class="static">
                                                                                         <td>
                                                                                             <xsl:value-of select="$key" />
                                                                                         </td>
@@ -318,10 +322,16 @@
                                                                                             </xsl:choose>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <div class="arrow"></div>
+                                                                                            <xsl:for-each select="/root/permisos/sitio[@id=503]">
+                                                                                                <xsl:if test="./del='true'">
+                                                                                                    <input type="image" src="imgs/buttons/trash.png" alt="Eliminar Registro" name="del" >
+                                                                                                        <xsl:attribute name="value"><xsl:value-of select="$key" /></xsl:attribute>
+                                                                                                    </input>
+                                                                                                </xsl:if>
+                                                                                            </xsl:for-each>
                                                                                         </td>
                                                                                     </tr>
-                                                                                    <tr>
+                                                                                    <!--<tr>
                                                                                         <td colspan="7">
                                                                                             <h1 class="xsldtitulos">Informacion Adicional</h1>
                                                                                             <div class="xsldetalle">
@@ -414,7 +424,7 @@
                                                                                                 </xsl:for-each>
                                                                                             </ul>
                                                                                         </td>
-                                                                                    </tr>
+                                                                                    </tr>-->
                                                                                 </xsl:for-each>
                                                                             </table>
                                                                         </form>

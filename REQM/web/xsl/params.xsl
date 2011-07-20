@@ -137,6 +137,11 @@
                                                                                 <a href="Params">Adm. Parametros</a>
                                                                             </li>
                                                                         </xsl:if>
+                                                                        <xsl:if test="@id=408">
+                                                                            <li>
+                                                                                <a href="Equipos">Adm. Equipos</a>
+                                                                            </li>
+                                                                        </xsl:if>
                                                                     </xsl:for-each>
                                                                 </ul>
                                                             </li>

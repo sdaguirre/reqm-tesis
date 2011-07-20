@@ -251,14 +251,14 @@
                                                                                         <td colspan="5">
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=103]">
+                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=409]">
                                                                                                     <xsl:if test="./sel='true'">
                                                                                                         <li>
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">PContactos?fkey=<xsl:value-of select="$fkey" /></xsl:attribute>
-                                                                                                                    <img src="imgs/buttons/cellphone.png" alt="Administrar Contactos" />
-                                                                                                                </a>Adm. Contactos</span>
+                                                                                                                    <xsl:attribute name="href">Integrantes?fkey=<xsl:value-of select="$fkey" /></xsl:attribute>
+                                                                                                                    <img src="imgs/buttons/cellphone.png" alt="Administrar Integrantes de Equipo" />
+                                                                                                                </a>Adm. Integrantes</span>
                                                                                                         </li>
                                                                                                     </xsl:if>
                                                                                                 </xsl:for-each>

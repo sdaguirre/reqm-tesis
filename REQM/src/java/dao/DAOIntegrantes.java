@@ -6,6 +6,7 @@ import java.sql.SQLXML;
 public class DAOIntegrantes extends DAO implements IDAO{
 //#Region VarDeclarations
     public static final String tabla="tblIntegrantes";
+    public static final int F_EQUIPO=1,F_NEW=2;
     private long lIntegranteId,lEmpleadoId;
     private int iEquipoId;
     //#End
@@ -18,8 +19,8 @@ public class DAOIntegrantes extends DAO implements IDAO{
     }
     //#End
 //#Region SearchAndRecords
-    public static SQLXML getXMLRecords(long lAnteproyectoId) throws SQLException{
-        return getXMLRecords(tabla, lAnteproyectoId);
+    public static SQLXML getXMLRecords(long lAnteproyectoId,int filter) throws SQLException{
+        return getProcessXML("gxml_",tabla, new Object[]{lAnteproyectoId,filter});
     }
     public static SQLXML search(String value) throws SQLException {
         return searchXMLRecords(tabla,"%"+value+"%");

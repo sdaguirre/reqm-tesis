@@ -46,10 +46,10 @@
                 <script type="text/javascript" src="js/viewer.popups.js"></script>
                 <script type="text/javascript">
                     $('form').submit(function(){
-                        this.post(Equipos);
+                        this.post(Integrantes);
                     });
                 </script>
-
+                
                 <script type="text/javascript" src="js/hoverIntent.js"></script>
                 <script type="text/javascript" src="js/superfish.js"></script>
                 <script type="text/javascript">
@@ -68,7 +68,7 @@
                             <div id="header">
                                 <div class="head-row1">
                                     <div class="col1">
-                                        <a href="http://www.sd-bo.com" title="Home">
+                                        <a href="Reqm" title="Volver a la pagina principal">
                                             <img src="imgs/SDLogo2.png" alt="Soluciones Digitales" class="logo" />
                                         </a>
                                     </div>
@@ -195,7 +195,8 @@
                                                                 </div>
                                                                 <div class="content">
                                                                     <ul class="menu">
-                                                                        <li class="leaf first"><div id="selected">Equipos</div></li>
+                                                                        <li class="leaf first"><a href="Equipos">Equipos</a></li>
+                                                                        <li class="leaf"><div id="selected">Integrantes</div></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -205,28 +206,29 @@
                                             </div>
                                             <div id="cont-col">
                                                 <div class="ind">
-                                                    <h2>Administrador de Equipos de Trabajo</h2>
+                                                    <h2>Administrador de Integrantes de Equipo</h2>
                                                     <!-- start main content -->
                                                     <div class="node">
                                                         <div class="taxonomy"></div>
                                                         <div class="content">
-                                                            <div class="services">Esta interfaz permite la administracion de equipos de trabajo de proyectos del sistema
+                                                            <div class="services">Esta interfaz permite la administracion de los integrantes conformados de un equipo
                                                                 <br />
                                                                 <a href="#" class="cont-more">mas ayuda</a>
                                                                 <br class="clear" />
                                                                 <br />
                                                                 <div class="columns">
                                                                     <div class="column-left">
-                                                                        <form method="post" action="Equipos">
+                                                                        <form method="post" action="Integrantes">
                                                                             <input type="hidden" id="keycode" name="keycode" value="" />
                                                                             <table id="report" width="500px">
                                                                                 <tr>
                                                                                     <th>Codigo</th>
+                                                                                    <th>Cargo</th>
                                                                                     <th>Nombre</th>
                                                                                     <th id="former">
-                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=408]">
+                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=409]">
                                                                                         <xsl:if test="./ins='true'">
-                                                                                            <a id="formNew" rel="prettyPhoto[new]" href="Equipos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
+                                                                                            <a id="formNew" rel="prettyPhoto[new]" href="Integrantes?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
                                                                                                 <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
                                                                                             </a><div>Nuevo</div>
                                                                                         </xsl:if>
@@ -234,11 +236,13 @@
                                                                                     </th>
                                                                                 </tr>
                                                                                 <xsl:for-each select="/root/row">
-                                                                                    <xsl:sort select="name" />
                                                                                     <xsl:param name="key" select="@key"/>
                                                                                     <tr>
                                                                                         <td>
                                                                                             <xsl:value-of select="$key" />
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <xsl:value-of select="type" />
                                                                                         </td>
                                                                                         <td>
                                                                                             <xsl:value-of select="name" />
@@ -252,22 +256,11 @@
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=409]">
-                                                                                                    <xsl:if test="./sel='true'">
-                                                                                                        <li>
-                                                                                                            <span class="formButtons">
-                                                                                                                <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">Integrantes?fkey=<xsl:value-of select="$key" /></xsl:attribute>
-                                                                                                                    <img src="imgs/buttons/cellphone.png" alt="Administrar Integrantes de Equipo" />
-                                                                                                                </a>Adm. Integrantes</span>
-                                                                                                        </li>
-                                                                                                    </xsl:if>
-                                                                                                </xsl:for-each>
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=408]">
                                                                                                     <li>
                                                                                                         <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
-                                                                                                                    <xsl:attribute name="href">Equipos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                    <xsl:attribute name="href">Integrantes?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
                                                                                                                     <img src="imgs/buttons/edit.png" alt="Modificar Registro" />
                                                                                                                 </a>Modificar
                                                                                                             </span>

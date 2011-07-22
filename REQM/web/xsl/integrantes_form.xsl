@@ -138,23 +138,11 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="td-label">
-                                                                                            <label for="inFKeyNm">Equipo:</label>
-                                                                                        </td>
-                                                                                        <td class="td-input">
-                                                                                            <input name="inFKeyNm" type="text" maxlength="255" readonly="true">
-                                                                                                <xsl:attribute name="value">
-                                                                                                    <xsl:value-of select="fkeynm" />
-                                                                                                </xsl:attribute>
-                                                                                            </input>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td class="td-label">
                                                                                             <label for="inEmp">Integrante:</label>
                                                                                         </td>
                                                                                         <td class="td-input">
                                                                                             <select name="inEmp" >
-                                                                                                <xsl:for-each select="/root/params[@kind='tipos']/row">
+                                                                                                <xsl:for-each select="/root/row">
                                                                                                     <xsl:sort select="name" />
                                                                                                     <option>
                                                                                                         <xsl:attribute name="value">

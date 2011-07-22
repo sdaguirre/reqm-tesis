@@ -34,7 +34,7 @@ public class XMLModder {
     public static Document JoinDocs(String principal, String secundario) throws ParserConfigurationException {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         try {
-            //System.out.println(principal);
+            System.out.println(principal);
             System.out.println(secundario);
             Document prin;
             if(principal == null || principal.length()==0)

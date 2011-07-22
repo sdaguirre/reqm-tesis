@@ -76,7 +76,7 @@ public class Integrantes extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, user.getPermisos()), path + "../web/xsl/integrantes_form.xsl"));
+                                XMLModder.JoinDocs(DAOIntegrantes.getXMLRecords((Long)session.getAttribute("EquipoId"),DAOIntegrantes.F_NEW).getString(), user.getPermisos()), path + "../web/xsl/integrantes_form.xsl"));
                     }
                 } else {
                     UserManager user;
@@ -112,22 +112,22 @@ public class Integrantes extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
-                DAOParams deoequipo = new DAOParams(DAOParams.EQUIPOS, new Long(request.getParameter("inCode")), request.getParameter("inName"));
-                if (deoequipo.getlParamId() == 0) {
-                    deoequipo.insert();
+                DAOIntegrantes daointegrante = new DAOIntegrantes(new Long(request.getParameter("inCode")),(Integer)session.getAttribute("EquipoId"),new Long(request.getParameter("inEmp")));
+                if (daointegrante.getlIntegranteId() == 0) {
+                    daointegrante.insert();
                 } else {
-                    deoequipo.update();
+                    daointegrante.update();
                 }
                 response.sendRedirect("ok.html");
             } else {
                 if (request.getParameter("del.x") != null) {
                     Conexion.autoConnect();
-                    DAOParams daoequipo = new DAOParams(DAOParams.EQUIPOS);
-                    daoequipo.setlParamId(new Long(request.getParameter("keycode")));
-                    daoequipo.delete();
+                    DAOIntegrantes daointegrante = new DAOIntegrantes();
+                    daointegrante.setlIntegranteId(new Long(request.getParameter("keycode")));
+                    daointegrante.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOParams.getXMLRecords(DAOParams.EQUIPOS).getString(), user.getPermisos()), path + "../web/xsl/equipos.xsl"));
+                            XMLModder.JoinDocs(DAOIntegrantes.getXMLRecords((Long)session.getAttribute("EquipoId"), DAOIntegrantes.F_EQUIPO).getString(), user.getPermisos()), path + "../web/xsl/equipos.xsl"));
                 }
             }
         } catch (Exception ex) {

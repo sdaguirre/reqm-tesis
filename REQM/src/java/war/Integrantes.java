@@ -84,7 +84,7 @@ public class Integrantes extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOParams.getXMLRecord(DAOParams.EQUIPOS, new Integer(mod)).getString(), user.getPermisos()), path + "../web/xsl/equipos_form.xsl"));
+                            XMLModder.JoinDocs(DAOParams.getXMLRecord(DAOParams.EQUIPOS, new Integer(mod)).getString(), user.getPermisos()), path + "../web/xsl/integrantes_form.xsl"));
                 }
 
             }
@@ -112,7 +112,7 @@ public class Integrantes extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
-                DAOIntegrantes daointegrante = new DAOIntegrantes(new Long(request.getParameter("inCode")),(Integer)session.getAttribute("EquipoId"),new Long(request.getParameter("inEmp")));
+                DAOIntegrantes daointegrante = new DAOIntegrantes(new Long(request.getParameter("inCode")),Integer.parseInt(""+session.getAttribute("EquipoId")),new Long(request.getParameter("inEmp")));
                 if (daointegrante.getlIntegranteId() == 0) {
                     daointegrante.insert();
                 } else {

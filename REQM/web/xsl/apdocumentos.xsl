@@ -46,10 +46,10 @@
                 <script type="text/javascript" src="js/viewer.popups.js"></script>
                 <script type="text/javascript">
                     $('form').submit(function(){
-                        this.post(Anteproyectos);
+                        this.post(APDocumentos);
                     });
                 </script>
-                
+
                 <script type="text/javascript" src="js/hoverIntent.js"></script>
                 <script type="text/javascript" src="js/superfish.js"></script>
                 <script type="text/javascript">
@@ -198,7 +198,8 @@
                                                                         <li class="leaf first">
                                                                             <a href="Anteproyectos">Clientes</a>
                                                                         </li>
-                                                                        <li class="leaf"><div id="selected">Anteproyectos</div></li>
+                                                                        <li class="leaf"><a href="Anteproyectos">Anteproyectos</a></li>
+                                                                        <li class="leaf"><div id="selected">Documentos</div></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -208,32 +209,31 @@
                                             </div>
                                             <div id="cont-col">
                                                 <div class="ind">
-                                                    <h2>Administrador de Anteproyectos</h2>
+                                                    <h2>Administrador de Documentos de Anteproyectos</h2>
                                                     <!-- start main content -->
                                                     <div class="node">
                                                         <div class="taxonomy"></div>
                                                         <div class="content">
-                                                            <div class="services">Esta interfaz permite la administracion de anteproyectos de un cliente del sistema
+                                                            <div class="services">Esta interfaz permite la administracion de documentos generados de un anteproyecto del sistema
                                                                 <br />
                                                                 <a href="#" class="cont-more">mas ayuda</a>
                                                                 <br class="clear" />
                                                                 <br />
                                                                 <div class="columns">
                                                                     <div class="column-left">
-                                                                        <form method="post" action="Anteproyectos">
+                                                                        <form method="post" action="APDocumentos">
                                                                             <input type="hidden" id="keycode" name="keycode" value="" />
                                                                             <table id="report" width="500px">
                                                                                 <tr>
                                                                                     <th>Codigo</th>
-                                                                                    <th>Tipo</th>
+                                                                                    <th>Fecha</th>
                                                                                     <th>Nombre</th>
                                                                                     <th id="former">
-                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=201]">
+                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=104]">
                                                                                         <xsl:if test="./ins='true'">
-                                                                                            <a id="formNew" rel="prettyPhoto[new]" href="Anteproyectos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
-                                                                                                <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
-                                                                                            </a>
-                                                                                            <div>Nuevo</div>
+                                                                                        <a id="formNew" rel="prettyPhoto[new]" href="APDocumentos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
+                                                                                            <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
+                                                                                        </a><div>Nuevo</div>
                                                                                         </xsl:if>
                                                                                     </xsl:for-each>
                                                                                     </th>
@@ -258,36 +258,12 @@
                                                                                         <td colspan="5">
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=204]">
-                                                                                                    <xsl:if test="./sel='true'">
-                                                                                                        <li>
-                                                                                                            <span class="formButtons">
-                                                                                                                <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">APDocumentos?fkey=<xsl:value-of select="$key" /></xsl:attribute>
-                                                                                                                    <img src="imgs/buttons/document.png" alt="Ver Documentos Registrados" />
-                                                                                                                </a>Ver Documentos
-                                                                                                            </span>
-                                                                                                        </li>
-                                                                                                    </xsl:if>
-                                                                                                </xsl:for-each>
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=202]">
-                                                                                                    <xsl:if test="./sel='true'">
-                                                                                                        <li>
-                                                                                                            <span class="formButtons">
-                                                                                                                <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">Proyectos?apkey=<xsl:value-of select="$key" /></xsl:attribute>
-                                                                                                                    <img src="imgs/buttons/open.png" alt="Ver Proyectos dependientes" />
-                                                                                                                </a>Ver Proyectos
-                                                                                                            </span>
-                                                                                                        </li>
-                                                                                                    </xsl:if>
-                                                                                                </xsl:for-each>
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=201]">
+                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=104]">
                                                                                                     <li>
                                                                                                         <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
-                                                                                                                    <xsl:attribute name="href">Anteproyectos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                    <xsl:attribute name="href">APDocumentos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
                                                                                                                     <img src="imgs/buttons/edit.png" alt="Modificar Registro" />
                                                                                                                 </a>Modificar
                                                                                                             </span>
@@ -295,9 +271,7 @@
                                                                                                         <xsl:if test="./del='true'">
                                                                                                             <span style="padding-left: 70px;">
                                                                                                                 <input class="formButtons" type="image" src="imgs/buttons/trash.png" alt="Eliminar" name="del" >
-                                                                                                                    <xsl:attribute name="value">
-                                                                                                                        <xsl:value-of select="$key" />
-                                                                                                                    </xsl:attribute>
+                                                                                                                    <xsl:attribute name="value"><xsl:value-of select="$key" /></xsl:attribute>
                                                                                                                 </input>
                                                                                                                 <span class="formButtons">Eliminar</span>
                                                                                                             </span>

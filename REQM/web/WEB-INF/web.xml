@@ -56,6 +56,10 @@
         <servlet-name>Integrantes</servlet-name>
         <servlet-class>war.Integrantes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>APDocumentos</servlet-name>
+        <servlet-class>war.APDocumentos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Reqm</servlet-name>
         <url-pattern>/Reqm</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>Integrantes</servlet-name>
         <url-pattern>/Integrantes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>APDocumentos</servlet-name>
+        <url-pattern>/APDocumentos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

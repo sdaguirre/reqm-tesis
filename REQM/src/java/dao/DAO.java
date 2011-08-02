@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +9,10 @@ import java.sql.SQLXML;
 import java.sql.Timestamp;
 import java.util.Vector;
 import conexion.Conexion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
 
 public abstract class DAO {
     //#Region Records
@@ -380,16 +385,19 @@ public abstract class DAO {
         for (int i = 1; i <= datos.length; i++) {
             if (datos[i - 1] == null) {
                 stmt.setNull(i, java.sql.Types.DATE);
-            } else {
-                if (datos[i - 1].getClass().equals(Date.class)) {
-                    stmt.setString(i, ((Date)datos[i - 1]).toString().replace("-",""));
-                } else {
-                    if (datos[i - 1].getClass().equals(Timestamp.class)) {
-                        stmt.setObject(i, datos[i - 1], java.sql.Types.TIMESTAMP);
-                    } else {
-                        stmt.setObject(i, datos[i - 1]);
-                    }
+            } else if (datos[i - 1].getClass().equals(Date.class)) {
+                stmt.setString(i, ((Date) datos[i - 1]).toString().replace("-", ""));
+            } else if (datos[i - 1].getClass().equals(Timestamp.class)) {
+                stmt.setObject(i, datos[i - 1], java.sql.Types.TIMESTAMP);
+            } else if (datos[i - 1].getClass().equals(DiskFileItem.class)) {
+                FileItem file=(FileItem)datos[i-1];
+                try {
+                    stmt.setBinaryStream(i, file.getInputStream(),(int)file.getSize());
+                } catch (IOException ex) {
+                    Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else {
+                stmt.setObject(i, datos[i - 1]);
             }
         }
         return stmt;

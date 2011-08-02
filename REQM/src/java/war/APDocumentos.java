@@ -5,11 +5,16 @@
 package war;
 
 import conexion.Conexion;
+import dao.DAOAPDocumentos;
 import dao.DAOPDocumentos;
-import dao.DAOParams;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLXML;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,16 +22,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import libs.UserManager;
 import libs.XMLModder;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
  * @author Moncho
  */
-public class PDocumentos extends HttpServlet {
+public class APDocumentos extends HttpServlet {
 
     private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -45,10 +53,10 @@ public class PDocumentos extends HttpServlet {
                 Long keycode = new Long(request.getParameter("fkey"));
                 if (keycode != null) {
                     SQLXML daocontactos = DAOPDocumentos.getXMLRecords(keycode);
-                    session.setAttribute("PFisicaId", keycode);
+                    session.setAttribute("APId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daocontactos.getString(), user.getPermisos()), path + "../web/xsl/pdocumentos.xsl"));
+                            XMLModder.JoinDocs(daocontactos.getString(), user.getPermisos()), path + "../web/xsl/apdocumentos.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -65,7 +73,7 @@ public class PDocumentos extends HttpServlet {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
      * @param response servlet response
@@ -94,28 +102,28 @@ public class PDocumentos extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.DOCUMENTOS).getString()}), path + "../web/xsl/pdocumentos_form.xsl"));
+                                XMLModder.JoinDocs(null, new String[]{user.getPermisos()}), path + "../web/xsl/apdocumentos_form.xsl"));
                     }
                 } else {
                     UserManager user;
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
-                    SQLXML daodocumentos = DAOPDocumentos.getXMLRecords(0,new Long(mod));
+                    SQLXML apdocumentos = DAOAPDocumentos.getXMLRecords(new Long(mod), DAOAPDocumentos.F_ANTEPROYECTO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daodocumentos.getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.DOCUMENTOS).getString()}), path + "../web/xsl/pdocumentos_form.xsl"));
+                            XMLModder.JoinDocs(apdocumentos.getString(), new String[]{user.getPermisos(),}), path + "../web/xsl/apdocumentos_form.xsl"));
                 }
 
             }
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
+            ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
             out.close();
         }
     }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
      * @param response servlet response
@@ -135,42 +143,69 @@ public class PDocumentos extends HttpServlet {
         try {
             response.setContentType("text/html;charset=UTF-8");
             UserManager user;
-            request.setCharacterEncoding("UTF-8");
-            if (request.getParameter("ok.x") != null) {
+//            request.setCharacterEncoding("UTF-8");
+            if (request.getParameter("del.x") != null) {
                 Conexion.autoConnect();
-                DAOPDocumentos documento = new DAOPDocumentos(new Long(request.getParameter("inCode")),
-                        (Long) session.getAttribute("PFisicaId"),new Integer(request.getParameter("inType")), request.getParameter("inName"));
-                if (documento.getlDocumentoId() == 0) {
-                    documento.insert();
+                DAOAPDocumentos apdocumento = new DAOAPDocumentos();
+                apdocumento.setlAPDocumentoId(new Long(request.getParameter("keycode")));
+                apdocumento.delete();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOPDocumentos.getXMLRecords((Long) session.getAttribute("APId")).getString(), user.getPermisos()), path + "../web/xsl/apdocumentos.xsl"));
+
+            } else {
+                HashMap<String,Object> hash=new HashMap<String,Object>();
+                DiskFileItemFactory factory= new DiskFileItemFactory();
+                factory.setSizeThreshold(4096);
+                factory.setRepository(new File("C:/"));
+                ServletFileUpload upload = new ServletFileUpload(factory);
+                upload.setSizeMax(5242880);
+                List<FileItem> items = upload.parseRequest(request);
+                System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+                System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+                for (FileItem item : items) {
+                    if (item.isFormField()) {
+                        // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
+                        hash.put(item.getFieldName(), item.getString());
+                        String fieldname = item.getFieldName();
+                        String fieldvalue = item.getString();
+                        System.out.println("Campo: "+fieldname+" - Valor: "+fieldvalue);
+                    } else {
+                        // Process form file field (input type="file").
+                        hash.put(item.getFieldName(), item);
+                        String fieldname = item.getFieldName();
+                        System.out.println("Archivo: "+fieldname);
+                        //String filename = FilenameUtils.getName(item.getName());
+                        //InputStream filecontent = item.getInputStream();
+                        // ... (do your job here)
+                    }
+                }
+System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+                if (hash.get("ok.x") != null) {
+                Conexion.autoConnect();
+                DAOAPDocumentos apdocumento = new DAOAPDocumentos(new Long((String)hash.get("inCode")), (Long) session.getAttribute("APId"), null, (String)hash.get("inName"), ".txt",(FileItem)hash.get("inFile"));
+                if (apdocumento.getlAPDocumentoId() == 0) {
+                    apdocumento.insert();
                 } else {
-                    documento.update();
+                    apdocumento.update();
                 }
                 response.sendRedirect("ok.html");
-            } else {
-                if (request.getParameter("del.x") != null) {
-                    Conexion.autoConnect();
-                    DAOPDocumentos documento = new DAOPDocumentos();
-                    documento.setlDocumentoId(new Long(request.getParameter("keycode")));
-                    documento.delete();
-                    user = (UserManager) session.getAttribute("user");
-                    out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOPDocumentos.getXMLRecords((Long)session.getAttribute("PFisicaId")).getString(), user.getPermisos()), path + "../web/xsl/pdocumentos.xsl"));
                 }
             }
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
+            ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
             out.close();
         }
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
      * @return a String containing servlet description
      */
     @Override
     public String getServletInfo() {
-        return "REQM - PDocumentos";
+        return "REQM - Documentos Anteproyecto";
     }// </editor-fold>
 }

@@ -17,12 +17,13 @@ public class DAOAPDocumentos extends DAO implements IDAO{
 //#Region Builders
     public DAOAPDocumentos(){}
 
-    public DAOAPDocumentos(long lAPDocumentoId, long lAnteproyectoId, Date dtAPDocumentoDt, String sAPDocumentoNm, String sAPDocumentoExt, FileItem bnAPDocumentoData) {
+    public DAOAPDocumentos(long lAPDocumentoId, long lAnteproyectoId, Date dtAPDocumentoDt, String sAPDocumentoNm, FileItem bnAPDocumentoData) {
         this.lAPDocumentoId = lAPDocumentoId;
         this.lAnteproyectoId = lAnteproyectoId;
         this.dtAPDocumentoDt = dtAPDocumentoDt;
         this.sAPDocumentoNm = sAPDocumentoNm;
-        this.sAPDocumentoExt = sAPDocumentoExt;
+        String[] pathf=bnAPDocumentoData.getName().split("\\.");
+        this.sAPDocumentoExt = pathf[pathf.length-1];
         this.bnAPDocumentoData = bnAPDocumentoData;
     }
     
@@ -39,7 +40,7 @@ public class DAOAPDocumentos extends DAO implements IDAO{
     @Override
     public boolean insert() throws SQLException {
         System.out.println(bnAPDocumentoData.getFieldName()+" --  "+bnAPDocumentoData.getName());
-        this.lAPDocumentoId=insertRecord(tabla, new Object[]{lAnteproyectoId,dtAPDocumentoDt,sAPDocumentoNm,sAPDocumentoExt,bnAPDocumentoData});
+        this.lAPDocumentoId=insertRecord(tabla, new Object[]{lAnteproyectoId,sAPDocumentoNm,sAPDocumentoExt,bnAPDocumentoData});
         return true;
     }
     @Override

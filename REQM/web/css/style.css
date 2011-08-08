@@ -1,6 +1,8 @@
 /* CSS Document */
 * { margin:0; padding:0;text-align: justify;}
-
+html{
+    background:url(../imgs/bg.gif);
+}
 body#body{
 background:url(../imgs/bg.gif);
 font-family:Verdana, Geneva, sans-serif;

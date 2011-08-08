@@ -183,7 +183,7 @@ public class APDocumentos extends HttpServlet {
 System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 if (hash.get("ok.x") != null) {
                 Conexion.autoConnect();
-                DAOAPDocumentos apdocumento = new DAOAPDocumentos(new Long((String)hash.get("inCode")), (Long) session.getAttribute("APId"), null, (String)hash.get("inName"), ".txt",(FileItem)hash.get("inFile"));
+                DAOAPDocumentos apdocumento = new DAOAPDocumentos(new Long((String)hash.get("inCode")), (Long) session.getAttribute("APId"), null, (String)hash.get("inName"), (FileItem)hash.get("inFile"));
                 if (apdocumento.getlAPDocumentoId() == 0) {
                     apdocumento.insert();
                 } else {

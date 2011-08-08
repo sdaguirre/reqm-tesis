@@ -250,6 +250,7 @@
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
+                                                                                        <div>
                                                                                         <td colspan="5">
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
@@ -308,6 +309,7 @@
                                                                                                 </xsl:for-each>
                                                                                             </ul>
                                                                                         </td>
+                                                                                        </div>
                                                                                     </tr>
                                                                                 </xsl:for-each>
                                                                             </table>

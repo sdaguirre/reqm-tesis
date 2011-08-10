@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <listener>
+        <listener-class>org.apache.commons.fileupload.servlet.FileCleanerCleanup</listener-class>
+    </listener>
     <servlet>
         <servlet-name>Reqm</servlet-name>
         <servlet-class>war.Reqm</servlet-class>
@@ -60,6 +63,14 @@
         <servlet-name>APDocumentos</servlet-name>
         <servlet-class>war.APDocumentos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PRDocumentos</servlet-name>
+        <servlet-class>war.PRDocumentos</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReqDocumentos</servlet-name>
+        <servlet-class>war.ReqDocumentos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Reqm</servlet-name>
         <url-pattern>/Reqm</url-pattern>
@@ -119,6 +130,14 @@
     <servlet-mapping>
         <servlet-name>APDocumentos</servlet-name>
         <url-pattern>/APDocumentos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PRDocumentos</servlet-name>
+        <url-pattern>/PRDocumentos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReqDocumentos</servlet-name>
+        <url-pattern>/ReqDocumentos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

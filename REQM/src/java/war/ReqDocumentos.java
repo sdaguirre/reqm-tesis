@@ -28,7 +28,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Moncho
  */
-public class APDocumentos extends HttpServlet {
+public class ReqDocumentos extends HttpServlet {
 
     private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
@@ -50,11 +50,11 @@ public class APDocumentos extends HttpServlet {
                 Conexion.autoConnect();
                 Long keycode = new Long(request.getParameter("fkey"));
                 if (keycode != null) {
-                    SQLXML daoapdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS,keycode, DAOReqmDocumentos.F_LISTA);
-                    session.setAttribute("APId", keycode);
+                    SQLXML daoreqdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS,keycode, DAOReqmDocumentos.F_LISTA);
+                    session.setAttribute("ReqId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoapdocumentos.getString(), user.getPermisos()), path + "../web/xsl/apdocumentos.xsl"));
+                            XMLModder.JoinDocs(daoreqdocumentos.getString(), user.getPermisos()), path + "../web/xsl/reqdocumentos.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -95,10 +95,10 @@ public class APDocumentos extends HttpServlet {
                     UserManager user;
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
-                    SQLXML apdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS,new Long(mod), DAOReqmDocumentos.F_DOCUMENTO);
+                    SQLXML reqdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS,new Long(mod), DAOReqmDocumentos.F_DOCUMENTO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(apdocumentos.getString(), new String[]{user.getPermisos(),}), path + "../web/xsl/apdocumentos_form.xsl"));
+                            XMLModder.JoinDocs(reqdocumentos.getString(), new String[]{user.getPermisos(),}), path + "../web/xsl/reqdocumentos_form.xsl"));
                 } else if (nuevo != null) {
                     PrintWriter out = response.getWriter();
                     UserManager user;
@@ -106,15 +106,15 @@ public class APDocumentos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS,(Long) session.getAttribute("APId"), DAOReqmDocumentos.F_NEW).getString(),
-                            new String[]{user.getPermisos()}), path + "../web/xsl/apdocumentos_form.xsl"));
+                            XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS,(Long) session.getAttribute("ReqId"), DAOReqmDocumentos.F_NEW).getString(),
+                            new String[]{user.getPermisos()}), path + "../web/xsl/reqdocumentos_form.xsl"));
                 } else if (down != null) {
-                    DAOReqmDocumentos apdoc = new DAOReqmDocumentos();
-                    byte[] doc = apdoc.getDocument(new Long(down));
+                    DAOReqmDocumentos reqdoc = new DAOReqmDocumentos();
+                    byte[] doc = reqdoc.getDocument(new Long(down));
                     if (doc != null) {
-                        response.setHeader("Content-Disposition", "attachment; filename=\"" + apdoc.createDocName() + "\"");
+                        response.setHeader("Content-Disposition", "attachment; filename=\"" + reqdoc.createDocName() + "\"");
                         response.setHeader("cache-control", "no-cache");
-                        response.setContentType(apdoc.getsReqmDocumentoMIME());
+                        response.setContentType(reqdoc.getsReqmDocumentoMIME());
                         response.getOutputStream().write(doc, 0, doc.length);
                         response.getOutputStream().flush();
                         response.getOutputStream().close();
@@ -126,7 +126,7 @@ public class APDocumentos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs("<root><key>"+upload+"</key></root>",new String[]{user.getPermisos()}), path + "../web/xsl/apdocumentos_form.xsl"));
+                            XMLModder.JoinDocs("<root><key>"+upload+"</key></root>",new String[]{user.getPermisos()}), path + "../web/xsl/reqdocumentos_form.xsl"));
                 } else {
                     processRequest(request, response);
                 }
@@ -168,12 +168,12 @@ public class APDocumentos extends HttpServlet {
 //            request.setCharacterEncoding("UTF-8");
             if (request.getParameter("del.x") != null) {
                 Conexion.autoConnect();
-                DAOReqmDocumentos apdocumento = new DAOReqmDocumentos();
-                apdocumento.setlReqmDocumentoId(new Long(request.getParameter("keycode")));
-                apdocumento.delete();
+                DAOReqmDocumentos reqdocumento = new DAOReqmDocumentos();
+                reqdocumento.setlReqmDocumentoId(new Long(request.getParameter("keycode")));
+                reqdocumento.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS,(Long) session.getAttribute("APId"), DAOReqmDocumentos.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/apdocumentos.xsl"));
+                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS,(Long) session.getAttribute("ReqId"), DAOReqmDocumentos.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/reqdocumentos.xsl"));
 
             } else {
                 HashMap<String, Object> hash = new HashMap<String, Object>();
@@ -211,18 +211,18 @@ public class APDocumentos extends HttpServlet {
                 //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 if (hash.get("ok.x") != null) {
                     Conexion.autoConnect();
-                    DAOReqmDocumentos apdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.ANTEPROYECTOS,new Long((String) hash.get("inCode")), (Long) session.getAttribute("APId"), null, (String) hash.get("inName"), (FileItem) hash.get("inFile"));
-                    if (apdocumento.getlReqmDocumentoId() == 0) {
-                        apdocumento.insert();
-                    } else if (apdocumento.getlFReqmId()!=0 && apdocumento.getsReqmDocumentoNm()!=null){
+                    DAOReqmDocumentos reqdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.PROYECTOS,new Long((String) hash.get("inCode")), (Long) session.getAttribute("PRId"), null, (String) hash.get("inName"), (FileItem) hash.get("inFile"));
+                    if (reqdocumento.getlReqmDocumentoId() == 0) {
+                        reqdocumento.insert();
+                    } else if (reqdocumento.getlFReqmId()!=0 && reqdocumento.getsReqmDocumentoNm()!=null){
                         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
                         String date = ""+hash.get("inDate");
                         if (date != null && date.length() == 10) {
-                            apdocumento.setDtReqmDocumentoDt(new java.sql.Date(dateFormatter.parse(date).getTime()));
+                            reqdocumento.setDtReqmDocumentoDt(new java.sql.Date(dateFormatter.parse(date).getTime()));
                         }
-                        apdocumento.update();
+                        reqdocumento.update();
                     }else{
-                        apdocumento.upload();
+                        reqdocumento.upload();
                     }
 
                     response.sendRedirect("ok.html");
@@ -242,6 +242,6 @@ public class APDocumentos extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "REQM - Documentos Anteproyecto";
+        return "REQM - Documentos Requerimiento";
     }// </editor-fold>
 }

@@ -19,7 +19,7 @@ $(document).ready(function(){
     $("#report tr:first-child").show();
 
     $("#report tr.odd").click(function(){
-        $(this).next("tr").toggle();
+        $(this).next("tr").toggle("normal");
         $(this).find(".arrow").toggleClass("up");
     });
     //$("#report").jExpand();

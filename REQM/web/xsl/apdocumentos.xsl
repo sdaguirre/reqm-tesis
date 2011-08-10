@@ -196,9 +196,9 @@
                                                                 <div class="content">
                                                                     <ul class="menu">
                                                                         <li class="leaf first">
-                                                                            <a href="Anteproyectos">Clientes</a>
+                                                                            <a href="Anteproyectos?step=1">Clientes</a>
                                                                         </li>
-                                                                        <li class="leaf"><a href="Anteproyectos">Anteproyectos</a></li>
+                                                                        <li class="leaf"><a href="Anteproyectos?step=2">Anteproyectos</a></li>
                                                                         <li class="leaf"><div id="selected">Documentos</div></li>
                                                                     </ul>
                                                                 </div>
@@ -239,13 +239,16 @@
                                                                                     </th>
                                                                                 </tr>
                                                                                 <xsl:for-each select="/root/row">
+                                                                                    <xsl:sort order="descending" select="substring(date,7,4)" />
+                                                                                    <xsl:sort order="descending" select="substring(date,4,2)" />
+                                                                                    <xsl:sort order="descending" select="substring(date,1,2)" />
                                                                                     <xsl:param name="key" select="@key"/>
                                                                                     <tr>
                                                                                         <td>
                                                                                             <xsl:value-of select="$key" />
                                                                                         </td>
                                                                                         <td>
-                                                                                            <xsl:value-of select="type" />
+                                                                                            <xsl:value-of select="date" />
                                                                                         </td>
                                                                                         <td>
                                                                                             <xsl:value-of select="name" />
@@ -256,8 +259,25 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td colspan="5">
+                                                                                            <h1 class="xsldtitulos">Informaci&#243;n Adicional</h1>
+                                                                                            <div class="xsldetalle">
+                                                                                                <div class="xsldbox">Extensi&#243;n:
+                                                                                                    <xsl:value-of select="ext" />
+                                                                                                </div>
+                                                                                                <div>MIME:
+                                                                                                    <xsl:value-of select="mime" />
+                                                                                                </div>
+                                                                                            </div>
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
+                                                                                                <li>
+                                                                                                    <span class="formButtons">
+                                                                                                        <a id="formLink">
+                                                                                                            <xsl:attribute name="href">APDocumentos?down=<xsl:value-of select="$key" /></xsl:attribute>
+                                                                                                            <img src="imgs/buttons/download.png" alt="Descargar Documento" />
+                                                                                                        </a>Descargar
+                                                                                                    </span>
+                                                                                                </li>
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=104]">
                                                                                                     <li>
                                                                                                         <xsl:if test="./mod='true'">
@@ -275,6 +295,17 @@
                                                                                                                 </input>
                                                                                                                 <span class="formButtons">Eliminar</span>
                                                                                                             </span>
+                                                                                                        </xsl:if>
+                                                                                                        <xsl:if test="./mod='true'">
+                                                                                                            <li>
+                                                                                                            <span class="formButtons">
+                                                                                                                <a id="formLink">
+                                                                                                                    <xsl:attribute name="rel">prettyPhoto[<xsl:value-of select="$key" />]</xsl:attribute>
+                                                                                                                    <xsl:attribute name="href">APDocumentos?upl=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                    <img src="imgs/buttons/upload.png" alt="Subir otro archivo" />
+                                                                                                                </a>Cambiar Documento
+                                                                                                            </span>
+                                                                                                            </li>
                                                                                                         </xsl:if>
                                                                                                     </li>
                                                                                                 </xsl:for-each>

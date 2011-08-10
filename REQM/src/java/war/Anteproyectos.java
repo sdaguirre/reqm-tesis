@@ -19,7 +19,7 @@ public class Anteproyectos extends HttpServlet {
 
     private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -37,10 +37,20 @@ public class Anteproyectos extends HttpServlet {
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(anteproyectos.getString(), user.getPermisos()), path + "../web/xsl/anteproyectos2.xsl"));
                 } else {
-                    SQLXML personas = DAOPFisicas.getXMLRecords();
                     user = (UserManager) session.getAttribute("user");
-                    out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(personas.getString(), user.getPermisos()), path + "../web/xsl/anteproyectos.xsl"));
+                    if (request.getParameter("step") != null) {
+                        long step = new Long("" + request.getParameter("step"));
+                        if (step == 2) {
+                            out.println(XMLModder.XSLTransform(
+                                XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords((Long) session.getAttribute("PersonaId")).getString(), user.getPermisos()), path + "../web/xsl/anteproyectos2.xsl"));
+                        } else {
+                            out.println(XMLModder.XSLTransform(
+                                XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), user.getPermisos()), path + "../web/xsl/anteproyectos.xsl"));
+                        }
+                    } else {
+                        out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), user.getPermisos()), path + "../web/xsl/anteproyectos.xsl"));
+                    }
                 }
             } else {
                 Conexion.getConnection().disconnect();
@@ -106,8 +116,9 @@ public class Anteproyectos extends HttpServlet {
 
             }
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
-            throw new ServletException(ex.getMessage(), ex.getCause());
+            ex.printStackTrace();
+            response.sendRedirect("login.html");
+            //throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
             out.close();
         }

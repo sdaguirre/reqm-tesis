@@ -68,7 +68,7 @@
                                                             <div class="services">
                                                                 <div class="columns">
                                                                     <div class="column-left">
-                                                                        <form method="post" action="APDocumentos" enctype="multipart/form-data">
+                                                                        <form method="post" action="PRDocumentos" enctype="multipart/form-data">
                                                                             <table width="500px">
                                                                                 <colgroup>
                                                                                     <col width="20%" />
@@ -92,10 +92,10 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inAP">Anteproyecto:</label>
+                                                                                                    <label for="inPR">Proyecto:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <select name="inAP" size="1" >
+                                                                                                    <select name="inPR" size="1" >
                                                                                                         <option>
                                                                                                             <xsl:attribute name="value">
                                                                                                                 <xsl:value-of select="fkey" />
@@ -162,10 +162,10 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inAP">Anteproyecto:</label>
+                                                                                                <label for="inPR">Proyecto:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select name="inAP" size="1" >
+                                                                                                <select name="inPR" size="1" >
                                                                                                     <option>
                                                                                                         <xsl:attribute name="value">
                                                                                                             <xsl:value-of select="/root/row/@key" />

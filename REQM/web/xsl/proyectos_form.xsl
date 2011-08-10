@@ -102,7 +102,7 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inFKeyNm">Anteproyecto:</label>
+                                                                                                    <label for="inAP">Anteproyecto:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
                                                                                                     <select name="inAP" size="1" >

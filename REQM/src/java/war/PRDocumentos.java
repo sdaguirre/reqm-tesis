@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import libs.UserManager;
 import libs.XMLModder;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -109,7 +110,7 @@ public class PRDocumentos extends HttpServlet {
                             XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.PROYECTOS,(Long) session.getAttribute("PRId"), DAOReqmDocumentos.F_NEW).getString(),
                             new String[]{user.getPermisos()}), path + "../web/xsl/prdocumentos_form.xsl"));
                 } else if (down != null) {
-                    DAOReqmDocumentos prdoc = new DAOReqmDocumentos();
+                    DAOReqmDocumentos prdoc = new DAOReqmDocumentos(DAOReqmDocumentos.PROYECTOS);
                     byte[] doc = prdoc.getDocument(new Long(down));
                     if (doc != null) {
                         response.setHeader("Content-Disposition", "attachment; filename=\"" + prdoc.createDocName() + "\"");
@@ -168,7 +169,7 @@ public class PRDocumentos extends HttpServlet {
 //            request.setCharacterEncoding("UTF-8");
             if (request.getParameter("del.x") != null) {
                 Conexion.autoConnect();
-                DAOReqmDocumentos prdocumento = new DAOReqmDocumentos();
+                DAOReqmDocumentos prdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.PROYECTOS);
                 prdocumento.setlReqmDocumentoId(new Long(request.getParameter("keycode")));
                 prdocumento.delete();
                 user = (UserManager) session.getAttribute("user");
@@ -183,32 +184,13 @@ public class PRDocumentos extends HttpServlet {
                 ServletFileUpload upload = new ServletFileUpload(factory);
                 upload.setSizeMax(5242880);
                 List<FileItem> items = upload.parseRequest(request);
-                //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 for (FileItem item : items) {
                     if (item.isFormField()) {
-                        // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
                         hash.put(item.getFieldName(), item.getString());
-                        /*String fieldname = item.getFieldName();
-                        String fieldvalue = item.getString();
-                        System.out.println("Campo: " + fieldname + " - Valor: " + fieldvalue);*/
                     } else {
-                        // Process form file field (input type="file").
                         hash.put(item.getFieldName(), item);
-                        /*String fieldname = item.getFieldName();
-                        System.out.println("ENTRADA: " + item.getSize());
-                        /* System.out.println("Archivo: " + fieldname);
-                        System.out.println("ArchiBO: " + item.isInMemory());
-                        System.out.println("ArcMIME: " + item.getContentType());
-                        System.out.println("ArcSIZE: " + item.getSize());
-                        System.out.println(item.get().length);
-                        //String filename = FilenameUtils.getName(item.getName());
-                        //InputStream filecontent = item.getInputStream();
-                        // ... (do your job here)*/
                     }
                 }
-                //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 if (hash.get("ok.x") != null) {
                     Conexion.autoConnect();
                     DAOReqmDocumentos prdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.PROYECTOS,new Long((String) hash.get("inCode")), (Long) session.getAttribute("PRId"), null, (String) hash.get("inName"), (FileItem) hash.get("inFile"));
@@ -228,7 +210,11 @@ public class PRDocumentos extends HttpServlet {
                     response.sendRedirect("ok.html");
                 }
             }
-        } catch (Exception ex) {
+        } catch(FileUploadException fex){
+            response.sendRedirect("big.html");
+//            throw new ServletException(fex.getMessage(), fex.getCause());
+        }
+        catch (Exception ex) {
             ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {

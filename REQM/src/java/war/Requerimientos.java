@@ -38,6 +38,10 @@ public class Requerimientos extends HttpServlet {
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(requerimientos.getString(), user.getPermisos()), path + "../web/xsl/requerimientos.xsl"));
+                }else if(session.getAttribute("ProyectoId")!=null){
+                    user = (UserManager) session.getAttribute("user");
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(DAORequerimientos.getXMLRecords((Long)session.getAttribute("ProyectoId"),DAORequerimientos.F_PROYECTO).getString(), user.getPermisos()), path + "../web/xsl/requerimientos.xsl"));
                 }
             } else {
                 Conexion.getConnection().disconnect();

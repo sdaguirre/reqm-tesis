@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import libs.UserManager;
 import libs.XMLModder;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -50,7 +51,7 @@ public class APDocumentos extends HttpServlet {
                 Conexion.autoConnect();
                 Long keycode = new Long(request.getParameter("fkey"));
                 if (keycode != null) {
-                    SQLXML daoapdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS,keycode, DAOReqmDocumentos.F_LISTA);
+                    SQLXML daoapdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS, keycode, DAOReqmDocumentos.F_LISTA);
                     session.setAttribute("APId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
@@ -95,7 +96,7 @@ public class APDocumentos extends HttpServlet {
                     UserManager user;
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
-                    SQLXML apdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS,new Long(mod), DAOReqmDocumentos.F_DOCUMENTO);
+                    SQLXML apdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS, new Long(mod), DAOReqmDocumentos.F_DOCUMENTO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(apdocumentos.getString(), new String[]{user.getPermisos(),}), path + "../web/xsl/apdocumentos_form.xsl"));
@@ -106,10 +107,10 @@ public class APDocumentos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS,(Long) session.getAttribute("APId"), DAOReqmDocumentos.F_NEW).getString(),
+                            XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS, (Long) session.getAttribute("APId"), DAOReqmDocumentos.F_NEW).getString(),
                             new String[]{user.getPermisos()}), path + "../web/xsl/apdocumentos_form.xsl"));
                 } else if (down != null) {
-                    DAOReqmDocumentos apdoc = new DAOReqmDocumentos();
+                    DAOReqmDocumentos apdoc = new DAOReqmDocumentos(DAOReqmDocumentos.ANTEPROYECTOS);
                     byte[] doc = apdoc.getDocument(new Long(down));
                     if (doc != null) {
                         response.setHeader("Content-Disposition", "attachment; filename=\"" + apdoc.createDocName() + "\"");
@@ -126,7 +127,7 @@ public class APDocumentos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs("<root><key>"+upload+"</key></root>",new String[]{user.getPermisos()}), path + "../web/xsl/apdocumentos_form.xsl"));
+                            XMLModder.JoinDocs("<root><key>" + upload + "</key></root>", new String[]{user.getPermisos()}), path + "../web/xsl/apdocumentos_form.xsl"));
                 } else {
                     processRequest(request, response);
                 }
@@ -168,12 +169,12 @@ public class APDocumentos extends HttpServlet {
 //            request.setCharacterEncoding("UTF-8");
             if (request.getParameter("del.x") != null) {
                 Conexion.autoConnect();
-                DAOReqmDocumentos apdocumento = new DAOReqmDocumentos();
+                DAOReqmDocumentos apdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.ANTEPROYECTOS);
                 apdocumento.setlReqmDocumentoId(new Long(request.getParameter("keycode")));
                 apdocumento.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS,(Long) session.getAttribute("APId"), DAOReqmDocumentos.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/apdocumentos.xsl"));
+                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS, (Long) session.getAttribute("APId"), DAOReqmDocumentos.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/apdocumentos.xsl"));
 
             } else {
                 HashMap<String, Object> hash = new HashMap<String, Object>();
@@ -211,23 +212,25 @@ public class APDocumentos extends HttpServlet {
                 //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 if (hash.get("ok.x") != null) {
                     Conexion.autoConnect();
-                    DAOReqmDocumentos apdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.ANTEPROYECTOS,new Long((String) hash.get("inCode")), (Long) session.getAttribute("APId"), null, (String) hash.get("inName"), (FileItem) hash.get("inFile"));
+                    DAOReqmDocumentos apdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.ANTEPROYECTOS, new Long((String) hash.get("inCode")), (Long) session.getAttribute("APId"), null, (String) hash.get("inName"), (FileItem) hash.get("inFile"));
                     if (apdocumento.getlReqmDocumentoId() == 0) {
                         apdocumento.insert();
-                    } else if (apdocumento.getlFReqmId()!=0 && apdocumento.getsReqmDocumentoNm()!=null){
+                    } else if (apdocumento.getlFReqmId() != 0 && apdocumento.getsReqmDocumentoNm() != null) {
                         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-                        String date = ""+hash.get("inDate");
+                        String date = "" + hash.get("inDate");
                         if (date != null && date.length() == 10) {
                             apdocumento.setDtReqmDocumentoDt(new java.sql.Date(dateFormatter.parse(date).getTime()));
                         }
                         apdocumento.update();
-                    }else{
+                    } else {
                         apdocumento.upload();
                     }
 
                     response.sendRedirect("ok.html");
                 }
             }
+        } catch (FileUploadException fex) {
+            response.sendRedirect("big.html");
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());

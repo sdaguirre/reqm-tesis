@@ -19,7 +19,8 @@ public class DAOReqmDocumentos extends DAO implements IDAO {
     //#End
 //#Region Builders
 
-    public DAOReqmDocumentos() {
+    public DAOReqmDocumentos(String tabla) {
+        this.database=tabla;
     }
 
     public DAOReqmDocumentos(String tabla,long lAPDocumentoId, long lAnteproyectoId, Date dtAPDocumentoDt,String sAPDocumentoNm, FileItem bnAPDocumentoData) {

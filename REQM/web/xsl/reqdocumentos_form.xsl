@@ -92,10 +92,10 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inAP">Requerimiento:</label>
+                                                                                                    <label for="inReq">Requerimiento:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <select name="inAP" size="1" >
+                                                                                                    <select name="inReq" size="1" >
                                                                                                         <option>
                                                                                                             <xsl:attribute name="value">
                                                                                                                 <xsl:value-of select="fkey" />
@@ -162,10 +162,10 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inAP">Requerimiento:</label>
+                                                                                                <label for="inReq">Requerimiento:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <select name="inAP" size="1" >
+                                                                                                <select name="inReq" size="1" >
                                                                                                     <option>
                                                                                                         <xsl:attribute name="value">
                                                                                                             <xsl:value-of select="/root/row/@key" />

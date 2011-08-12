@@ -278,7 +278,7 @@
                                                                                                         <li>
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">PrDocs?fkey=<xsl:value-of select="$key" /></xsl:attribute>
+                                                                                                                    <xsl:attribute name="href">PRDocumentos?fkey=<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                                     <img src="imgs/buttons/document.png" alt="Ver Documentos Registrados" />
                                                                                                                 </a>Ver Documentos
                                                                                                             </span>

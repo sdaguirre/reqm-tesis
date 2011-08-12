@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import libs.UserManager;
 import libs.XMLModder;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -50,7 +51,7 @@ public class ReqDocumentos extends HttpServlet {
                 Conexion.autoConnect();
                 Long keycode = new Long(request.getParameter("fkey"));
                 if (keycode != null) {
-                    SQLXML daoreqdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS,keycode, DAOReqmDocumentos.F_LISTA);
+                    SQLXML daoreqdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS, keycode, DAOReqmDocumentos.F_LISTA);
                     session.setAttribute("ReqId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
@@ -95,7 +96,7 @@ public class ReqDocumentos extends HttpServlet {
                     UserManager user;
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
-                    SQLXML reqdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS,new Long(mod), DAOReqmDocumentos.F_DOCUMENTO);
+                    SQLXML reqdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS, new Long(mod), DAOReqmDocumentos.F_DOCUMENTO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(reqdocumentos.getString(), new String[]{user.getPermisos(),}), path + "../web/xsl/reqdocumentos_form.xsl"));
@@ -106,10 +107,10 @@ public class ReqDocumentos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS,(Long) session.getAttribute("ReqId"), DAOReqmDocumentos.F_NEW).getString(),
+                            XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS, (Long) session.getAttribute("ReqId"), DAOReqmDocumentos.F_NEW).getString(),
                             new String[]{user.getPermisos()}), path + "../web/xsl/reqdocumentos_form.xsl"));
                 } else if (down != null) {
-                    DAOReqmDocumentos reqdoc = new DAOReqmDocumentos();
+                    DAOReqmDocumentos reqdoc = new DAOReqmDocumentos(DAOReqmDocumentos.REQUERIMIENTOS);
                     byte[] doc = reqdoc.getDocument(new Long(down));
                     if (doc != null) {
                         response.setHeader("Content-Disposition", "attachment; filename=\"" + reqdoc.createDocName() + "\"");
@@ -126,7 +127,7 @@ public class ReqDocumentos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs("<root><key>"+upload+"</key></root>",new String[]{user.getPermisos()}), path + "../web/xsl/reqdocumentos_form.xsl"));
+                            XMLModder.JoinDocs("<root><key>" + upload + "</key></root>", new String[]{user.getPermisos()}), path + "../web/xsl/reqdocumentos_form.xsl"));
                 } else {
                     processRequest(request, response);
                 }
@@ -168,12 +169,12 @@ public class ReqDocumentos extends HttpServlet {
 //            request.setCharacterEncoding("UTF-8");
             if (request.getParameter("del.x") != null) {
                 Conexion.autoConnect();
-                DAOReqmDocumentos reqdocumento = new DAOReqmDocumentos();
+                DAOReqmDocumentos reqdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.REQUERIMIENTOS);
                 reqdocumento.setlReqmDocumentoId(new Long(request.getParameter("keycode")));
                 reqdocumento.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS,(Long) session.getAttribute("ReqId"), DAOReqmDocumentos.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/reqdocumentos.xsl"));
+                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS, (Long) session.getAttribute("ReqId"), DAOReqmDocumentos.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/reqdocumentos.xsl"));
 
             } else {
                 HashMap<String, Object> hash = new HashMap<String, Object>();
@@ -183,51 +184,34 @@ public class ReqDocumentos extends HttpServlet {
                 ServletFileUpload upload = new ServletFileUpload(factory);
                 upload.setSizeMax(5242880);
                 List<FileItem> items = upload.parseRequest(request);
-                //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 for (FileItem item : items) {
                     if (item.isFormField()) {
-                        // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
                         hash.put(item.getFieldName(), item.getString());
-                        /*String fieldname = item.getFieldName();
-                        String fieldvalue = item.getString();
-                        System.out.println("Campo: " + fieldname + " - Valor: " + fieldvalue);*/
                     } else {
-                        // Process form file field (input type="file").
                         hash.put(item.getFieldName(), item);
-                        /*String fieldname = item.getFieldName();
-                        System.out.println("ENTRADA: " + item.getSize());
-                        /* System.out.println("Archivo: " + fieldname);
-                        System.out.println("ArchiBO: " + item.isInMemory());
-                        System.out.println("ArcMIME: " + item.getContentType());
-                        System.out.println("ArcSIZE: " + item.getSize());
-                        System.out.println(item.get().length);
-                        //String filename = FilenameUtils.getName(item.getName());
-                        //InputStream filecontent = item.getInputStream();
-                        // ... (do your job here)*/
                     }
                 }
-                //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                //System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 if (hash.get("ok.x") != null) {
                     Conexion.autoConnect();
-                    DAOReqmDocumentos reqdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.PROYECTOS,new Long((String) hash.get("inCode")), (Long) session.getAttribute("PRId"), null, (String) hash.get("inName"), (FileItem) hash.get("inFile"));
+                    DAOReqmDocumentos reqdocumento = new DAOReqmDocumentos(DAOReqmDocumentos.REQUERIMIENTOS, new Long((String) hash.get("inCode")), (Long) session.getAttribute("ReqId"), null, (String) hash.get("inName"), (FileItem) hash.get("inFile"));
                     if (reqdocumento.getlReqmDocumentoId() == 0) {
                         reqdocumento.insert();
-                    } else if (reqdocumento.getlFReqmId()!=0 && reqdocumento.getsReqmDocumentoNm()!=null){
+                    } else if (reqdocumento.getlFReqmId() != 0 && reqdocumento.getsReqmDocumentoNm() != null) {
                         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-                        String date = ""+hash.get("inDate");
+                        String date = "" + hash.get("inDate");
                         if (date != null && date.length() == 10) {
                             reqdocumento.setDtReqmDocumentoDt(new java.sql.Date(dateFormatter.parse(date).getTime()));
                         }
                         reqdocumento.update();
-                    }else{
+                    } else {
                         reqdocumento.upload();
                     }
 
                     response.sendRedirect("ok.html");
                 }
             }
+        } catch (FileUploadException fex) {
+            response.sendRedirect("big.html");
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());

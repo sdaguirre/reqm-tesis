@@ -294,7 +294,7 @@
                                                                                                         <xsl:if test="./sel='true'">
                                                                                                             <span class="spacer">
                                                                                                                 <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">ReqDocs?fkey=</xsl:attribute><img src="imgs/buttons/document.png" alt="Ver Documentos Registrados" />
+                                                                                                                    <xsl:attribute name="href">ReqDocumentos?fkey=<xsl:value-of select="$key" /></xsl:attribute><img src="imgs/buttons/document.png" alt="Ver Documentos Registrados" />
                                                                                                                 </a>
                                                                                                             </span>
                                                                                                         </xsl:if>

@@ -71,6 +71,10 @@
         <servlet-name>ReqDocumentos</servlet-name>
         <servlet-class>war.ReqDocumentos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Usuarios</servlet-name>
+        <servlet-class>war.Usuarios</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Reqm</servlet-name>
         <url-pattern>/Reqm</url-pattern>
@@ -138,6 +142,10 @@
     <servlet-mapping>
         <servlet-name>ReqDocumentos</servlet-name>
         <url-pattern>/ReqDocumentos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Usuarios</servlet-name>
+        <url-pattern>/Usuarios</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

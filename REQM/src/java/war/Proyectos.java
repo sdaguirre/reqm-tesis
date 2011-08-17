@@ -88,31 +88,7 @@ public class Proyectos extends HttpServlet {
             } else {
                 response.setContentType("text/html;charset=UTF-8");
                 String ins = request.getParameter("ins");
-                if (request.getParameter("mod") == null) {
-                    if (ins == null) {
-                        processRequest(request, response);
-                    } else {
-// -------------------------     REGISTRO DE PROYECTOS      ---------------------
-                        Conexion.autoConnect();
-                        Long key = (Long) session.getAttribute("PersonaId");
-                        if (key != null) {
-                            UserManager user = (UserManager) session.getAttribute("user");
-                            SQLXML proyecto = DAOProyectos.getXMLRecords(key, DAOProyectos.fo_client);
-                            out.println(XMLModder.XSLTransform(
-                                    XMLModder.JoinDocs(proyecto.getString(),
-                                    new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
-                                        DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/proyectos_form.xsl"));
-                        } else {
-                            UserManager user = (UserManager) session.getAttribute("user");
-                            SQLXML proyecto = DAOProyectos.getXMLRecords((Long) session.getAttribute("AnteproyectoId"), DAOProyectos.fo_ap);
-                            out.println(XMLModder.XSLTransform(
-                                    XMLModder.JoinDocs(proyecto.getString(),
-                                    new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
-                                        DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/proyectos_form.xsl"));
-                        }
-
-                    }
-                } else {
+                if (request.getParameter("mod") != null) {
                     UserManager user = (UserManager) session.getAttribute("user");
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
@@ -121,8 +97,29 @@ public class Proyectos extends HttpServlet {
                             XMLModder.JoinDocs(proyectos.getString(),
                             new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
                                 DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/proyectos_form.xsl"));
-                }
+                }else if (ins != null) {
+// -------------------------     REGISTRO DE PROYECTOS      ---------------------
+                    Conexion.autoConnect();
+                    Long key = (Long) session.getAttribute("PersonaId");
+                    if (key != null) {
+                        UserManager user = (UserManager) session.getAttribute("user");
+                        SQLXML proyecto = DAOProyectos.getXMLRecords(key, DAOProyectos.fo_client);
+                        out.println(XMLModder.XSLTransform(
+                                XMLModder.JoinDocs(proyecto.getString(),
+                                new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
+                                    DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/proyectos_form.xsl"));
+                    } else {
+                        UserManager user = (UserManager) session.getAttribute("user");
+                        SQLXML proyecto = DAOProyectos.getXMLRecords((Long) session.getAttribute("AnteproyectoId"), DAOProyectos.fo_ap);
+                        out.println(XMLModder.XSLTransform(
+                                XMLModder.JoinDocs(proyecto.getString(),
+                                new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
+                                    DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/proyectos_form.xsl"));
+                    }
 
+                } else {
+                    processRequest(request, response);
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();

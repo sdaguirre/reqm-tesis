@@ -6,6 +6,7 @@ import java.sql.SQLXML;
 public class DAOUsuarios extends DAO implements IDAO{
 // <editor-fold defaultstate="collapsed" desc="VarDeclarations">
     public static final String tabla="tblUsuarios";
+    public static final int F_LISTA = 1, F_USUARIO = 2, F_NEW = 3;
     private int lUsuarioId,iRolId,iEstadoFl;
     private long lPersonaId;
     private String sUsuarioNm,sUsuarioPwd;
@@ -13,10 +14,10 @@ public class DAOUsuarios extends DAO implements IDAO{
 // <editor-fold defaultstate="collapsed" desc="Builders">
     public DAOUsuarios(){}
 
-    public DAOUsuarios(int lUsuarioId, int iRolId, int iEstadoFl, long lPersonaId, String sUsuarioNm, String sUsuarioPwd) {
+    public DAOUsuarios(int lUsuarioId, int iRolId, int iEstadoFl,int iModoFl, long lPersonaId, String sUsuarioNm, String sUsuarioPwd) {
         this.lUsuarioId = lUsuarioId;
         this.iRolId = iRolId;
-        this.iEstadoFl = iEstadoFl;
+        this.iEstadoFl = ((iModoFl==2&&iEstadoFl==1)?3:iModoFl*iEstadoFl);
         this.lPersonaId = lPersonaId;
         this.sUsuarioNm = sUsuarioNm;
         this.sUsuarioPwd = sUsuarioPwd;
@@ -24,9 +25,11 @@ public class DAOUsuarios extends DAO implements IDAO{
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SearchAndRecords">
     public static SQLXML getXMLRecords() throws SQLException{
-        return getXMLTable(tabla);
+           return getProcessXML("gxml_", tabla, new Object[]{0, DAOUsuarios.F_LISTA});
     }
-
+    public static SQLXML getXMLRecords(long lUsuarioId, int filter) throws SQLException {
+        return getProcessXML("gxml_", tabla, new Object[]{lUsuarioId, filter});
+    }
     public static SQLXML search(String value) throws SQLException {
         return searchXMLRecords(tabla,"%"+value+"%");
     }
@@ -40,10 +43,10 @@ public class DAOUsuarios extends DAO implements IDAO{
         return true;
     }
     public boolean update() throws SQLException {
-            return updateRecord(tabla, new Object[]{lUsuarioId,iRolId,iEstadoFl,lPersonaId,sUsuarioNm,sUsuarioPwd});
+            return updateRecord(tabla, new Object[]{lUsuarioId,iRolId,iEstadoFl,lPersonaId,sUsuarioNm});
     }
     public boolean delete() throws SQLException {
-            return deleteRecord(tabla, lUsuarioId,0);
+            return deleteRecord(tabla, lUsuarioId);
     }
     // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="Accessors">

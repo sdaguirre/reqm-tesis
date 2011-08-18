@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLXML;
 
@@ -33,8 +34,15 @@ public class DAOUsuarios extends DAO implements IDAO{
     public static SQLXML search(String value) throws SQLException {
         return searchXMLRecords(tabla,"%"+value+"%");
     }
-    public static SQLXML LoginUser(String user,String passwd) throws SQLException{
-        return getProcessXML("vfy_", tabla, new Object[]{user,passwd});
+    public static Object[] LoginUser(String user,String passwd) throws SQLException{
+        Object[] temp=new Object[3];
+        ResultSet rs=getProcessRecords("vfy_", tabla, new Object[]{user,passwd});
+        if(rs.next()){
+            temp[0]=rs.getSQLXML(1);
+            temp[1]=rs.getLong(2);
+            temp[2]=rs.getBoolean(3);
+        }
+        return temp;
     }
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="IUD">

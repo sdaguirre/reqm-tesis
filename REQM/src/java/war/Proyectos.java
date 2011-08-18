@@ -35,9 +35,13 @@ public class Proyectos extends HttpServlet {
                 Conexion.autoConnect();
                 String keycode = request.getParameter("fkey");
                 if (keycode != null) {
-                    session.setAttribute("PersonaId", new Long(keycode));
-                    SQLXML proyectos = DAOProyectos.getXMLRecords(new Long(keycode), DAOProyectos.f_cliente);
                     user = (UserManager) session.getAttribute("user");
+                    if (user.isbClient()) {
+                        session.setAttribute("PersonaId", user.getPersonaId());
+                    } else {
+                        session.setAttribute("PersonaId", new Long(keycode));
+                    }
+                    SQLXML proyectos = DAOProyectos.getXMLRecords(new Long(keycode), DAOProyectos.f_cliente);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(proyectos.getString(), user.getPermisos()), path + "../web/xsl/proyectos2.xsl"));
                 } else if (request.getParameter("apkey") != null) {
@@ -48,10 +52,15 @@ public class Proyectos extends HttpServlet {
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(proyectos.getString(), user.getPermisos()), path + "../web/xsl/proyectos2.xsl"));
                 } else {
-                    SQLXML personas = DAOPFisicas.getXMLRecords();
                     user = (UserManager) session.getAttribute("user");
-                    out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(personas.getString(), user.getPermisos()), path + "../web/xsl/proyectos.xsl"));
+                    if (user.isbClient()) {
+                        out.println(XMLModder.XSLTransform(
+                                XMLModder.JoinDocs(DAOProyectos.getXMLRecords(user.getPersonaId(), DAOProyectos.f_cliente).getString(), user.getPermisos()), path + "../web/xsl/proyectos2.xsl"));
+                    } else {
+                        SQLXML personas = DAOPFisicas.getXMLRecords();
+                        out.println(XMLModder.XSLTransform(
+                                XMLModder.JoinDocs(personas.getString(), user.getPermisos()), path + "../web/xsl/proyectos.xsl"));
+                    }
                 }
             } else {
                 Conexion.getConnection().disconnect();
@@ -97,7 +106,7 @@ public class Proyectos extends HttpServlet {
                             XMLModder.JoinDocs(proyectos.getString(),
                             new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
                                 DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/proyectos_form.xsl"));
-                }else if (ins != null) {
+                } else if (ins != null) {
 // -------------------------     REGISTRO DE PROYECTOS      ---------------------
                     Conexion.autoConnect();
                     Long key = (Long) session.getAttribute("PersonaId");

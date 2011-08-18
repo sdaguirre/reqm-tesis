@@ -74,20 +74,24 @@ public class Reqm extends HttpServlet {
             UserManager user;
             if (session.isNew()) {
                 Conexion.autoConnect();
-                SQLXML permisos;
+                Object[] permisos;
+                SQLXML xmldata;
                 try {
                     permisos = DAOUsuarios.LoginUser(request.getParameter("usr"), request.getParameter("pwd"));
+                    xmldata=(SQLXML)permisos[0];
                 } catch (SQLException sql) {
                     Conexion.Destroy();
                     throw new ServletException("", sql);
                 }
-                if (permisos.getString().length() > 0) {
+                if (xmldata.getString().length() > 0) {
                     user = new UserManager();
                     user.setUsername(request.getParameter("usr"));
-                    user.setPermisos(permisos.getString());
+                    user.setPermisos(xmldata.getString());
+                    user.setPersonaId((Long)permisos[1]);
+                    user.setbClient((Boolean)permisos[2]);
                     user.setLogged(true);
                     session.setAttribute("user", user);
-                    out.println(XMLModder.XSLTransform(permisos.getString(), path + "xsl/template.xsl"));
+                    out.println(XMLModder.XSLTransform(xmldata.getString(), path + "xsl/template.xsl"));
                 } else {
                     Conexion.Destroy();
                     request.getSession().invalidate();

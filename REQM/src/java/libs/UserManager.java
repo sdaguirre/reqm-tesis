@@ -6,10 +6,12 @@ import java.io.Serializable;
  *
  * @author Sergio Aguirre
  */
-public class UserManager implements Serializable{
-    private String username="";
+public class UserManager implements Serializable {
+
+    private String username = "";
     private String permisos;
-    private boolean logged=false;
+    private Long PersonaId;
+    private boolean logged = false, bClient = false;
 
     public UserManager() {
     }
@@ -37,7 +39,20 @@ public class UserManager implements Serializable{
     public void setLogged(boolean logged) {
         this.logged = logged;
     }
-    
 
-    
+    public Long getPersonaId() {
+        return PersonaId;
+    }
+
+    public void setPersonaId(Long PersonaId) {
+        this.PersonaId = PersonaId;
+    }
+
+    public boolean isbClient() {
+        return bClient;
+    }
+
+    public void setbClient(boolean bClient) {
+        this.bClient = bClient;
+    }
 }

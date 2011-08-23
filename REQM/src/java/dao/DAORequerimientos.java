@@ -3,16 +3,20 @@ package dao;
 import java.sql.SQLException;
 import java.sql.SQLXML;
 
-public class DAORequerimientos extends DAO implements IDAO{
+public class DAORequerimientos extends DAO implements IDAO {
 //#Region VarDeclarations
-    public static final String tabla="tblRequerimientos";
-    public static final int F_PROYECTO=1,F_REQUERIMIENTO=2,FO_PROYECTO=3,FO_REQPADRE=4;
-    private long lRequerimientoId,lProyectoId,lReqPadreId;
-    private int iTipoFl,iEstadoFl,iAvanceFl;
-    private String sRequerimientoNm,sRequerimientoDesc;
+
+    public static final String tabla = "tblRequerimientos";
+    public static final int F_LISTA = 1, F_REQUERIMIENTO = 2, FO_PROYECTO = 3, FO_REQPADRE = 4, F_LISTA_CLIENTE = 5,
+            A_EMPRESA = 1, A_CLIENTE = 2;
+    private long lRequerimientoId, lProyectoId, lReqPadreId;
+    private int iTipoFl, iEstadoFl, iAvanceFl;
+    private String sRequerimientoNm, sRequerimientoDesc;
     //#End
 //#Region Builders
-    public DAORequerimientos(){}
+
+    public DAORequerimientos() {
+    }
 
     public DAORequerimientos(long lRequerimientoId, long lProyectoId, long lReqPadreId, int iTipoFl, int iEstadoFl, int iAvanceFl, String sRequerimientoNm, String sRequerimientoDesc) {
         this.lRequerimientoId = lRequerimientoId;
@@ -25,31 +29,38 @@ public class DAORequerimientos extends DAO implements IDAO{
         this.sRequerimientoDesc = sRequerimientoDesc;
     }
 
-
     //#End
 //#Region SearchAndRecords
-    public static SQLXML getXMLRecords(long lKeyId,int filtro) throws SQLException{
-        return getProcessXML("gxml_",tabla,new Object[]{lKeyId,filtro});
+    public static SQLXML getXMLRecords(long lKeyId, int filtro) throws SQLException {
+        return getProcessXML("gxml_", tabla, new Object[]{lKeyId, filtro});
     }
 
     public static SQLXML search(String value) throws SQLException {
-        return searchXMLRecords(tabla,"%"+value+"%");
+        return searchXMLRecords(tabla, "%" + value + "%");
     }
     //#End
 //#Region IUD
+
     public boolean insert() throws SQLException {
-        this.lProyectoId=insertRecord(tabla, new Object[]{lProyectoId,lReqPadreId,iTipoFl,iEstadoFl,iAvanceFl,sRequerimientoNm,sRequerimientoDesc});
+        this.lProyectoId = insertRecord(tabla, new Object[]{lProyectoId, lReqPadreId, iTipoFl, iEstadoFl, iAvanceFl, sRequerimientoNm, sRequerimientoDesc});
         return true;
     }
+
     public boolean update() throws SQLException {
-            return updateRecord(tabla, new Object[]{lRequerimientoId,lProyectoId,lReqPadreId,iTipoFl,iEstadoFl,iAvanceFl,sRequerimientoNm,sRequerimientoDesc});
+        return updateRecord(tabla, new Object[]{lRequerimientoId, lProyectoId, lReqPadreId, iTipoFl, iEstadoFl, iAvanceFl, sRequerimientoNm, sRequerimientoDesc});
     }
+
     public boolean delete() throws SQLException {
-            return deleteRecord(tabla, lRequerimientoId);
+        return deleteRecord(tabla, lRequerimientoId);
+    }
+
+    public static boolean approve(long lRequerimientoId, int type) throws SQLException {
+        return processRecord("apr_", tabla, new Object[]{lRequerimientoId,type})>0;
     }
     //#End
 //#Region Accessors
- public int getiAvanceFl() {
+
+    public int getiAvanceFl() {
         return iAvanceFl;
     }
 

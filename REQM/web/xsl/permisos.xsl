@@ -252,6 +252,7 @@
                                                                                     <xsl:param name="fkey" select="fkey"/>
                                                                                     <tr class="static">
                                                                                         <td>
+                                                                                            <xsl:attribute name="id">p<xsl:value-of select="$key" /></xsl:attribute>
                                                                                             <xsl:value-of select="$key" />
                                                                                         </td>
                                                                                         <td>
@@ -261,13 +262,13 @@
                                                                                             <xsl:choose>
                                                                                                 <xsl:when test="bsel='true'">
                                                                                                     <a>
-                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=1</xsl:attribute>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=1#p<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                         <img src="imgs/buttons/check.png" alt="Anular Permiso" />
                                                                                                     </a>
                                                                                                 </xsl:when>
                                                                                                 <xsl:otherwise>
                                                                                                     <a>
-                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=2</xsl:attribute>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=2#p<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                         <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
                                                                                                     </a>
                                                                                                 </xsl:otherwise>
@@ -277,13 +278,13 @@
                                                                                             <xsl:choose>
                                                                                                 <xsl:when test="bins='true'">
                                                                                                     <a>
-                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=3</xsl:attribute>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=3#p<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                         <img src="imgs/buttons/check.png" alt="Anular Permiso" />
                                                                                                     </a>
                                                                                                 </xsl:when>
                                                                                                 <xsl:otherwise>
                                                                                                     <a>
-                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=4</xsl:attribute>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=4#p<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                         <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
                                                                                                     </a>
                                                                                                 </xsl:otherwise>
@@ -293,13 +294,13 @@
                                                                                             <xsl:choose>
                                                                                                 <xsl:when test="bmod='true'">
                                                                                                     <a>
-                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=5</xsl:attribute>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=5#p<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                         <img src="imgs/buttons/check.png" alt="Anular Permiso" />
                                                                                                     </a>
                                                                                                 </xsl:when>
                                                                                                 <xsl:otherwise>
                                                                                                     <a>
-                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=6</xsl:attribute>
+                                                                                                        <xsl:attribute name="href">Permisos?key=<xsl:value-of select="$key" />&#38;checker=6#p<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                         <img src="imgs/buttons/denied.png" alt="Aprobar Permiso" />
                                                                                                     </a>
                                                                                                 </xsl:otherwise>

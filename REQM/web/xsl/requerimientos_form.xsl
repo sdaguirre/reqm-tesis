@@ -113,7 +113,7 @@
                                                                                                     <select name="inRPadre" size="1">
                                                                                                         <xsl:for-each select="/root/row">
                                                                                                             <xsl:choose>
-                                                                                                                <xsl:when test="padrenm">
+                                                                                                                <xsl:when test="padrenm/text()">
                                                                                                                     <option>
                                                                                                                         <xsl:attribute name="value">
                                                                                                                             <xsl:value-of select="padrekey" />

@@ -34,14 +34,24 @@ public class Requerimientos extends HttpServlet {
                 String keycode = request.getParameter("prkey");
                 if (keycode != null) {
                     session.setAttribute("ProyectoId", new Long(keycode));
-                    SQLXML requerimientos = DAORequerimientos.getXMLRecords(new Long(keycode), DAORequerimientos.F_PROYECTO);
+                    SQLXML requerimientos = null;
                     user = (UserManager) session.getAttribute("user");
+                    if (user.isbClient()) {
+                        requerimientos = DAORequerimientos.getXMLRecords(new Long(keycode), DAORequerimientos.F_LISTA_CLIENTE);
+                    } else {
+                        requerimientos = DAORequerimientos.getXMLRecords(new Long(keycode), DAORequerimientos.F_LISTA);
+                    }
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(requerimientos.getString(), user.getPermisos()), path + "../web/xsl/requerimientos.xsl"));
-                }else if(session.getAttribute("ProyectoId")!=null){
+                } else if (session.getAttribute("ProyectoId") != null) {
                     user = (UserManager) session.getAttribute("user");
-                    out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAORequerimientos.getXMLRecords((Long)session.getAttribute("ProyectoId"),DAORequerimientos.F_PROYECTO).getString(), user.getPermisos()), path + "../web/xsl/requerimientos.xsl"));
+                    if (user.isbClient()) {
+                        out.println(XMLModder.XSLTransform(
+                                XMLModder.JoinDocs(DAORequerimientos.getXMLRecords((Long) session.getAttribute("ProyectoId"), DAORequerimientos.F_LISTA_CLIENTE).getString(), user.getPermisos()), path + "../web/xsl/requerimientos.xsl"));
+                    } else {
+                        out.println(XMLModder.XSLTransform(
+                                XMLModder.JoinDocs(DAORequerimientos.getXMLRecords((Long) session.getAttribute("ProyectoId"), DAORequerimientos.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/requerimientos.xsl"));
+                    }
                 }
             } else {
                 Conexion.getConnection().disconnect();
@@ -79,29 +89,8 @@ public class Requerimientos extends HttpServlet {
                 response.sendRedirect("login.html");
             } else {
                 response.setContentType("text/html;charset=UTF-8");
-                String ins = request.getParameter("ins");
-                if (request.getParameter("mod") == null) {
-                    if (ins == null) {
-                        processRequest(request, response);
-                    } else {
-// -------------------------     REGISTRO DE REQUERIMIENTOS      ---------------------
-                        Conexion.autoConnect();
-                        Long key = (Long) session.getAttribute("ProyectoId");
-                        Long req = new Long(ins);
-                        SQLXML requerimientos = null;
-                        UserManager user = (UserManager) session.getAttribute("user");
-                        if (req > 0) {
-                            requerimientos = DAORequerimientos.getXMLRecords(req, DAORequerimientos.FO_REQPADRE);
-                        } else {
-                            if (key != null) {
-                            requerimientos = DAORequerimientos.getXMLRecords(key, DAORequerimientos.FO_PROYECTO);
-                            }
-                        }
-                        out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(requerimientos.getString(),
-                                new String[]{user.getPermisos()}), path + "../web/xsl/requerimientos_form.xsl"));
-                    }
-                } else {
+                String ins = request.getParameter("ins"), approve = request.getParameter("approve");
+                if (request.getParameter("mod") != null) {
                     UserManager user = (UserManager) session.getAttribute("user");
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
@@ -109,8 +98,28 @@ public class Requerimientos extends HttpServlet {
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(requerimientos.getString(),
                             new String[]{user.getPermisos()}), path + "../web/xsl/requerimientos_form.xsl"));
+                } else if (ins != null) {
+                    Conexion.autoConnect();
+                    Long key = (Long) session.getAttribute("ProyectoId");
+                    Long req = new Long(ins);
+                    SQLXML requerimientos = null;
+                    UserManager user = (UserManager) session.getAttribute("user");
+                    if (req > 0) {
+                        requerimientos = DAORequerimientos.getXMLRecords(req, DAORequerimientos.FO_REQPADRE);
+                    } else {
+                        if (key != null) {
+                            requerimientos = DAORequerimientos.getXMLRecords(key, DAORequerimientos.FO_PROYECTO);
+                        }
+                    }
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(requerimientos.getString(),
+                            new String[]{user.getPermisos()}), path + "../web/xsl/requerimientos_form.xsl"));
+                } else if (approve != null) {
+                    session.setAttribute("ApproveKey", new Long(approve));
+                    response.sendRedirect("reqsure.html");
+                } else {
+                    processRequest(request, response);
                 }
-
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -157,13 +166,25 @@ public class Requerimientos extends HttpServlet {
                 Conexion.autoConnect();
                 DAORequerimientos daorequerimiento = new DAORequerimientos();
                 System.out.println(request.getParameter("keycode"));
-                daorequerimiento.setlProyectoId(new Long(request.getParameter("keycode")));
+                daorequerimiento.setlRequerimientoId(new Long(request.getParameter("keycode")));
                 daorequerimiento.delete();
                 user = (UserManager) session.getAttribute("user");
-                SQLXML proyectos = DAORequerimientos.getXMLRecords((Long) session.getAttribute("ProyectoId"), DAORequerimientos.F_PROYECTO);
-                user = (UserManager) session.getAttribute("user");
+                SQLXML proyectos = null;
+                if (user.isbClient()) {
+                    proyectos = DAORequerimientos.getXMLRecords((Long) session.getAttribute("ProyectoId"), DAORequerimientos.F_LISTA_CLIENTE);
+                } else {
+                    proyectos = DAORequerimientos.getXMLRecords((Long) session.getAttribute("ProyectoId"), DAORequerimientos.F_LISTA);
+                }
                 out.println(XMLModder.XSLTransform(
                         XMLModder.JoinDocs(proyectos.getString(), user.getPermisos()), path + "../web/xsl/requerimientos.xsl"));
+            } else if (request.getParameter("accept.x") != null) {
+                user = (UserManager) session.getAttribute("user");
+                if (user.isbClient()) {
+                    DAORequerimientos.approve((Long) session.getAttribute("ApproveKey"), DAORequerimientos.A_CLIENTE);
+                } else {
+                    DAORequerimientos.approve((Long) session.getAttribute("ApproveKey"), DAORequerimientos.A_EMPRESA);
+                }
+                response.sendRedirect("ok.html");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

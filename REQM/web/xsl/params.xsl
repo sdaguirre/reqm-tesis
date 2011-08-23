@@ -171,17 +171,12 @@
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <form method="GET" action="http://www.google.com/search" accept-charset="UTF-8" id="search-theme-form">
+                                        <form method="POST" action="Params" accept-charset="UTF-8" id="search-theme-form">
                                             <div>
-                                                <input type="hidden" name="ie" value="UTF-8" />
-                                                <input type="hidden" name="oe" value="UTF-8" />
-                                                <input type="hidden" name="domains" value="www.sd-bo.com" />
-                                                <input maxlength="128" name="q" id="edit-search-theme-form-1"
+                                                <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"
                                                        type="text" />
-                                                <input id="hide" type="radio" name="sitesearch" value="www.sd-bo.com"
-                                                       checked="checked" />
-                                                <input name="op" class="form-submit" value="" type="submit" />
+                                                <input name="srch" class="form-submit" value="" type="submit" />
                                             </div>
                                         </form>
                                     </div>

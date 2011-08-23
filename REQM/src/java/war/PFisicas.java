@@ -17,7 +17,7 @@ public class PFisicas extends HttpServlet {
 
     private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -66,18 +66,7 @@ public class PFisicas extends HttpServlet {
             } else {
                 response.setContentType("text/html;charset=UTF-8");
                 String mod = request.getParameter("mod"), nuevo = request.getParameter("ins");
-                if (mod == null) {
-                    if (nuevo == null) {
-                        processRequest(request, response);
-                    } else {
-                        UserManager user;
-                        request.setCharacterEncoding("UTF-8");
-                        Conexion.autoConnect();
-                        user = (UserManager) session.getAttribute("user");
-                        out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, user.getPermisos()), path + "../web/xsl/form.xsl"));
-                    }
-                } else {
+                if (mod != null) {
                     UserManager user;
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
@@ -85,8 +74,16 @@ public class PFisicas extends HttpServlet {
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(daopfisicas.getString(), user.getPermisos()), path + "../web/xsl/form.xsl"));
+                } else if (nuevo != null) {
+                    UserManager user;
+                    request.setCharacterEncoding("UTF-8");
+                    Conexion.autoConnect();
+                    user = (UserManager) session.getAttribute("user");
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(null, user.getPermisos()), path + "../web/xsl/form.xsl"));
+                } else {
+                    processRequest(request, response);
                 }
-
             }
         } catch (Exception ex) {
             System.out.println(ex.getStackTrace());
@@ -120,24 +117,28 @@ public class PFisicas extends HttpServlet {
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
                 DAOPFisicas pfisica = new DAOPFisicas(new Long(request.getParameter("inCode")), request.getParameter("inName"));
-                if(pfisica.getlPersonaId()==0)
+                if (pfisica.getlPersonaId() == 0) {
                     pfisica.insert();
-                else
+                } else {
                     pfisica.update();
+                }
                 response.sendRedirect("ok.html");
-            } else {
-                if (request.getParameter("del.x") != null) {
-                    Conexion.autoConnect();
-                    DAOPFisicas pfisica = new DAOPFisicas();
-                    pfisica.setlPersonaId(new Long(request.getParameter("keycode")));
-                    pfisica.delete();
-                    user = (UserManager) session.getAttribute("user");
-                    out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), user.getPermisos()), path + "../web/xsl/pfisicas.xsl"));
-                } 
+            } else if (request.getParameter("del.x") != null) {
+                Conexion.autoConnect();
+                DAOPFisicas pfisica = new DAOPFisicas();
+                pfisica.setlPersonaId(new Long(request.getParameter("keycode")));
+                pfisica.delete();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), user.getPermisos()), path + "../web/xsl/pfisicas.xsl"));
+            } else if (request.getParameter("srch") != null) {
+                Conexion.autoConnect();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(), user.getPermisos()), path + "../web/xsl/pfisicas.xsl"));
             }
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
+            ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
             out.close();

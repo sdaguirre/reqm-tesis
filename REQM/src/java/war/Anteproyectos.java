@@ -177,6 +177,16 @@ public class Anteproyectos extends HttpServlet {
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
                         XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords((Long) session.getAttribute("PersonaId")).getString(), user.getPermisos()), path + "../web/xsl/anteproyectos2.xsl"));
+            } else if (request.getParameter("srch1") != null) {
+                Conexion.autoConnect();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(), user.getPermisos()), path + "../web/xsl/anteproyectos.xsl"));
+            } else if (request.getParameter("srch2") != null) {
+                Conexion.autoConnect();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOAnteproyectos.searchXML((Long)session.getAttribute("PersonaId"),request.getParameter("inSearch")).getString(), user.getPermisos()), path + "../web/xsl/anteproyectos2.xsl"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

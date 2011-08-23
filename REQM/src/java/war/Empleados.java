@@ -93,7 +93,7 @@ public class Empleados extends HttpServlet {
                     SQLXML daoempleados = DAOEmpleados.getXMLRecords(new Long(mod));
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoempleados.getString(),  new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CARGOS).getString()}), path + "../web/xsl/empleados_form.xsl"));
+                            XMLModder.JoinDocs(daoempleados.getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CARGOS).getString()}), path + "../web/xsl/empleados_form.xsl"));
                 }
 
             }
@@ -129,28 +129,32 @@ public class Empleados extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
-                DAOEmpleados empleado = new DAOEmpleados(new Long(request.getParameter("inCode")), request.getParameter("inName"),new Integer(request.getParameter("inType")),
-                        new Double(request.getParameter("inPay")),new java.sql.Date(dateFormatter.parse(request.getParameter("inDtIn")).getTime()),null,new Integer(request.getParameter("inActive")));
-                if(empleado.getlEmpleadoId()==0)
+                DAOEmpleados empleado = new DAOEmpleados(new Long(request.getParameter("inCode")), request.getParameter("inName"), new Integer(request.getParameter("inType")),
+                        new Double(request.getParameter("inPay")), new java.sql.Date(dateFormatter.parse(request.getParameter("inDtIn")).getTime()), null, new Integer(request.getParameter("inActive")));
+                if (empleado.getlEmpleadoId() == 0) {
                     empleado.insert();
-                else{
+                } else {
                     empleado.setlPersonaId(new Long(request.getParameter("inFKey")));
-                    String date=request.getParameter("inDtOut");
-                    if(date!=null && date.length()==10)
+                    String date = request.getParameter("inDtOut");
+                    if (date != null && date.length() == 10) {
                         empleado.setDtEgresoDt(new java.sql.Date(dateFormatter.parse(date).getTime()));
+                    }
                     empleado.update();
                 }
                 response.sendRedirect("ok.html");
-            } else {
-                if (request.getParameter("del.x") != null) {
-                    Conexion.autoConnect();
-                    DAOEmpleados empleado = new DAOEmpleados();
-                    empleado.setlEmpleadoId(new Long(request.getParameter("keycode")));
-                    empleado.delete();
-                    user = (UserManager) session.getAttribute("user");
-                    out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOEmpleados.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CARGOS).getString()}), path + "../web/xsl/empleados.xsl"));
-                } 
+            } else if (request.getParameter("del.x") != null) {
+                Conexion.autoConnect();
+                DAOEmpleados empleado = new DAOEmpleados();
+                empleado.setlEmpleadoId(new Long(request.getParameter("keycode")));
+                empleado.delete();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOEmpleados.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CARGOS).getString()}), path + "../web/xsl/empleados.xsl"));
+            } else if (request.getParameter("srch") != null) {
+                Conexion.autoConnect();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOEmpleados.searchXML(request.getParameter("inSearch")).getString(), user.getPermisos()), path + "../web/xsl/pfisicas.xsl"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -166,6 +170,6 @@ public class Empleados extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "REQM System - PFisicas";
+        return "REQM System - Empleados";
     }// </editor-fold>
 }

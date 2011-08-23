@@ -36,6 +36,9 @@ public class DAOPFisicas extends DAO implements IDAO{
     public static ArrayList<DAOPFisicas> search(String value) throws SQLException {
         return filldao(searchRecords(tabla,"%"+value+"%"));
     }
+    public static SQLXML searchXML(String value) throws SQLException {
+        return getProcessXML("srch_", tabla, new Object[]{"%"+value+"%"});
+    }
     //#End
 //#Region IUD
     public boolean insert() throws SQLException {

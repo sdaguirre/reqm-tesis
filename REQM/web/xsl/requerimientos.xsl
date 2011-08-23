@@ -270,6 +270,10 @@
                                                                                                     <xsl:value-of select="$key" /> - <xsl:value-of select="name" />
                                                                                                 </td>
                                                                                                 <td>
+                                                                                                    <xsl:if test="type='Final'">
+                                                                                                        <xsl:attribute name="style">font-weight:bold;
+                                                                                                        </xsl:attribute>
+                                                                                                    </xsl:if>
                                                                                                     <xsl:value-of select="type" />
                                                                                                 </td>
                                                                                                 <td>

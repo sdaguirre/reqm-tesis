@@ -40,6 +40,9 @@ public class DAOAnteproyectos extends DAO implements IDAO{
     public static ArrayList<DAO> search(String value) throws SQLException {
         return filldao(searchRecords(tabla,"%"+value+"%"));
     }
+    public static SQLXML searchXML(Long lPersonaId,String value) throws SQLException {
+        return getProcessXML("srch_", tabla, new Object[]{lPersonaId,"%"+value+"%"});
+    }
 	//#End
 //#Region IUD
     public boolean insert() throws SQLException {

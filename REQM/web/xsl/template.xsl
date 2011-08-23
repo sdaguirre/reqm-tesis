@@ -135,7 +135,7 @@
                                                         </xsl:if>
                                                         <xsl:if test="@id=500">
                                                             <li>
-                                                                <a href="Seguridad" class="sf-with-ul">Seguridad</a>
+                                                                <a href="Usuarios" class="sf-with-ul">Seguridad</a>
                                                                 <ul>
                                                                     <xsl:for-each select="/permisos/sitio[@id&gt;500]">
                                                                         <xsl:if test="@id=501">

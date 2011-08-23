@@ -237,7 +237,7 @@
                                                                                     <col width="10px"/>
                                                                                     <col width="60px"/>
                                                                                     <col width="70px"/>
-                                                                                    <col width="140px"/>
+                                                                                    <col width="150px"/>
                                                                                 </colgroup>
                                                                                 <thead>
                                                                                     <th class="col-one">Requerimiento</th>
@@ -279,6 +279,22 @@
                                                                                                     <xsl:value-of select="avance" />
                                                                                                 </td>
                                                                                                 <td><div class="formButtons">
+                                                                                                    <xsl:choose>
+                                                                                                        <xsl:when test="check='true'">
+                                                                                                            <span>
+                                                                                                                <a id="formLink" rel="prettyPhoto[act]" >
+                                                                                                                    <xsl:attribute name="href">Requerimientos?approve=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                    <xsl:attribute name="rel">prettyPhoto[p<xsl:value-of select="$key" />]</xsl:attribute>
+                                                                                                                    <img src="imgs/buttons/check.png" alt="Aprobar requerimiento" />
+                                                                                                                </a>
+                                                                                                            </span>
+                                                                                                        </xsl:when>
+                                                                                                        <xsl:otherwise>
+                                                                                                            <span class="formButtons">
+                                                                                                            <img id="formLink" style="border: 0px" src="imgs/buttons/lock.png" alt="Requerimiento ya aceptado" />
+                                                                                                            </span>
+                                                                                                        </xsl:otherwise>
+                                                                                                    </xsl:choose>
                                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=203]">
                                                                                                         <xsl:if test="./ins='true'">
                                                                                                             <span>

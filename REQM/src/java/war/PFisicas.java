@@ -80,7 +80,7 @@ public class PFisicas extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(null, user.getPermisos()), path + "../web/xsl/form.xsl"));
+                            XMLModder.JoinDocs("", user.getPermisos()), path + "../web/xsl/form.xsl"));
                 } else {
                     processRequest(request, response);
                 }

@@ -68,7 +68,7 @@ public class Roles extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, user.getPermisos()), path + "../web/xsl/roles_form.xsl"));
+                                XMLModder.JoinDocs("", user.getPermisos()), path + "../web/xsl/roles_form.xsl"));
                     }
                 } else {
                     UserManager user;

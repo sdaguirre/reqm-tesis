@@ -31,27 +31,37 @@ import org.xml.sax.SAXException;
  */
 public class XMLModder {
 
+    public static Document JoinDocs(Document principal, String secundario) throws ParserConfigurationException {
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        try {
+            Document sec = builder.parse(new InputSource(new StringReader(secundario)));
+            Node nodo = principal.importNode(sec.getDocumentElement(), true);
+            principal.getDocumentElement().appendChild(nodo);
+            /*System.out.println("============================================");
+            for (int i = 0; i < principal.getDocumentElement().getChildNodes().getLength(); i++) {
+                System.out.println(principal.getDocumentElement().getChildNodes().item(i).getNodeName());
+            }*/
+            return principal;
+        } catch (SAXException ex) {
+            Logger.getLogger(XMLModder.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (IOException ex) {
+            Logger.getLogger(XMLModder.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
     public static Document JoinDocs(String principal, String secundario) throws ParserConfigurationException {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         try {
-            System.out.println(principal);
-            System.out.println(secundario);
+            //System.out.println(principal);
+            //System.out.println(secundario);
             Document prin;
             if(principal == null || principal.length()==0)
                 prin = builder.parse(new InputSource(new StringReader("<root></root>")));
             else
                 prin = builder.parse(new InputSource(new StringReader(principal)));
-            Document sec = builder.parse(new InputSource(new StringReader(secundario)));
-            Node nodo = prin.importNode(sec.getDocumentElement(), true);
-            prin.getDocumentElement().appendChild(nodo);
-            /*System.out.println("============================================");
-            System.out.println(prin.getChildNodes().getLength());
-            for (int i = 0; i < prin.getDocumentElement().getChildNodes().getLength(); i++) {
-                System.out.println(prin.getDocumentElement().getChildNodes().item(i).getNodeName());
-            }*/
-            return prin;
+            return JoinDocs(prin, secundario);
         } catch (SAXException ex) {
-
             Logger.getLogger(XMLModder.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } catch (IOException ex) {

@@ -7,7 +7,7 @@ import java.sql.SQLXML;
 public class DAOProyectos extends DAO implements IDAO{
 //#Region VarDeclarations
     public static final String tabla="tblProyectos";
-    public static final int f_cliente=1,f_anteprotecto=2,f_proyecto=3,fo_ap=4,fo_client=5;
+    public static final int F_CLIENTE=1,F_ANTEPROYECTO=2,F_PROYECTO=3,FO_AP=4,FO_CLIENT=5;
     private long lProyectoId,lAnteproyectoId;
     private int iPTipoId,iPCategoriaId,iEstadoFl;
     private Date dtFechaIniDt, dtFechaFinDt;
@@ -38,6 +38,10 @@ public class DAOProyectos extends DAO implements IDAO{
 
     public static SQLXML search(String value) throws SQLException {
         return searchXMLRecords(tabla,"%"+value+"%");
+    }
+    
+    public static SQLXML searchXML(int origen,Long lPersonaId,String value) throws SQLException {
+        return getProcessXML("srch_", tabla, new Object[]{lPersonaId,"%"+value+"%",origen});
     }
     //#End
 //#Region IUD

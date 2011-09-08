@@ -1,6 +1,7 @@
 package libs;
 
 import java.io.Serializable;
+import org.w3c.dom.Document;
 
 /**
  *
@@ -10,10 +11,19 @@ public class UserManager implements Serializable {
 
     private String username = "";
     private String permisos;
+    private Document brief;
     private Long PersonaId;
     private boolean logged = false, bClient = false;
 
     public UserManager() {
+    }
+
+    public Document getBrief() {
+        return brief;
+    }
+
+    public void setBrief(Document brief) {
+        this.brief = brief;
     }
 
     public String getPermisos() {

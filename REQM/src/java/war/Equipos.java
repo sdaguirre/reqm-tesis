@@ -68,7 +68,7 @@ public class Equipos extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, user.getPermisos()), path + "../web/xsl/equipos_form.xsl"));
+                                XMLModder.JoinDocs("", user.getPermisos()), path + "../web/xsl/equipos_form.xsl"));
                     }
                 } else {
                     UserManager user;

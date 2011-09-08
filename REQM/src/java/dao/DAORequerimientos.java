@@ -38,6 +38,10 @@ public class DAORequerimientos extends DAO implements IDAO {
     public static SQLXML search(String value) throws SQLException {
         return searchXMLRecords(tabla, "%" + value + "%");
     }
+
+    public static SQLXML searchXML(Long lProyectoId,String value) throws SQLException {
+        return getProcessXML("srch_", tabla, new Object[]{lProyectoId,"%"+value+"%"});
+    }
     //#End
 //#Region IUD
 

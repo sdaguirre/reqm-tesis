@@ -170,12 +170,12 @@
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <form method="POST" action="Roles" accept-charset="UTF-8" id="search-theme-form">
+                                        <form method="POST" action="Proyectos" accept-charset="UTF-8" id="search-theme-form">
                                             <div>
                                                 <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"
                                                        type="text" />
-                                                <input name="srch" class="form-submit" value="" type="submit" />
+                                                <input name="srch2" class="form-submit" value="" type="submit" />
                                             </div>
                                         </form>
                                     </div>

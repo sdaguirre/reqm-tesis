@@ -22,34 +22,22 @@
                 <link type="text/css" rel="stylesheet" media="all" href="css/style.css" />
                 <link type="text/css" rel="stylesheet" media="all" href="css/menu.css" />
                 <link type="text/css" rel="stylesheet" media="all" href="css/superfish.css" />
-                <link type="text/css" rel="stylesheet" media="all" href="css/tableview.css"  />
                 <link type="text/css" rel="stylesheet" media="all" href="css/superfish-navbar.css"  />
-                <link type="text/css" rel="stylesheet" media="all" href="css/prettyPhoto.css"/>
-
                 <!--script-->
                 <script type="text/javascript" src="js/yahoo-dom-event.js"></script>
                 <script type="text/javascript" src="js/animation-min.js"></script>
                 <script type="text/javascript" src="js/container_core-min.js"></script>
                 <script type="text/javascript" src="js/menu-min.js"></script>
+                <script type="text/javascript" src="js/jquery_003.js"></script>
                 <script type="text/javascript" src="js/drupal.js"></script>
                 <script type="text/javascript" src="js/cufon-yui.js"></script>
                 <script type="text/javascript" src="js/cufon-replace.js"></script>
                 <script type="text/javascript" src="js/Myriad_Pro_400.js"></script>
                 <script type="text/javascript" src="js/jquery.js"></script>
                 <script type="text/javascript" src="js/jquery_002.js"></script>
-                <script type="text/javascript" src="js/jquery_003.js"></script>
                 <script type="text/javascript" src="js/slider.js"></script>
 
-                <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
-                <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
-                <script type="text/javascript" src="js/viewer.table.js"></script>
-                <script type="text/javascript" src="js/viewer.popups.js"></script>
-                <script type="text/javascript">
-                    $('form').submit(function(){
-                        this.post(Proyectos);
-                    });
-                </script>
-
+                <script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
                 <script type="text/javascript" src="js/hoverIntent.js"></script>
                 <script type="text/javascript" src="js/superfish.js"></script>
                 <script type="text/javascript">
@@ -147,7 +135,7 @@
                                                         </xsl:if>
                                                         <xsl:if test="@id=500">
                                                             <li>
-                                                                <a href="Seguridad" class="sf-with-ul">Seguridad</a>
+                                                                <a href="Usuarios" class="sf-with-ul">Seguridad</a>
                                                                 <ul>
                                                                     <xsl:for-each select="/root/permisos/sitio[@id&gt;500]">
                                                                         <xsl:if test="@id=501">
@@ -170,12 +158,12 @@
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <form method="POST" action="Proyectos" accept-charset="UTF-8" id="search-theme-form">
+                                        <form method="POST" action="Roles" accept-charset="UTF-8" id="search-theme-form">
                                             <div>
                                                 <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"
                                                        type="text" />
-                                                <input name="srch1" class="form-submit" value="" type="submit" />
+                                                <input name="srch" class="form-submit" value="" type="submit" />
                                             </div>
                                         </form>
                                     </div>
@@ -191,11 +179,22 @@
                                                         <div class="block block-user" id="block-user-1">
                                                             <div class="block-top">
                                                                 <div class="title">
-                                                                    <h3>Secci&#243;n</h3>
+                                                                    <h3>Accesos</h3>
                                                                 </div>
                                                                 <div class="content">
                                                                     <ul class="menu">
-                                                                        <li class="leaf first"><div id="selected">Clientes</div></li>
+                                                                        <li class="leaf first">
+                                                                            <a href="PFisicas">Clientes</a>
+                                                                        </li>
+                                                                        <li class="leaf">
+                                                                            <a href="Anteproyectos">Anteproyectos</a>
+                                                                        </li>
+                                                                        <li class="collapsed">
+                                                                            <a href="Proyectos">Proyectos</a>
+                                                                        </li>
+                                                                        <li class="leaf last">
+                                                                            <a href="Informes">Informes</a>
+                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -205,60 +204,33 @@
                                             </div>
                                             <div id="cont-col">
                                                 <div class="ind">
-                                                    <h2>Administrador de Proyectos</h2>
+                                                    <h2>Bienvenido al Sistema de Administracion de Requerimientos</h2>
                                                     <!-- start main content -->
                                                     <div class="node">
                                                         <div class="taxonomy"></div>
                                                         <div class="content">
-                                                            <div class="services">Por favor, seleccione el cliente deseado para la visualizaci&#243;n de sus Proyectos.
+                                                            <div class="services"><!--Content
                                                                 <br />
-                                                                <a href="#" class="cont-more">mas ayuda</a>
+                                                                <a href="#" class="cont-more">read more</a>
                                                                 <br class="clear" />
                                                                 <br />
+                                                                <br />-->
                                                                 <div class="columns">
                                                                     <div class="column-left">
-                                                                        <input type="hidden" id="keycode" name="keycode" value="" />
-                                                                        <table id="report" width="500px">
-                                                                            <tr>
-                                                                                <th>Codigo</th>
-                                                                                <th>Nombre</th>
-                                                                                <th id="former"> </th>
-                                                                            </tr>
-                                                                            <xsl:for-each select="/root/row">
-                                                                                <xsl:sort select="name" />
-                                                                                <xsl:param name="key" select="@key"/>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        <xsl:value-of select="$key" />
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <xsl:value-of select="name" />
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <div class="arrow"></div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td colspan="5">
-                                                                                        <h1 class="xsldtitulos">Opciones</h1>
-                                                                                        <ul class="gallery clearfix">
-                                                                                            <xsl:for-each select="/root/permisos/sitio[@id=202]">
-                                                                                                <xsl:if test="./sel='true'">
-                                                                                                    <li>
-                                                                                                        <span class="formButtons">
-                                                                                                            <a id="formLink" >
-                                                                                                                <xsl:attribute name="href">Proyectos?fkey=<xsl:value-of select="$key" /></xsl:attribute>
-                                                                                                                <img src="imgs/buttons/open.png" alt="Ver Proyectos del Cliente" />
-                                                                                                            </a>Ver Proyectos
-                                                                                                        </span>
-                                                                                                    </li>
-                                                                                                </xsl:if>
-                                                                                            </xsl:for-each>
-                                                                                        </ul>
-                                                                                    </td>
-                                                                                </tr>
+                                                                        <h4>Ultimos Requerimientos</h4>
+                                                                        <ul>
+                                                                            <xsl:for-each select="/root/reqlist/req">
+                                                                            <li>
+                                                                                <xsl:value-of select="." />
+                                                                            </li>
                                                                             </xsl:for-each>
-                                                                        </table>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="column-right">
+                                                                        <h4>Ultimos Documentos</h4>
+                                                                        <xsl:for-each select="/root/doclist/doc">
+                                                                            <div><xsl:value-of select="." /></div>
+                                                                        </xsl:for-each>
                                                                     </div>
                                                                 </div>
                                                             </div>

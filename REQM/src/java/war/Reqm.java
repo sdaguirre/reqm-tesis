@@ -36,11 +36,14 @@ public class Reqm extends HttpServlet {
             HttpSession session = request.getSession(false);
             UserManager user = (UserManager) session.getAttribute("user");
             if (!session.isNew() && user.isLogged()) {
-                out.println(XMLModder.XSLTransform(user.getPermisos(), path + "xsl/template.xsl"));
+                out.println(XMLModder.XSLTransform(user.getBrief(), path + "xsl/briefing.xsl"));
             } else {
                 session.invalidate();
                 response.sendRedirect("login.html");
             }
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
         } finally {
             out.close();
         }
@@ -53,7 +56,8 @@ public class Reqm extends HttpServlet {
         String exit = request.getParameter("drop");
         if (exit != null && exit.equals("true")) {
             try {
-                Conexion.Destroy();
+                if(Conexion.getConnection()!=null)
+                    Conexion.Destroy();
             } catch (SQLException ex) {
                 Logger.getLogger(Reqm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -76,9 +80,11 @@ public class Reqm extends HttpServlet {
                 Conexion.autoConnect();
                 Object[] permisos;
                 SQLXML xmldata;
+                SQLXML xmlbrief;
                 try {
                     permisos = DAOUsuarios.LoginUser(request.getParameter("usr"), request.getParameter("pwd"));
                     xmldata=(SQLXML)permisos[0];
+                    xmlbrief=(SQLXML)permisos[3];
                 } catch (SQLException sql) {
                     Conexion.Destroy();
                     throw new ServletException("", sql);
@@ -87,11 +93,12 @@ public class Reqm extends HttpServlet {
                     user = new UserManager();
                     user.setUsername(request.getParameter("usr"));
                     user.setPermisos(xmldata.getString());
+                    user.setBrief(XMLModder.JoinDocs(xmlbrief.getString(),((SQLXML)permisos[4]).getString()));
                     user.setPersonaId((Long)permisos[1]);
                     user.setbClient((Boolean)permisos[2]);
                     user.setLogged(true);
                     session.setAttribute("user", user);
-                    out.println(XMLModder.XSLTransform(xmldata.getString(), path + "xsl/template.xsl"));
+                    out.println(XMLModder.XSLTransform(XMLModder.JoinDocs(user.getBrief(),user.getPermisos()), path + "xsl/briefing.xsl"));
                 } else {
                     Conexion.Destroy();
                     request.getSession().invalidate();
@@ -99,7 +106,7 @@ public class Reqm extends HttpServlet {
                 }
             } else {
                 user = (UserManager) session.getAttribute("user");
-                out.println(XMLModder.XSLTransform(user.getPermisos(), path + "xsl/template.xsl"));
+                out.println(XMLModder.XSLTransform(user.getBrief(), path + "xsl/briefing.xsl"));
             }
         } catch (Exception ex) {
             Logger.getLogger(Reqm.class.getName()).log(Level.SEVERE, null, ex);

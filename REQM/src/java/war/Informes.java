@@ -1,7 +1,8 @@
 package war;
 
 import conexion.Conexion;
-import dao.DAORoles;
+import dao.DAOPFisicas;
+import dao.DAOProyectos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLXML;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import libs.UserManager;
 import libs.XMLModder;
 
-public class Roles extends HttpServlet {
+public class Informes extends HttpServlet {
 
     private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
@@ -27,10 +28,9 @@ public class Roles extends HttpServlet {
             UserManager user;
             if (!session.isNew()) {
                 Conexion.autoConnect();
-                SQLXML roles = DAORoles.getXMLRecords();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(roles.getString(), user.getPermisos()), path + "../web/xsl/roles.xsl"));
+                        XMLModder.JoinDocs("", user.getPermisos()), path + "../web/xsl/informes.xsl"));
             } else {
                 Conexion.getConnection().disconnect();
                 request.getSession().invalidate();
@@ -46,6 +46,13 @@ public class Roles extends HttpServlet {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -58,37 +65,49 @@ public class Roles extends HttpServlet {
                 response.sendRedirect("login.html");
             } else {
                 response.setContentType("text/html;charset=UTF-8");
-                String mod = request.getParameter("mod"), nuevo = request.getParameter("ins");
-                if (mod == null) {
-                    if (nuevo == null) {
-                        processRequest(request, response);
-                    } else {
-                        UserManager user;
-                        request.setCharacterEncoding("UTF-8");
-                        Conexion.autoConnect();
-                        user = (UserManager) session.getAttribute("user");
-                        out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs("", user.getPermisos()), path + "../web/xsl/roles_form.xsl"));
-                    }
-                } else {
-                    UserManager user;
-                    request.setCharacterEncoding("UTF-8");
+                UserManager user;
+                String str=request.getParameter("rep");
+                int rep = new Integer((str!=null?str:"0"));
+                str=request.getParameter("akey");
+                long persona=new Long(str!=null?str:"0");
+                str=request.getParameter("bkey");
+                long project=new Long(str!=null?str:"0");
+                if (rep != 0) {
+                    session.setAttribute("Report", rep);
                     Conexion.autoConnect();
-                    SQLXML daopfisicas = DAORoles.getXMLRecords(mod);
+                    SQLXML personas = DAOPFisicas.getXMLRecords();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daopfisicas.getString(), user.getPermisos()), path + "../web/xsl/roles_form.xsl"));
-                }
+                            XMLModder.JoinDocs(personas.getString(), user.getPermisos()), path + "../web/xsl/informes2.xsl"));
+                } else if(persona!=0){
+                    session.setAttribute("RepKey1", persona);
+                    Conexion.autoConnect();
+                    SQLXML personas = DAOPFisicas.getXMLRecords(persona,DAOPFisicas.F_REPORT);
+                    SQLXML proyectos = DAOProyectos.getXMLRecords(persona, DAOProyectos.F_CLIENTE);
+                    user = (UserManager) session.getAttribute("user");
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(proyectos.getString(),new String[]{personas.getString(),user.getPermisos()}), path + "../web/xsl/informes3.xsl"));
+                }else if(project!=0){
 
+                }else{
+                    processRequest(request, response);
+                }
             }
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
+            ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
             out.close();
         }
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -105,23 +124,26 @@ public class Roles extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
-                DAORoles daorol = new DAORoles(new Integer(request.getParameter("inCode")), request.getParameter("inName"),new Integer(request.getParameter("inActive")));
-                if (daorol.getiRolId() == 0) {
-                    daorol.insert();
+                DAOPFisicas pfisica = new DAOPFisicas(new Long(request.getParameter("inCode")), request.getParameter("inName"));
+                if (pfisica.getlPersonaId() == 0) {
+                    pfisica.insert();
                 } else {
-                    daorol.update();
+                    pfisica.update();
                 }
                 response.sendRedirect("ok.html");
-            } else {
-                if (request.getParameter("del.x") != null) {
-                    Conexion.autoConnect();
-                    DAORoles daorol = new DAORoles();
-                    daorol.setiRolId(new Integer(request.getParameter("keycode")));
-                    daorol.delete();
-                    user = (UserManager) session.getAttribute("user");
-                    out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAORoles.getXMLRecords().getString(), user.getPermisos()), path + "../web/xsl/roles.xsl"));
-                }
+            } else if (request.getParameter("del.x") != null) {
+                Conexion.autoConnect();
+                DAOPFisicas pfisica = new DAOPFisicas();
+                pfisica.setlPersonaId(new Long(request.getParameter("keycode")));
+                pfisica.delete();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), user.getPermisos()), path + "../web/xsl/pfisicas.xsl"));
+            } else if (request.getParameter("srch") != null) {
+                Conexion.autoConnect();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(), user.getPermisos()), path + "../web/xsl/pfisicas.xsl"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -137,6 +159,6 @@ public class Roles extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "REQM System - Roles";
+        return "REQM System - Informes";
     }// </editor-fold>
 }

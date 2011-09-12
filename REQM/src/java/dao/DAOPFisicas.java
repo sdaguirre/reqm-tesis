@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class DAOPFisicas extends DAO implements IDAO{
 //#Region VarDeclarations
     public static final String tabla="tblPFisicas";
+    public static final int F_LISTA=1,F_DOCUMENTO=2,F_NEW=3,F_REPORT=4;
     private long lPersonaId;
     private String sPersonaNm;
 	//#End
@@ -26,6 +27,9 @@ public class DAOPFisicas extends DAO implements IDAO{
     }
     public static SQLXML getXMLRecords(String key) throws SQLException{
         return getXMLRecords(tabla, new Long(key));
+    }
+    public static SQLXML getXMLRecords(long lPersonaId, int filter) throws SQLException {
+        return getProcessXML("gxml_", tabla, new Object[]{lPersonaId, filter});
     }
     public static ArrayList<DAOPFisicas> getRecords(int limit) throws SQLException {
         if (limit==0)

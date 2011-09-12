@@ -57,7 +57,8 @@ table tbody tr.odd {
 /* Expander
  * ------------------------------------------------------------------------- */
 .acts_as_tree_table tr td .expander {
-    background-image: url(../imgs/buttons/bullet_toggle_minus.png);
+    /*background-image: url(../imgs/buttons/bullet_toggle_minus.png);*/
+    background-image: url(../imgs/buttons/zoomout.png);
     background-position: center center;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -66,9 +67,11 @@ table tbody tr.odd {
 }
 
 .acts_as_tree_table tr.collapsed td .expander {
-    background-image: url(../imgs/buttons/bullet_toggle_plus.png);
+    /*background-image: url(../imgs/buttons/bullet_toggle_plus.png);*/
+    background-image: url(../imgs/buttons/zoomin.png);
 }
 
 .acts_as_tree_table tr.expanded td .expander {
-    background-image: url(../imgs/buttons/bullet_toggle_minus.png);
+    /*background-image: url(../imgs/buttons/bullet_toggle_minus.png);*/
+    background-image: url(../imgs/buttons/zoomout.png);
 }

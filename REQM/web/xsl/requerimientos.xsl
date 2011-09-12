@@ -237,7 +237,7 @@
                                                                                     <col width="10px"/>
                                                                                     <col width="60px"/>
                                                                                     <col width="70px"/>
-                                                                                    <col width="150px"/>
+                                                                                    <col width="163px"/>
                                                                                 </colgroup>
                                                                                 <thead>
                                                                                     <th class="col-one">Requerimiento</th>
@@ -299,22 +299,31 @@
                                                                                                             </span>
                                                                                                         </xsl:otherwise>
                                                                                                     </xsl:choose>
-                                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=203]">
-                                                                                                        <xsl:if test="./ins='true'">
-                                                                                                            <span>
-                                                                                                                <a id="formLink" rel="prettyPhoto[mod]" >
-                                                                                                                    <xsl:attribute name="href">Requerimientos?ins=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
-                                                                                                                    <xsl:attribute name="rel">prettyPhoto[<xsl:value-of select="$key" />]</xsl:attribute>
-                                                                                                                    <img src="imgs/buttons/add.png" alt="Nuevo Registro Hijo" />
+                                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=207]">
+                                                                                                        <xsl:if test="./sel='true'">
+                                                                                                            <span class="formButtons">
+                                                                                                                <a id="formLink" >
+                                                                                                                    <xsl:attribute name="href">Observaciones?fkey=<xsl:value-of select="$key" /></xsl:attribute><img src="imgs/buttons/alert.png" alt="Realizar una Observacion" />
                                                                                                                 </a>
                                                                                                             </span>
                                                                                                         </xsl:if>
                                                                                                     </xsl:for-each>
                                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=206]">
                                                                                                         <xsl:if test="./sel='true'">
-                                                                                                            <span class="spacer">
+                                                                                                            <span>
                                                                                                                 <a id="formLink" >
                                                                                                                     <xsl:attribute name="href">ReqDocumentos?fkey=<xsl:value-of select="$key" /></xsl:attribute><img src="imgs/buttons/document.png" alt="Ver Documentos Registrados" />
+                                                                                                                </a>
+                                                                                                            </span>
+                                                                                                        </xsl:if>
+                                                                                                    </xsl:for-each>
+                                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=203]">
+                                                                                                        <xsl:if test="./ins='true'">
+                                                                                                            <span class="spacer">
+                                                                                                                <a id="formLink" rel="prettyPhoto[mod]" >
+                                                                                                                    <xsl:attribute name="href">Requerimientos?ins=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                    <xsl:attribute name="rel">prettyPhoto[<xsl:value-of select="$key" />]</xsl:attribute>
+                                                                                                                    <img src="imgs/buttons/add.png" alt="Nuevo Registro Hijo" />
                                                                                                                 </a>
                                                                                                             </span>
                                                                                                         </xsl:if>

@@ -1,0 +1,20 @@
+.bar1{
+background:white url('../imgs/buttons/bar1.png') top left no-repeat;
+ padding: 0;
+ margin: 5px 0 0 0;
+}
+.bar2{
+background:white url('../imgs/buttons/bar2.png') top left no-repeat;
+ padding: 0;
+ margin: 5px 0 0 0;
+}
+.bar3{
+background:white url('../imgs/buttons/bar3.png') top left no-repeat;
+ padding: 0;
+ margin: 5px 0 0 0;
+}
+.bar4{
+background:white url('../imgs/buttons/bar4.png') top left no-repeat;
+ padding: 0;
+ margin: 5px 0 0 0;
+}

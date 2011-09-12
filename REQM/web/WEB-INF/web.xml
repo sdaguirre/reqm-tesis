@@ -75,6 +75,14 @@
         <servlet-name>Usuarios</servlet-name>
         <servlet-class>war.Usuarios</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Informes</servlet-name>
+        <servlet-class>war.Informes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Observaciones</servlet-name>
+        <servlet-class>war.Observaciones</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Reqm</servlet-name>
         <url-pattern>/Reqm</url-pattern>
@@ -146,6 +154,14 @@
     <servlet-mapping>
         <servlet-name>Usuarios</servlet-name>
         <url-pattern>/Usuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Informes</servlet-name>
+        <url-pattern>/Informes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Observaciones</servlet-name>
+        <url-pattern>/Observaciones</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

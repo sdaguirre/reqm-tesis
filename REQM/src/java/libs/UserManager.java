@@ -12,7 +12,7 @@ public class UserManager implements Serializable {
     private String username = "";
     private String permisos;
     private Document brief;
-    private Long PersonaId;
+    private Long UsuarioId,PersonaId;
     private boolean logged = false, bClient = false;
 
     public UserManager() {
@@ -48,6 +48,14 @@ public class UserManager implements Serializable {
 
     public void setLogged(boolean logged) {
         this.logged = logged;
+    }
+
+    public Long getUsuarioId() {
+        return UsuarioId;
+    }
+
+    public void setUsuarioId(Long UsuarioId) {
+        this.UsuarioId = UsuarioId;
     }
 
     public Long getPersonaId() {

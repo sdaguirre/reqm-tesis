@@ -303,7 +303,9 @@
                                                                                                         <xsl:if test="./sel='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">Observaciones?fkey=<xsl:value-of select="$key" /></xsl:attribute><img src="imgs/buttons/alert.png" alt="Realizar una Observacion" />
+                                                                                                                    <xsl:attribute name="href">Observaciones?fkey=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                    <xsl:attribute name="rel">prettyPhoto[obs<xsl:value-of select="$key" />]</xsl:attribute>
+                                                                                                                    <img src="imgs/buttons/alert.png" alt="Realizar una Observacion" />
                                                                                                                 </a>
                                                                                                             </span>
                                                                                                         </xsl:if>

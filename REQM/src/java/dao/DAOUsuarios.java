@@ -35,14 +35,15 @@ public class DAOUsuarios extends DAO implements IDAO{
         return searchXMLRecords(tabla,"%"+value+"%");
     }
     public static Object[] LoginUser(String user,String passwd) throws SQLException{
-        Object[] temp=new Object[5];
+        Object[] temp=new Object[6];
         ResultSet rs=getProcessRecords("vfy_", tabla, new Object[]{user,passwd});
         if(rs.next()){
             temp[0]=rs.getSQLXML(1);
             temp[1]=rs.getLong(2);
-            temp[2]=rs.getBoolean(3);
-            temp[3]=rs.getSQLXML(4);
+            temp[2]=rs.getLong(3);
+            temp[3]=rs.getBoolean(4);
             temp[4]=rs.getSQLXML(5);
+            temp[5]=rs.getSQLXML(6);
         }
         return temp;
     }

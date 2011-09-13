@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -7,6 +8,7 @@ package war;
 import conexion.Conexion;
 import dao.DAOPContactos;
 import dao.DAOParams;
+import dao.DAOObservaciones;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLXML;
@@ -47,7 +49,7 @@ public class PContactos extends HttpServlet {
                     session.setAttribute("PFisicaId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daocontactos.getString(), user.getPermisos()), path + "../web/xsl/pcontactos.xsl"));
+                            XMLModder.JoinDocs(daocontactos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/pcontactos.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -93,7 +95,7 @@ public class PContactos extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CONTACTOS).getString()}), path + "../web/xsl/pcontactos_form.xsl"));
+                                XMLModder.JoinDocs("",new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.getXMLRecords(DAOParams.CONTACTOS).getString()}), path + "../web/xsl/pcontactos_form.xsl"));
                     }
                 } else {
                     UserManager user;
@@ -102,7 +104,7 @@ public class PContactos extends HttpServlet {
                     SQLXML daopcontactos = DAOPContactos.getXMLRecords(0, new Long(mod));
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daopcontactos.getString(), new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.CONTACTOS).getString()}), path + "../web/xsl/pcontactos_form.xsl"));
+                            XMLModder.JoinDocs(daopcontactos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.getXMLRecords(DAOParams.CONTACTOS).getString()}), path + "../web/xsl/pcontactos_form.xsl"));
                 }
 
             }
@@ -153,7 +155,7 @@ public class PContactos extends HttpServlet {
                     contacto.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOPContactos.getXMLRecords((Long)session.getAttribute("PFisicaId")).getString(), user.getPermisos()), path + "../web/xsl/pcontactos.xsl"));
+                            XMLModder.JoinDocs(DAOPContactos.getXMLRecords((Long)session.getAttribute("PFisicaId")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/pcontactos.xsl"));
                 }
             }
         } catch (Exception ex) {

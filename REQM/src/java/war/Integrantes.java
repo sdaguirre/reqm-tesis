@@ -3,6 +3,7 @@ package war;
 import conexion.Conexion;
 import dao.DAOIntegrantes;
 import dao.DAOParams;
+import dao.DAOObservaciones;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLXML;
@@ -34,7 +35,7 @@ public class Integrantes extends HttpServlet {
                     session.setAttribute("EquipoId", keycode);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daointegrantes.getString(), user.getPermisos()), path + "../web/xsl/integrantes.xsl"));
+                            XMLModder.JoinDocs(daointegrantes.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/integrantes.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -76,7 +77,7 @@ public class Integrantes extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(DAOIntegrantes.getXMLRecords((Long)session.getAttribute("EquipoId"),DAOIntegrantes.F_NEW).getString(), user.getPermisos()), path + "../web/xsl/integrantes_form.xsl"));
+                                XMLModder.JoinDocs(DAOIntegrantes.getXMLRecords((Long)session.getAttribute("EquipoId"),DAOIntegrantes.F_NEW).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/integrantes_form.xsl"));
                     }
                 } else {
                     UserManager user;
@@ -84,7 +85,7 @@ public class Integrantes extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOParams.getXMLRecord(DAOParams.EQUIPOS, new Integer(mod)).getString(), user.getPermisos()), path + "../web/xsl/integrantes_form.xsl"));
+                            XMLModder.JoinDocs(DAOParams.getXMLRecord(DAOParams.EQUIPOS, new Integer(mod)).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/integrantes_form.xsl"));
                 }
 
             }
@@ -127,7 +128,7 @@ public class Integrantes extends HttpServlet {
                     daointegrante.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOIntegrantes.getXMLRecords((Long)session.getAttribute("EquipoId"), DAOIntegrantes.F_EQUIPO).getString(), user.getPermisos()), path + "../web/xsl/equipos.xsl"));
+                            XMLModder.JoinDocs(DAOIntegrantes.getXMLRecords((Long)session.getAttribute("EquipoId"), DAOIntegrantes.F_EQUIPO).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/equipos.xsl"));
                 }
             }
         } catch (Exception ex) {

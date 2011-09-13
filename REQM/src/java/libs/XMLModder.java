@@ -72,11 +72,11 @@ public class XMLModder {
     public static Document JoinDocs(String raiz,String[] xmls) throws ParserConfigurationException {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         try {
-            System.out.println("=================  DOCUMENTO  ====================");
+            /*System.out.println("=================  DOCUMENTO  ====================");
             System.out.println("Raiz:\t\t"+raiz);
             for (String string : xmls) {
                 System.out.println("Extras:\t\t"+string);
-            }
+            }*/
             Document prin;
             if(raiz == null || raiz.length()==0)
                 prin = builder.parse(new InputSource(new StringReader("<root></root>")));
@@ -87,11 +87,39 @@ public class XMLModder {
                 Node nodo = prin.importNode(sec.getDocumentElement(), true);
                 prin.getDocumentElement().appendChild(nodo);
             }
-            System.out.println("===================  FIN DOCUMENTO  =========================");
+            //System.out.println("===================  FIN DOCUMENTO  =========================");
             /*for (int i = 0; i < prin.getDocumentElement().getChildNodes().getLength(); i++) {
                 System.out.println(prin.getDocumentElement().getChildNodes().item(i).getNodeName());
             }*/
             return prin;
+        } catch (SAXException ex) {
+            Logger.getLogger(XMLModder.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (IOException ex) {
+            Logger.getLogger(XMLModder.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    public static Document JoinDocs(Document raiz,String[] xmls) throws ParserConfigurationException {
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        try {
+            /*System.out.println("=================  DOCUMENTO  ====================");
+            System.out.println("Raiz:\t\t"+raiz);
+            for (String string : xmls) {
+                System.out.println("Extras:\t\t"+string);
+            }*/
+            if(raiz == null)
+                raiz = builder.parse(new InputSource(new StringReader("<root></root>")));
+            for (String string : xmls) {
+                Document sec = builder.parse(new InputSource(new StringReader(string)));
+                Node nodo = raiz.importNode(sec.getDocumentElement(), true);
+                raiz.getDocumentElement().appendChild(nodo);
+            }
+            //System.out.println("===================  FIN DOCUMENTO  =========================");
+            /*for (int i = 0; i < prin.getDocumentElement().getChildNodes().getLength(); i++) {
+                System.out.println(prin.getDocumentElement().getChildNodes().item(i).getNodeName());
+            }*/
+            return raiz;
         } catch (SAXException ex) {
             Logger.getLogger(XMLModder.class.getName()).log(Level.SEVERE, null, ex);
             return null;

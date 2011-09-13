@@ -2,8 +2,8 @@ package war;
 
 import conexion.Conexion;
 import dao.DAOPFisicas;
-import dao.DAOPermisos;
 import dao.DAORoles;
+import dao.DAOObservaciones;
 import dao.DAOUsuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,7 +33,7 @@ public class Usuarios extends HttpServlet {
                 SQLXML personas = DAOUsuarios.getXMLRecords();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(personas.getString(), user.getPermisos()), path + "../web/xsl/usuarios.xsl"));
+                        XMLModder.JoinDocs(personas.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/usuarios.xsl"));
             } else {
                 Conexion.getConnection().disconnect();
                 request.getSession().invalidate();
@@ -69,7 +69,7 @@ public class Usuarios extends HttpServlet {
                     SQLXML daousuario = DAOUsuarios.getXMLRecords(new Long(mod),DAOUsuarios.F_USUARIO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daousuario.getString(), user.getPermisos()), path + "../web/xsl/usuarios_form.xsl"));
+                            XMLModder.JoinDocs(daousuario.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/usuarios_form.xsl"));
                 } else if (nuevo != null) {
                     UserManager user;
                     request.setCharacterEncoding("UTF-8");
@@ -121,7 +121,7 @@ public class Usuarios extends HttpServlet {
                     daousr.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOUsuarios.getXMLRecords().getString(), user.getPermisos()), path + "../web/xsl/usuarios.xsl"));
+                            XMLModder.JoinDocs(DAOUsuarios.getXMLRecords().getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/usuarios.xsl"));
                 }
             }
         } catch (Exception ex) {

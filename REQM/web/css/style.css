@@ -54,6 +54,11 @@ thead th, th, tr.even, tr.odd { padding:0px; border-bottom:1px solid #40372f;}
 .head-row1 .col2 { float:right; padding:52px 40px 0px 0px;}
 .head-row1 .col2 a { display:block; float:left; background:url(../imgs/bg-user.png) no-repeat 0 0; padding-left:22px; padding-bottom:3px; color:#fff; font-size:11px; text-transform:uppercase; text-decoration:none;}
 .head-row1 .col2 a:hover { text-decoration:underline;}
+.head-row1 .col2 .mail { display:block; float:left; background:url(../imgs/mail.png) no-repeat 3px 0px;
+       padding-right:16px;margin-right: 5px;padding-top: 5px;
+       color:#fff; font-size:11px; text-transform:uppercase; text-decoration:none;}
+.head-row1 .col2 .mail a{display: block;float: none;padding: 0 0 0 0; background: none;}
+.head-row1 .col2 #new{font-weight: bold}
 
 .head-row2 { height:85px; z-index:120; position:relative; background:url(../imgs/bg-row.png) no-repeat 0 0}
 .head-row2 .col1 { float:left;}

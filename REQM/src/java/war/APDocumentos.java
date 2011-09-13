@@ -5,6 +5,7 @@
 package war;
 
 import conexion.Conexion;
+import dao.DAOObservaciones;
 import dao.DAOReqmDocumentos;
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +56,8 @@ public class APDocumentos extends HttpServlet {
                     session.setAttribute("APId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoapdocumentos.getString(), user.getPermisos()), path + "../web/xsl/apdocumentos.xsl"));
+                            XMLModder.JoinDocs(daoapdocumentos.getString(), new String[]{user.getPermisos(),
+                            DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/apdocumentos.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -99,7 +101,7 @@ public class APDocumentos extends HttpServlet {
                     SQLXML apdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS, new Long(mod), DAOReqmDocumentos.F_DOCUMENTO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(apdocumentos.getString(), new String[]{user.getPermisos(),}), path + "../web/xsl/apdocumentos_form.xsl"));
+                            XMLModder.JoinDocs(apdocumentos.getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/apdocumentos_form.xsl"));
                 } else if (nuevo != null) {
                     PrintWriter out = response.getWriter();
                     UserManager user;
@@ -108,7 +110,7 @@ public class APDocumentos extends HttpServlet {
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS, (Long) session.getAttribute("APId"), DAOReqmDocumentos.F_NEW).getString(),
-                            new String[]{user.getPermisos()}), path + "../web/xsl/apdocumentos_form.xsl"));
+                            new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/apdocumentos_form.xsl"));
                 } else if (down != null) {
                     DAOReqmDocumentos apdoc = new DAOReqmDocumentos(DAOReqmDocumentos.ANTEPROYECTOS);
                     byte[] doc = apdoc.getDocument(new Long(down));
@@ -127,7 +129,7 @@ public class APDocumentos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs("<root><key>" + upload + "</key></root>", new String[]{user.getPermisos()}), path + "../web/xsl/apdocumentos_form.xsl"));
+                            XMLModder.JoinDocs("<root><key>" + upload + "</key></root>", new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/apdocumentos_form.xsl"));
                 } else {
                     processRequest(request, response);
                 }
@@ -174,7 +176,7 @@ public class APDocumentos extends HttpServlet {
                 apdocumento.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS, (Long) session.getAttribute("APId"), DAOReqmDocumentos.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/apdocumentos.xsl"));
+                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.ANTEPROYECTOS, (Long) session.getAttribute("APId"), DAOReqmDocumentos.F_LISTA).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/apdocumentos.xsl"));
 
             } else {
                 HashMap<String, Object> hash = new HashMap<String, Object>();

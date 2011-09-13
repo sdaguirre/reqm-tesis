@@ -5,6 +5,7 @@
 package war;
 
 import conexion.Conexion;
+import dao.DAOObservaciones;
 import dao.DAOUsuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,7 +26,7 @@ import libs.XMLModder;
  * @author Moncho
  */
 public class Reqm extends HttpServlet {
-    private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
+    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -93,13 +94,16 @@ public class Reqm extends HttpServlet {
                     user = new UserManager();
                     user.setUsername(request.getParameter("usr"));
                     user.setPermisos(xmldata.getString());
-                    user.setBrief(XMLModder.JoinDocs(xmlbrief.getString(),((SQLXML)permisos[4]).getString()));
+                    user.setBrief(XMLModder.JoinDocs(xmlbrief.getString(),((SQLXML)permisos[5]).getString()));
                     user.setUsuarioId((Long)permisos[1]);
                     user.setPersonaId((Long)permisos[2]);
                     user.setbClient((Boolean)permisos[3]);
                     user.setLogged(true);
                     session.setAttribute("user", user);
-                    out.println(XMLModder.XSLTransform(XMLModder.JoinDocs(user.getBrief(),user.getPermisos()), path + "xsl/briefing.xsl"));
+                    out.println(XMLModder.XSLTransform(XMLModder.JoinDocs(user.getBrief(),
+                            new String[]{user.getPermisos(),
+                            DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()})
+                            , path + "xsl/briefing.xsl"));
                 } else {
                     Conexion.Destroy();
                     request.getSession().invalidate();
@@ -110,6 +114,7 @@ public class Reqm extends HttpServlet {
                 out.println(XMLModder.XSLTransform(user.getBrief(), path + "xsl/briefing.xsl"));
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger(Reqm.class.getName()).log(Level.SEVERE, null, ex);
             request.getSession().invalidate();
             response.sendRedirect("login.html");

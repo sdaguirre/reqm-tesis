@@ -74,6 +74,14 @@
                                         </a>
                                     </div>
                                     <div class="col2">
+                                        <div class="mail">
+                                            <xsl:if test="/params/messages/text() &gt; 0">
+                                                <xsl:attribute name="id">new</xsl:attribute>
+                                            </xsl:if>
+                                            <a rel="prettyPhoto[obs]" href="Observaciones?iframe=true&#38;width=60%&#38;height=100%">
+                                                <xsl:value-of select="/params/messages"/>
+                                            </a>
+                                        </div>
                                         <a href="Reqm?drop=true" class="bg-user">Cerrar Sesi&#243;n</a>
                                     </div>
                                 </div>

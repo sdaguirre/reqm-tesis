@@ -44,7 +44,7 @@ public class Params extends HttpServlet {
                 SQLXML parametros = DAOParams.getXMLRecords(DAOParams.CARGOS);
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(parametros.getString(), new String[]{user.getPermisos(), DAOParams.getXMLParamNm(DAOParams.CARGOS)}), path + "../web/xsl/params.xsl"));
+                        XMLModder.JoinDocs(parametros.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.getXMLParamNm(DAOParams.CARGOS)}), path + "../web/xsl/params.xsl"));
             } else {
                 Conexion.getConnection().disconnect();
                 request.getSession().invalidate();
@@ -90,14 +90,14 @@ public class Params extends HttpServlet {
                             SQLXML parametros = DAOParams.getXMLRecords("tbl" + prm);
                             UserManager user = (UserManager) session.getAttribute("user");
                             out.println(XMLModder.XSLTransform(
-                                    XMLModder.JoinDocs(parametros.getString(), new String[]{user.getPermisos(), DAOParams.formatXMLParamNm(prm)}), path + "../web/xsl/params.xsl"));
+                                    XMLModder.JoinDocs(parametros.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.formatXMLParamNm(prm)}), path + "../web/xsl/params.xsl"));
                         }
                     } else {
                         request.setCharacterEncoding("UTF-8");
                         Conexion.autoConnect();
                         UserManager user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(null, new String[]{user.getPermisos(), DAOParams.formatXMLParamNm(prm)}), path + "../web/xsl/params_form.xsl"));
+                                XMLModder.JoinDocs("",new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.formatXMLParamNm(prm)}), path + "../web/xsl/params_form.xsl"));
                     }
                 } else {
                     request.setCharacterEncoding("UTF-8");
@@ -105,7 +105,7 @@ public class Params extends HttpServlet {
                     SQLXML parametro = DAOParams.getXMLRecord("tbl" + prm, new Integer(mod));
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(parametro.getString(), new String[]{user.getPermisos(), DAOParams.formatXMLParamNm(prm)}), path + "../web/xsl/params_form.xsl"));
+                            XMLModder.JoinDocs(parametro.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.formatXMLParamNm(prm)}), path + "../web/xsl/params_form.xsl"));
                 }
 
             }
@@ -155,7 +155,7 @@ public class Params extends HttpServlet {
                     parametro.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOParams.getXMLRecords("tbl" + request.getParameter("prm")).getString(), new String[]{user.getPermisos(), DAOParams.formatXMLParamNm(request.getParameter("prm"))}), path + "../web/xsl/params.xsl"));
+                            XMLModder.JoinDocs(DAOParams.getXMLRecords("tbl" + request.getParameter("prm")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.formatXMLParamNm(request.getParameter("prm"))}), path + "../web/xsl/params.xsl"));
                 }
             }
         } catch (Exception ex) {

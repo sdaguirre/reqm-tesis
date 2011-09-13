@@ -6,6 +6,7 @@ package war;
 
 import conexion.Conexion;
 import dao.DAOReqmDocumentos;
+import dao.DAOObservaciones;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,7 +56,7 @@ public class PRDocumentos extends HttpServlet {
                     session.setAttribute("PRId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoprdocumentos.getString(), user.getPermisos()), path + "../web/xsl/prdocumentos.xsl"));
+                            XMLModder.JoinDocs(daoprdocumentos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/prdocumentos.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -174,7 +175,7 @@ public class PRDocumentos extends HttpServlet {
                 prdocumento.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.PROYECTOS,(Long) session.getAttribute("PRId"), DAOReqmDocumentos.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/prdocumentos.xsl"));
+                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.PROYECTOS,(Long) session.getAttribute("PRId"), DAOReqmDocumentos.F_LISTA).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/prdocumentos.xsl"));
 
             } else {
                 HashMap<String, Object> hash = new HashMap<String, Object>();

@@ -3,6 +3,7 @@ package war;
 import conexion.Conexion;
 import dao.DAOPFisicas;
 import dao.DAOProyectos;
+import dao.DAOObservaciones;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLXML;
@@ -30,7 +31,7 @@ public class Informes extends HttpServlet {
                 Conexion.autoConnect();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs("", user.getPermisos()), path + "../web/xsl/informes.xsl"));
+                        XMLModder.JoinDocs("",new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/informes.xsl"));
             } else {
                 Conexion.getConnection().disconnect();
                 request.getSession().invalidate();
@@ -78,7 +79,7 @@ public class Informes extends HttpServlet {
                     SQLXML personas = DAOPFisicas.getXMLRecords();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(personas.getString(), user.getPermisos()), path + "../web/xsl/informes2.xsl"));
+                            XMLModder.JoinDocs(personas.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/informes2.xsl"));
                 } else if(persona!=0){
                     session.setAttribute("RepKey1", persona);
                     Conexion.autoConnect();
@@ -138,12 +139,12 @@ public class Informes extends HttpServlet {
                 pfisica.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), user.getPermisos()), path + "../web/xsl/pfisicas.xsl"));
+                        XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/pfisicas.xsl"));
             } else if (request.getParameter("srch") != null) {
                 Conexion.autoConnect();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(), user.getPermisos()), path + "../web/xsl/pfisicas.xsl"));
+                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/pfisicas.xsl"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

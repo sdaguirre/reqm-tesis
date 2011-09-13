@@ -5,8 +5,8 @@
 package war;
 
 import conexion.Conexion;
-import dao.DAOParams;
 import dao.DAOPermisos;
+import dao.DAOObservaciones;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLXML;
@@ -41,7 +41,7 @@ public class Permisos extends HttpServlet {
                     session.setAttribute("RolId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daopermisos.getString(), user.getPermisos()), path + "../web/xsl/permisos.xsl"));
+                            XMLModder.JoinDocs(daopermisos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/permisos.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -76,7 +76,7 @@ public class Permisos extends HttpServlet {
                     SQLXML daopermisos = DAOPermisos.getXMLRecords((Long) session.getAttribute("RolId"), DAOPermisos.F_ROL);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daopermisos.getString(), user.getPermisos()), path + "../web/xsl/permisos.xsl"));
+                            XMLModder.JoinDocs(daopermisos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/permisos.xsl"));
                 } else if (nuevo == null) {
                     processRequest(request, response);
                 } else {
@@ -129,7 +129,7 @@ public class Permisos extends HttpServlet {
                     daopermiso.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOPermisos.getXMLRecords((Long) session.getAttribute("RolId"), DAOPermisos.F_ROL).getString(), user.getPermisos()), path + "../web/xsl/permisos.xsl"));
+                            XMLModder.JoinDocs(DAOPermisos.getXMLRecords((Long) session.getAttribute("RolId"), DAOPermisos.F_ROL).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/permisos.xsl"));
                 }
             }
         } catch (Exception ex) {

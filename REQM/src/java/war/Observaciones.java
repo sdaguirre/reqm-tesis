@@ -23,7 +23,7 @@ import libs.XMLModder;
  */
 public class Observaciones extends HttpServlet {
 
-    private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
+    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -80,7 +80,7 @@ public class Observaciones extends HttpServlet {
                         daoobservacion = DAOObservaciones.getXMLRecords(keycode, DAOObservaciones.F_NEW_DEVELOPER);
                     }
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoobservacion.getString(), user.getPermisos()), path + "../web/xsl/observaciones_form.xsl"));
+                            XMLModder.JoinDocs(daoobservacion.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/observaciones_form.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -89,7 +89,7 @@ public class Observaciones extends HttpServlet {
                 response.sendRedirect("login.html");
             }
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
+            ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
             out.close();
@@ -124,7 +124,7 @@ public class Observaciones extends HttpServlet {
                 observacion.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOObservaciones.getXMLRecords((Long) session.getAttribute("ReqId"), DAOObservaciones.F_LISTA).getString(), user.getPermisos()), path + "../web/xsl/observaciones.xsl"));
+                        XMLModder.JoinDocs(DAOObservaciones.getXMLRecords((Long) session.getAttribute("ReqId"), DAOObservaciones.F_LISTA).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/observaciones.xsl"));
 
             } else if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();

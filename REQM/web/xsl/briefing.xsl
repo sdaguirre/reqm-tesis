@@ -37,7 +37,9 @@
                 <script type="text/javascript" src="js/jquery_002.js"></script>
                 <script type="text/javascript" src="js/slider.js"></script>
 
-                <script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
+                <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+                <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+                <script type="text/javascript" src="js/viewer.popups.js"></script>
                 <script type="text/javascript" src="js/hoverIntent.js"></script>
                 <script type="text/javascript" src="js/superfish.js"></script>
                 <script type="text/javascript">
@@ -61,6 +63,14 @@
                                         </a>
                                     </div>
                                     <div class="col2">
+                                        <div class="mail">
+                                            <xsl:if test="/root/messages/text() &gt; 0">
+                                                <xsl:attribute name="id">new</xsl:attribute>
+                                            </xsl:if>
+                                            <a rel="prettyPhoto[obs]" href="Observaciones?iframe=true&#38;width=60%&#38;height=100%">
+                                                <xsl:value-of select="/root/messages"/>
+                                            </a>
+                                        </div>
                                         <a href="Reqm?drop=true" class="bg-user">Cerrar Sesi&#243;n</a>
                                     </div>
                                 </div>
@@ -184,6 +194,16 @@
                                                                 <div class="content">
                                                                     <ul class="menu">
                                                                         <li class="leaf first">
+                                                                            <a rel="prettyPhoto[obs]" href="Observaciones?iframe=true&#38;width=60%&#38;height=100%">
+                                                                                <div>
+                                                                                    <xsl:if test="/root/messages/text() &gt; 0">
+                                                                                        <xsl:attribute name="id">selected</xsl:attribute>
+                                                                                    </xsl:if>
+                                                                                    <xsl:value-of select="/root/messages"/> Mensajes
+                                                                                </div>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="leaf">
                                                                             <a href="PFisicas">Clientes</a>
                                                                         </li>
                                                                         <li class="leaf">
@@ -220,16 +240,18 @@
                                                                         <h4>Ultimos Requerimientos</h4>
                                                                         <ul>
                                                                             <xsl:for-each select="/root/reqlist/req">
-                                                                            <li>
-                                                                                <xsl:value-of select="." />
-                                                                            </li>
+                                                                                <li>
+                                                                                    <xsl:value-of select="." />
+                                                                                </li>
                                                                             </xsl:for-each>
                                                                         </ul>
                                                                     </div>
                                                                     <div class="column-right">
                                                                         <h4>Ultimos Documentos</h4>
                                                                         <xsl:for-each select="/root/doclist/doc">
-                                                                            <div><xsl:value-of select="." /></div>
+                                                                            <div>
+                                                                                <xsl:value-of select="." />
+                                                                            </div>
                                                                         </xsl:for-each>
                                                                     </div>
                                                                 </div>

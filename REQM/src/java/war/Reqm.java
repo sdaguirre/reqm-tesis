@@ -25,7 +25,7 @@ import libs.XMLModder;
  * @author Moncho
  */
 public class Reqm extends HttpServlet {
-    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
+    private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -84,7 +84,7 @@ public class Reqm extends HttpServlet {
                 try {
                     permisos = DAOUsuarios.LoginUser(request.getParameter("usr"), request.getParameter("pwd"));
                     xmldata=(SQLXML)permisos[0];
-                    xmlbrief=(SQLXML)permisos[3];
+                    xmlbrief=(SQLXML)permisos[4];
                 } catch (SQLException sql) {
                     Conexion.Destroy();
                     throw new ServletException("", sql);
@@ -94,8 +94,9 @@ public class Reqm extends HttpServlet {
                     user.setUsername(request.getParameter("usr"));
                     user.setPermisos(xmldata.getString());
                     user.setBrief(XMLModder.JoinDocs(xmlbrief.getString(),((SQLXML)permisos[4]).getString()));
-                    user.setPersonaId((Long)permisos[1]);
-                    user.setbClient((Boolean)permisos[2]);
+                    user.setUsuarioId((Long)permisos[1]);
+                    user.setPersonaId((Long)permisos[2]);
+                    user.setbClient((Boolean)permisos[3]);
                     user.setLogged(true);
                     session.setAttribute("user", user);
                     out.println(XMLModder.XSLTransform(XMLModder.JoinDocs(user.getBrief(),user.getPermisos()), path + "xsl/briefing.xsl"));

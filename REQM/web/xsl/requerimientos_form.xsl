@@ -248,21 +248,6 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inDtIn">Fecha:</label>
-                                                                                                </td>
-                                                                                                <td class="td-input">
-                                                                                                    <input name="inDtIn" id="dateFieldA" class="embed" type="text" readonly="true" >
-                                                                                                        <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="dtini" />
-                                                                                                        </xsl:attribute>
-                                                                                                    </input>
-                                                                                                    <div class="hiddenDiv">
-                                                                                                        <img class="trigger" id="calImg" src="imgs/buttons/calendar.png" alt="Fecha" />
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td class="td-label">
                                                                                                     <label for="inDesc">Descripcion:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
@@ -382,21 +367,6 @@
                                                                                             </td>
                                                                                             <td class="td-input">
                                                                                                 <input name="inName" type="text" maxlength="255" value="" />
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td class="td-label">
-                                                                                                <label for="inDtIn">Fecha:</label>
-                                                                                            </td>
-                                                                                            <td class="td-input">
-                                                                                                <input name="inDtIn" id="dateFieldA" class="embed" type="text" readonly="true" >
-                                                                                                    <xsl:attribute name="value">
-                                                                                                        <xsl:value-of select="dtin" />
-                                                                                                    </xsl:attribute>
-                                                                                                </input>
-                                                                                                <div class="hiddenDiv">
-                                                                                                    <img class="trigger" id="calImg" src="imgs/buttons/calendar.png" alt="Fecha" />
-                                                                                                </div>
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>

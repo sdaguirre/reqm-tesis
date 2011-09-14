@@ -247,6 +247,7 @@
                                                                                     </th>
                                                                                 </tr>
                                                                                 <xsl:for-each select="/root/row">
+                                                                                    <xsl:sort select="name" />
                                                                                     <xsl:param name="key" select="@key"/>
                                                                                     <tr>
                                                                                         <td>

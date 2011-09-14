@@ -88,9 +88,9 @@ public class XMLModder {
                 prin.getDocumentElement().appendChild(nodo);
             }
             //System.out.println("===================  FIN DOCUMENTO  =========================");
-            for (int i = 0; i < prin.getDocumentElement().getChildNodes().getLength(); i++) {
+            /*for (int i = 0; i < prin.getDocumentElement().getChildNodes().getLength(); i++) {
                 System.out.println(prin.getDocumentElement().getChildNodes().item(i).getNodeName());
-            }
+            }*/
             return prin;
         } catch (SAXException ex) {
             Logger.getLogger(XMLModder.class.getName()).log(Level.SEVERE, null, ex);

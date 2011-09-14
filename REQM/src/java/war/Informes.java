@@ -100,7 +100,7 @@ public class Informes extends HttpServlet {
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(proyectos.getString(), new String[]{personas.getString(), user.getPermisos()}), path + "../web/xsl/informes3.xsl"));
                 } else if (project != 0) {
-                    Map parametros = null;
+                    Map parametros = new HashMap();
                     ServletOutputStream stream;
                     JasperReport jasper = null;
                     switch ((Integer) session.getAttribute("Report")) {

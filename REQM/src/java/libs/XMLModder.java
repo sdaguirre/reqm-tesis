@@ -72,11 +72,11 @@ public class XMLModder {
     public static Document JoinDocs(String raiz,String[] xmls) throws ParserConfigurationException {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         try {
-            System.out.println("=================  DOCUMENTO  ====================");
+            /*System.out.println("=================  DOCUMENTO  ====================");
             System.out.println("Raiz:\t\t"+raiz);
             for (String string : xmls) {
                 System.out.println("Extras:\t\t"+string);
-            }
+            }*/
             Document prin;
             if(raiz == null || raiz.length()==0)
                 prin = builder.parse(new InputSource(new StringReader("<root></root>")));

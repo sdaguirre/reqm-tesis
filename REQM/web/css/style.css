@@ -42,6 +42,7 @@ fieldset .tips { font-size:10px;}
 .min-width {min-width:480px;}
 #main { margin-left: auto; margin-right: auto; text-align: left; width:982px;}
 #main-form { margin-left: auto; margin-right: auto; text-align: left; width:550px;}
+#main-mail { margin-left: auto; margin-right: auto; text-align: left; width:750px;}
 
 table.system-status-report th, thead th { border-bottom:1px solid #40372f; color:#fff; font-size:13px; }
 thead th, th, tr.even, tr.odd { padding:0px; border-bottom:1px solid #40372f;}
@@ -54,7 +55,7 @@ thead th, th, tr.even, tr.odd { padding:0px; border-bottom:1px solid #40372f;}
 .head-row1 .col2 { float:right; padding:52px 40px 0px 0px;}
 .head-row1 .col2 a { display:block; float:left; background:url(../imgs/bg-user.png) no-repeat 0 0; padding-left:22px; padding-bottom:3px; color:#fff; font-size:11px; text-transform:uppercase; text-decoration:none;}
 .head-row1 .col2 a:hover { text-decoration:underline;}
-.head-row1 .col2 .mail { display:block; float:left; background:url(../imgs/mail.png) no-repeat 3px 0px;
+.head-row1 .col2 .mail { display:block; float:left; background:url(../imgs/buttons/mail.png) no-repeat 3px 0px;
        padding-right:16px;margin-right: 5px;padding-top: 5px;
        color:#fff; font-size:11px; text-transform:uppercase; text-decoration:none;}
 .head-row1 .col2 .mail a{display: block;float: none;padding: 0 0 0 0; background: none;}
@@ -108,6 +109,7 @@ div.block { margin-bottom:10px; color:#363638; position:relative; overflow:hidde
 
 .bg-line { background:url(../imgs/bg-line.gif) repeat-x 0 11px; width:100%; overflow:hidden;}
 .bg-line-left { background:url(../imgs/bg-line2.png) repeat-y 200px 0; width:100%; overflow:hidden;}
+.bg-line-left-mail { background:url(../imgs/bg-line2.png) repeat-y 165px 0; width:100%; overflow:hidden;}
 .bg-line-right { background:url(../imgs/bg-line2.png) repeat-y 710px 0; width:100%; overflow:hidden}
 
 h4 {color:#fff; font-size:22px; font-weight:normal; padding-bottom:10px; padding-top:10px;}
@@ -161,6 +163,7 @@ a.cont-more:HOVER{color:#DDDDDD !important;}
 .cont-inner { padding:0px 0px 0px 0px;}
 
 #left-col { width:210px; float:left;}
+#mail-col { width:150px; float:left;}
 #left-col2 { width:250px; float:left;}
 #left-col .ind { padding:0px 26px 0px 0px;}
 
@@ -180,6 +183,7 @@ h1.title a:hover{text-decoration:none; color:#CC1D1D;}
 #tabs-wrapper h2 { background:none; color:#fff !important; padding-bottom:10px; font-size:18px; font-weight:normal;}
 h2 { font-size:25px; color:#fff; padding:10px 0px 7px 0px; text-transform:capitalize; width:100%; font-weight:normal;}
 h2.with-tabs { padding-left:0px; padding-top:10px;}
+h2#mailer{color:#FFF;font-weight:bold;font-size:20px;padding: 5px 0 2px 15px;}
 .block h2 { display:block; border-bottom:#bcbcbc 1px solid; color:#444b4e; font-size:12px; line-height:22px; margin:0; margin-top:5px; margin-bottom:10px; padding:0;}
 
 h3 { color:#424242; padding:5px 0px;}

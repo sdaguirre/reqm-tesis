@@ -72,11 +72,11 @@ public class XMLModder {
     public static Document JoinDocs(String raiz,String[] xmls) throws ParserConfigurationException {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         try {
-            /*System.out.println("=================  DOCUMENTO  ====================");
+            System.out.println("=================  DOCUMENTO  ====================");
             System.out.println("Raiz:\t\t"+raiz);
             for (String string : xmls) {
                 System.out.println("Extras:\t\t"+string);
-            }*/
+            }
             Document prin;
             if(raiz == null || raiz.length()==0)
                 prin = builder.parse(new InputSource(new StringReader("<root></root>")));
@@ -88,9 +88,9 @@ public class XMLModder {
                 prin.getDocumentElement().appendChild(nodo);
             }
             //System.out.println("===================  FIN DOCUMENTO  =========================");
-            /*for (int i = 0; i < prin.getDocumentElement().getChildNodes().getLength(); i++) {
+            for (int i = 0; i < prin.getDocumentElement().getChildNodes().getLength(); i++) {
                 System.out.println(prin.getDocumentElement().getChildNodes().item(i).getNodeName());
-            }*/
+            }
             return prin;
         } catch (SAXException ex) {
             Logger.getLogger(XMLModder.class.getName()).log(Level.SEVERE, null, ex);

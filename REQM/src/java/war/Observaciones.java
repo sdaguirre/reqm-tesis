@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import libs.UserManager;
 import libs.XMLModder;
+import org.w3c.dom.Document;
 
 /**
  *
@@ -37,16 +38,24 @@ public class Observaciones extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Observaciones</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Observaciones at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-             */
+            HttpSession session = request.getSession(false);
+            UserManager user;
+            if (!session.isNew()) {
+                user = (UserManager) session.getAttribute("user");
+                session.setAttribute("inbox", true);
+                Conexion.autoConnect();
+                SQLXML observaciones = DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_RECIBIDOS);
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>true</inbox>"}), path + "../web/xsl/observaciones.xsl"));
+            } else {
+                Conexion.getConnection().disconnect();
+                request.getSession().invalidate();
+                response.sendRedirect("login.html");
+            }
+        } catch (Exception ex) {
+            //Logger.getLogger(ADM.class.getName()).log(Level.SEVERE, null, ex);
+            request.getSession(true).invalidate();
+            throw new ServletException("", ex);
         } finally {
             out.close();
         }
@@ -69,8 +78,13 @@ public class Observaciones extends HttpServlet {
         try {
             if (!session.isNew()) {
                 Conexion.autoConnect();
-                Long keycode = new Long(request.getParameter("fkey"));
-                if (keycode != null) {
+                Long keycode = new Long((request.getParameter("fkey") != null ? request.getParameter("fkey") : "0"));
+                Long mail = new Long((request.getParameter("mail") != null ? request.getParameter("mail") : "0"));
+                Long reply = new Long((request.getParameter("reply") != null ? request.getParameter("reply") : "0"));
+                Long delete = new Long((request.getParameter("del") != null ? request.getParameter("del") : "0"));
+                String received = request.getParameter("rcv");
+                String sent = request.getParameter("sent");
+                if (keycode > 0) {
                     UserManager user = (UserManager) session.getAttribute("user");
                     SQLXML daoobservacion;
                     session.setAttribute("ReqId", keycode);
@@ -80,9 +94,47 @@ public class Observaciones extends HttpServlet {
                         daoobservacion = DAOObservaciones.getXMLRecords(keycode, DAOObservaciones.F_NEW_DEVELOPER);
                     }
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoobservacion.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/observaciones_form.xsl"));
+                            XMLModder.JoinDocs(daoobservacion.getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/observaciones_form.xsl"));
+                } else if (sent != null) {
+                    UserManager user = (UserManager) session.getAttribute("user");
+                    session.setAttribute("inbox", false);
+                    Conexion.autoConnect();
+                    SQLXML observaciones = DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_ENVIADOS);
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>false</inbox>"}), path + "../web/xsl/observaciones.xsl"));
+                } else if (received != null) {
+                    session.setAttribute("inbox", true);
+                    UserManager user = (UserManager) session.getAttribute("user");
+                    Conexion.autoConnect();
+                    SQLXML observaciones = DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_RECIBIDOS);
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>true</inbox>"}), path + "../web/xsl/observaciones.xsl"));
+                } else if (mail > 0) {
+                    UserManager user = (UserManager) session.getAttribute("user");
+                    SQLXML daoobservacion;
+                    Document observer;
+                    if ((Boolean) session.getAttribute("inbox")) {
+                        observer = XMLModder.JoinDocs(DAOObservaciones.getXMLRecords(mail, DAOObservaciones.F_OBSERVACION).getString(),new String[]{user.getPermisos(),"<inbox>true</inbox>"});
+                    } else {
+                        observer = XMLModder.JoinDocs(DAOObservaciones.getXMLRecords(mail, DAOObservaciones.F_OBSERVACION_SENT).getString(),new String[]{user.getPermisos(),"<inbox>false</inbox>"});
+                    }
+                    out.println(XMLModder.XSLTransform(observer, path + "../web/xsl/observaciones2.xsl"));
+                } else if (reply > 0) {
+                    UserManager user = (UserManager) session.getAttribute("user");
+                    SQLXML daoobservacion = DAOObservaciones.getXMLRecords(reply, DAOObservaciones.F_REPLY);
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(daoobservacion.getString(), new String[]{user.getPermisos()}), path + "../web/xsl/observaciones_form.xsl"));
+                } else if (delete > 0) {
+                    Conexion.autoConnect();
+                    DAOObservaciones observacion = new DAOObservaciones();
+                    observacion.setlObservacionId(delete);
+                    observacion.delete();
+                    UserManager user = (UserManager) session.getAttribute("user");
+                    SQLXML observaciones = DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_RECIBIDOS);
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>true</inbox>"}), path + "../web/xsl/observaciones.xsl"));
                 } else {
-                    response.sendRedirect("login.html");
+                    processRequest(request, response);
                 }
             } else {
                 session.invalidate();
@@ -124,17 +176,19 @@ public class Observaciones extends HttpServlet {
                 observacion.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOObservaciones.getXMLRecords((Long) session.getAttribute("ReqId"), DAOObservaciones.F_LISTA).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/observaciones.xsl"));
+                        XMLModder.JoinDocs(DAOObservaciones.getXMLRecords((Long) session.getAttribute("ReqId"), DAOObservaciones.F_RECIBIDOS).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/observaciones.xsl"));
 
             } else if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
-                user=(UserManager) session.getAttribute("user");
-                DAOObservaciones observacion = new DAOObservaciones(new Long(request.getParameter("inCode")), (Long) session.getAttribute("ReqId"), user.getUsuarioId(), new Long(request.getParameter("inUser")), (String) request.getParameter("inName"), request.getParameter("inDesc"));
-                if (observacion.getlObservacionId() == 0) {
-                    observacion.insert();
+                user = (UserManager) session.getAttribute("user");
+                String reqKey = request.getParameter("inReq");
+                DAOObservaciones observacion;
+                if (reqKey != null) {
+                    observacion = new DAOObservaciones(new Long(request.getParameter("inCode")), new Long(reqKey), user.getUsuarioId(), new Long(request.getParameter("inUser")), (String) request.getParameter("inName"), request.getParameter("inDesc"));
                 } else {
-                    observacion.update();
+                    observacion = new DAOObservaciones(new Long(request.getParameter("inCode")), (Long) session.getAttribute("ReqId"), user.getUsuarioId(), new Long(request.getParameter("inUser")), (String) request.getParameter("inName"), request.getParameter("inDesc"));
                 }
+                observacion.insert();
             }
             response.sendRedirect("ok.html");
         } catch (Exception ex) {

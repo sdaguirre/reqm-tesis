@@ -7,7 +7,7 @@ public class DAOObservaciones extends DAO implements IDAO {
 // <editor-fold defaultstate="collapsed" desc="VarDeclarations">
 
     public static final String tabla = "tblObservaciones";
-    public static final int F_LISTA = 1, F_OBSERVACION = 2, F_NEW_CLIENT = 3, F_NEW_DEVELOPER = 4, F_NOTIFY = 5;
+    public static final int F_RECIBIDOS = 1,F_ENVIADOS=7, F_OBSERVACION = 2,F_OBSERVACION_SENT=8, F_NEW_CLIENT = 3, F_NEW_DEVELOPER = 4, F_NOTIFY = 5,F_REPLY=6;
     private long lObservacionId, lRequerimientoId, lPOrigenId, lPDestinoId;
     private String sObservacionNm, sObservacionDesc;
     private boolean bLeidoFl;
@@ -50,13 +50,13 @@ public class DAOObservaciones extends DAO implements IDAO {
 
     @Override
     public boolean insert() throws SQLException {
-        this.lObservacionId = insertRecord(tabla, new Object[]{lRequerimientoId, lPOrigenId, lPDestinoId, sObservacionNm, sObservacionNm});
+        this.lObservacionId = insertRecord(tabla, new Object[]{lRequerimientoId, lPOrigenId, lPDestinoId, sObservacionNm, sObservacionDesc});
         return true;
     }
 
     @Override
     public boolean update() throws SQLException {
-        return updateRecord(tabla, new Object[]{lRequerimientoId, lObservacionId, lPOrigenId, lPDestinoId, sObservacionNm, sObservacionNm, bLeidoFl});
+        return updateRecord(tabla, new Object[]{lRequerimientoId, lObservacionId, lPOrigenId, lPDestinoId, sObservacionNm, sObservacionDesc, bLeidoFl});
     }
 
     @Override

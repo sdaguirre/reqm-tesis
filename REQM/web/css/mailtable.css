@@ -1,0 +1,70 @@
+/* ActsAsTreeTable
+ * ========================================================================= */
+.xsldetalle{padding: 5px 0px 15px 15px; color: #FFF;}
+.xsldbox{width:220px;float:left;text-align:left;}
+.xsldtitulos{color:#FFF;}
+.formButtons{vertical-align: top; padding: 0 2px 0 0;}
+.formButtons span{padding-right: 1px;}
+.spacer{padding-left: 10px;}
+.formButtons input{border: 0px; vertical-align: top;padding-left: 1.5px;background-color: transparent;}
+
+#formLink{vertical-align: middle; padding: 0 1px ;}
+#formLink img{border: 0px; }
+#formNew{vertical-align: middle; float: right;}
+#formNew img{border: 0px; }
+
+table {
+    border: 0px solid #888;
+    border-collapse: collapse;
+    line-height: 1;
+    margin: 1em auto;
+}
+table thead {
+    background: #333 url(../imgs/table/header_bkg.png) repeat-x top left;
+    font-size: .9em;
+}
+table thead tr th {
+    /*border: 1px solid #888;
+    /*font-weight: normal;*/
+    /*padding: .2em .2em .2em 1.2em;*/
+    padding-left: 15px;
+    text-align: left;
+    vertical-align:middle;
+}
+table thead tr .col-one{
+    /*border: 1px solid #888;
+    /*font-weight: normal;*/
+    padding: .2em .2em .2em 1.2em;
+    text-align: left;
+    vertical-align:middle;
+}
+table thead tr th a{
+    padding-right: .5em;
+}
+.fix{ padding-top:6px; }
+table tbody tr td {
+    color: #FFF;
+    background-color:#282828;
+    border-bottom-width: thin;
+    border-bottom-color: #888;
+    border-bottom-style: dashed;
+    padding: .4em 1.5em;
+}
+table tbody tr td a{
+    text-decoration: none;
+}
+table tbody tr td a:hover{
+    text-decoration: underline;
+}
+#new{
+    font-weight: bold;
+}
+.message{padding:15px 10px 10px 10px;}
+.optioner td a img{padding-right: 7px;margin-top: -2px; vertical-align: middle;}
+table tbody tr.even {
+    background: #f3f3f3;
+}
+
+table tbody tr.odd {
+    background: #fff;
+}

@@ -23,6 +23,7 @@
                 <link type="text/css" rel="stylesheet" media="all" href="css/menu.css" />
                 <link type="text/css" rel="stylesheet" media="all" href="css/superfish.css" />
                 <link type="text/css" rel="stylesheet" media="all" href="css/superfish-navbar.css"  />
+                <link type="text/css" rel="stylesheet" media="all" href="css/prettyPhoto.css"/>
                 <!--script-->
                 <script type="text/javascript" src="js/yahoo-dom-event.js"></script>
                 <script type="text/javascript" src="js/animation-min.js"></script>
@@ -67,7 +68,7 @@
                                             <xsl:if test="/root/messages/text() &gt; 0">
                                                 <xsl:attribute name="id">new</xsl:attribute>
                                             </xsl:if>
-                                            <a rel="prettyPhoto[obs]" href="Observaciones?iframe=true&#38;width=60%&#38;height=100%">
+                                            <a rel="prettyPhoto[obs]" href="Observaciones?iframe=true&#38;width=70%&#38;height=80%">
                                                 <xsl:value-of select="/root/messages"/>
                                             </a>
                                         </div>
@@ -194,7 +195,7 @@
                                                                 <div class="content">
                                                                     <ul class="menu">
                                                                         <li class="leaf first">
-                                                                            <a rel="prettyPhoto[obs]" href="Observaciones?iframe=true&#38;width=60%&#38;height=100%">
+                                                                            <a rel="prettyPhoto[obsb]" href="Observaciones?iframe=true&#38;width=70%&#38;height=80%">
                                                                                 <div>
                                                                                     <xsl:if test="/root/messages/text() &gt; 0">
                                                                                         <xsl:attribute name="id">selected</xsl:attribute>

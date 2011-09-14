@@ -65,7 +65,7 @@
                                             <xsl:if test="/root/messages/text() &gt; 0">
                                                 <xsl:attribute name="id">new</xsl:attribute>
                                             </xsl:if>
-                                            <a rel="prettyPhoto[obs]" href="Observaciones?iframe=true&#38;width=60%&#38;height=100%">
+                                            <a rel="prettyPhoto[obs]" href="Observaciones?iframe=true&#38;width=70%&#38;height=80%">
                                                 <xsl:value-of select="/root/messages"/>
                                             </a>
                                         </div>

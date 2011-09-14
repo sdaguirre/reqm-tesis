@@ -1,8 +1,11 @@
 package dao;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLXML;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DAOProyectos extends DAO implements IDAO{
 //#Region VarDeclarations
@@ -34,6 +37,17 @@ public class DAOProyectos extends DAO implements IDAO{
 //#Region SearchAndRecords
     public static SQLXML getXMLRecords(long lKeyId,int filtro) throws SQLException{
         return getProcessXML("gxml_",tabla,new Object[]{lKeyId,filtro});
+    }
+    public static Map getReportHeader(long lKeyId) throws SQLException{
+        Map parametros=new HashMap();
+        ResultSet rs=getProcessRecords("ghr_",tabla,new Object[]{lKeyId});
+        if(rs.next()){
+            parametros.put("ClientNm",rs.getString(1));
+            parametros.put("ProyectoNm",rs.getString(2));
+        }
+        rs.close();
+        System.gc();
+        return parametros;
     }
 
     public static SQLXML search(String value) throws SQLException {

@@ -8,7 +8,8 @@ public class DAOParams extends DAO implements IDAO {
 
     public static final String CARGOS = "tblPCargos", RUBROS = "tblPRubros", DOCUMENTOS = "tblPDocumentos",
             CONTACTOS = "tblPContactos", TIPOS = "tblPTipos", CATEGORIAS = "tblPCategorias", COMPONENTES = "tblComponentes",
-            PRODUCTOS="tblProductos",EQUIPOS="tblEquipos",SITIOS="tblSitios";
+            PRODUCTOS="tblProductos",EQUIPOS="tblEquipos",SITIOS="tblSitios",
+            PM_PPIEZAS="tblPPiezas",PM_MARCAS="tblPMarcas",PM_MOTIVOS="tblPMotivos";
     private String tabla;
     private Long lParamId;
     private String sParamNm;

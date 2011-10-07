@@ -153,7 +153,7 @@ public class Equipos extends HttpServlet {
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
                 DAOEquipos daoequipo = new DAOEquipos(new Long(request.getParameter("inCode")),new Long(request.getParameter("inFKey")),
-                        new Integer(request.getParameter("inType")), new Integer(request.getParameter("inNet")), request.getParameter("inPerson"), request.getParameter("inUsr"), request.getParameter("inPass"),request.getParameter("sIP"));
+                        new Integer(request.getParameter("inType")), new Integer(request.getParameter("inNet")), request.getParameter("inPerson"), request.getParameter("inUser"), request.getParameter("inPass"),request.getParameter("inIP"));
                 if (daoequipo.getlEquipoId() == 0) {
                     daoequipo.insert();
                 } else {

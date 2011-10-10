@@ -56,7 +56,7 @@ public class PRDocumentos extends HttpServlet {
                     session.setAttribute("PRId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoprdocumentos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/prdocumentos.xsl"));
+                            XMLModder.JoinDocs(daoprdocumentos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/prdocumentos.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -100,7 +100,7 @@ public class PRDocumentos extends HttpServlet {
                     SQLXML prdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.PROYECTOS,new Long(mod), DAOReqmDocumentos.F_DOCUMENTO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(prdocumentos.getString(), new String[]{user.getPermisos(),}), path + "../web/xsl/prdocumentos_form.xsl"));
+                            XMLModder.JoinDocs(prdocumentos.getString(), new String[]{user.getPermisos(),}), path + "xsl/prdocumentos_form.xsl"));
                 } else if (nuevo != null) {
                     PrintWriter out = response.getWriter();
                     UserManager user;
@@ -109,7 +109,7 @@ public class PRDocumentos extends HttpServlet {
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.PROYECTOS,(Long) session.getAttribute("PRId"), DAOReqmDocumentos.F_NEW).getString(),
-                            new String[]{user.getPermisos()}), path + "../web/xsl/prdocumentos_form.xsl"));
+                            new String[]{user.getPermisos()}), path + "xsl/prdocumentos_form.xsl"));
                 } else if (down != null) {
                     DAOReqmDocumentos prdoc = new DAOReqmDocumentos(DAOReqmDocumentos.PROYECTOS);
                     byte[] doc = prdoc.getDocument(new Long(down));
@@ -128,7 +128,7 @@ public class PRDocumentos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs("<root><key>"+upload+"</key></root>",new String[]{user.getPermisos()}), path + "../web/xsl/prdocumentos_form.xsl"));
+                            XMLModder.JoinDocs("<root><key>"+upload+"</key></root>",new String[]{user.getPermisos()}), path + "xsl/prdocumentos_form.xsl"));
                 } else {
                     processRequest(request, response);
                 }
@@ -175,7 +175,7 @@ public class PRDocumentos extends HttpServlet {
                 prdocumento.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.PROYECTOS,(Long) session.getAttribute("PRId"), DAOReqmDocumentos.F_LISTA).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/prdocumentos.xsl"));
+                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.PROYECTOS,(Long) session.getAttribute("PRId"), DAOReqmDocumentos.F_LISTA).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/prdocumentos.xsl"));
 
             } else {
                 HashMap<String, Object> hash = new HashMap<String, Object>();

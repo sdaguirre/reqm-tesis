@@ -31,7 +31,7 @@ public class PFisicas extends HttpServlet {
                 SQLXML personas = DAOPFisicas.getXMLRecords();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(personas.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/pfisicas.xsl"));
+                        XMLModder.JoinDocs(personas.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/pfisicas.xsl"));
             } else {
                 Conexion.getConnection().disconnect();
                 request.getSession().invalidate();
@@ -74,14 +74,14 @@ public class PFisicas extends HttpServlet {
                     SQLXML daopfisicas = DAOPFisicas.getXMLRecords(mod);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daopfisicas.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/form.xsl"));
+                            XMLModder.JoinDocs(daopfisicas.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/form.xsl"));
                 } else if (nuevo != null) {
                     UserManager user;
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs("",new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/form.xsl"));
+                            XMLModder.JoinDocs("",new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/form.xsl"));
                 } else {
                     processRequest(request, response);
                 }
@@ -131,12 +131,12 @@ public class PFisicas extends HttpServlet {
                 pfisica.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/pfisicas.xsl"));
+                        XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/pfisicas.xsl"));
             } else if (request.getParameter("srch") != null) {
                 Conexion.autoConnect();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/pfisicas.xsl"));
+                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/pfisicas.xsl"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

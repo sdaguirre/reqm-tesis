@@ -46,7 +46,7 @@ public class Observaciones extends HttpServlet {
                 Conexion.autoConnect();
                 SQLXML observaciones = DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_RECIBIDOS);
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>true</inbox>"}), path + "../web/xsl/observaciones.xsl"));
+                        XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>true</inbox>"}), path + "xsl/observaciones.xsl"));
             } else {
                 Conexion.getConnection().disconnect();
                 request.getSession().invalidate();
@@ -94,21 +94,21 @@ public class Observaciones extends HttpServlet {
                         daoobservacion = DAOObservaciones.getXMLRecords(keycode, DAOObservaciones.F_NEW_DEVELOPER);
                     }
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoobservacion.getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/observaciones_form.xsl"));
+                            XMLModder.JoinDocs(daoobservacion.getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/observaciones_form.xsl"));
                 } else if (sent != null) {
                     UserManager user = (UserManager) session.getAttribute("user");
                     session.setAttribute("inbox", false);
                     Conexion.autoConnect();
                     SQLXML observaciones = DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_ENVIADOS);
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>false</inbox>"}), path + "../web/xsl/observaciones.xsl"));
+                            XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>false</inbox>"}), path + "xsl/observaciones.xsl"));
                 } else if (received != null) {
                     session.setAttribute("inbox", true);
                     UserManager user = (UserManager) session.getAttribute("user");
                     Conexion.autoConnect();
                     SQLXML observaciones = DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_RECIBIDOS);
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>true</inbox>"}), path + "../web/xsl/observaciones.xsl"));
+                            XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>true</inbox>"}), path + "xsl/observaciones.xsl"));
                 } else if (mail > 0) {
                     UserManager user = (UserManager) session.getAttribute("user");
                     SQLXML daoobservacion;
@@ -118,12 +118,12 @@ public class Observaciones extends HttpServlet {
                     } else {
                         observer = XMLModder.JoinDocs(DAOObservaciones.getXMLRecords(mail, DAOObservaciones.F_OBSERVACION_SENT).getString(),new String[]{user.getPermisos(),"<inbox>false</inbox>"});
                     }
-                    out.println(XMLModder.XSLTransform(observer, path + "../web/xsl/observaciones2.xsl"));
+                    out.println(XMLModder.XSLTransform(observer, path + "xsl/observaciones2.xsl"));
                 } else if (reply > 0) {
                     UserManager user = (UserManager) session.getAttribute("user");
                     SQLXML daoobservacion = DAOObservaciones.getXMLRecords(reply, DAOObservaciones.F_REPLY);
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoobservacion.getString(), new String[]{user.getPermisos()}), path + "../web/xsl/observaciones_form.xsl"));
+                            XMLModder.JoinDocs(daoobservacion.getString(), new String[]{user.getPermisos()}), path + "xsl/observaciones_form.xsl"));
                 } else if (delete > 0) {
                     Conexion.autoConnect();
                     DAOObservaciones observacion = new DAOObservaciones();
@@ -132,7 +132,7 @@ public class Observaciones extends HttpServlet {
                     UserManager user = (UserManager) session.getAttribute("user");
                     SQLXML observaciones = DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_RECIBIDOS);
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>true</inbox>"}), path + "../web/xsl/observaciones.xsl"));
+                            XMLModder.JoinDocs(observaciones.getString(), new String[]{user.getPermisos(), "<inbox>true</inbox>"}), path + "xsl/observaciones.xsl"));
                 } else {
                     processRequest(request, response);
                 }
@@ -176,7 +176,7 @@ public class Observaciones extends HttpServlet {
                 observacion.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOObservaciones.getXMLRecords((Long) session.getAttribute("ReqId"), DAOObservaciones.F_RECIBIDOS).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/observaciones.xsl"));
+                        XMLModder.JoinDocs(DAOObservaciones.getXMLRecords((Long) session.getAttribute("ReqId"), DAOObservaciones.F_RECIBIDOS).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/observaciones.xsl"));
 
             } else if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();

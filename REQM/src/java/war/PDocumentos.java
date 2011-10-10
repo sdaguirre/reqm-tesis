@@ -49,7 +49,7 @@ public class PDocumentos extends HttpServlet {
                     session.setAttribute("PFisicaId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daocontactos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/pdocumentos.xsl"));
+                            XMLModder.JoinDocs(daocontactos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/pdocumentos.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -95,7 +95,7 @@ public class PDocumentos extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs("",new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.getXMLRecords(DAOParams.DOCUMENTOS).getString()}), path + "../web/xsl/pdocumentos_form.xsl"));
+                                XMLModder.JoinDocs("",new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.getXMLRecords(DAOParams.DOCUMENTOS).getString()}), path + "xsl/pdocumentos_form.xsl"));
                     }
                 } else {
                     UserManager user;
@@ -104,7 +104,7 @@ public class PDocumentos extends HttpServlet {
                     SQLXML daodocumentos = DAOPDocumentos.getXMLRecords(0,new Long(mod));
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daodocumentos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.getXMLRecords(DAOParams.DOCUMENTOS).getString()}), path + "../web/xsl/pdocumentos_form.xsl"));
+                            XMLModder.JoinDocs(daodocumentos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.getXMLRecords(DAOParams.DOCUMENTOS).getString()}), path + "xsl/pdocumentos_form.xsl"));
                 }
 
             }
@@ -155,7 +155,7 @@ public class PDocumentos extends HttpServlet {
                     documento.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOPDocumentos.getXMLRecords((Long)session.getAttribute("PFisicaId")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/pdocumentos.xsl"));
+                            XMLModder.JoinDocs(DAOPDocumentos.getXMLRecords((Long)session.getAttribute("PFisicaId")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/pdocumentos.xsl"));
                 }
             }
         } catch (Exception ex) {

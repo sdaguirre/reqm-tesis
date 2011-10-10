@@ -129,6 +129,54 @@
                                                                 </ul>
                                                             </li>
                                                         </xsl:if>
+                                                        <xsl:if test="@id=600">
+                                                            <li>
+                                                                <a href="Taller" class="sf-with-ul">Taller</a>
+                                                                <ul>
+                                                                    <xsl:for-each select="/root/permisos/sitio[@id&gt;600]">
+                                                                        <xsl:if test="@id=601">
+                                                                            <li>
+                                                                                <a href="Dispositivos">Adm. Dispositivos</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=602">
+                                                                            <li>
+                                                                                <a href="Taller">Adm. Trabajos</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=603">
+                                                                            <li>
+                                                                                <a href="Soluciones">Adm. Soluciones</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                    </xsl:for-each>
+                                                                </ul>
+                                                            </li>
+                                                        </xsl:if>
+                                                        <xsl:if test="@id=600">
+                                                            <li>
+                                                                <a href="Taller" class="sf-with-ul">Taller</a>
+                                                                <ul>
+                                                                    <xsl:for-each select="/root/permisos/sitio[@id&gt;600]">
+                                                                        <xsl:if test="@id=601">
+                                                                            <li>
+                                                                                <a href="Dispositivos">Adm. Dispositivos</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=602">
+                                                                            <li>
+                                                                                <a href="Taller">Adm. Trabajos</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=603">
+                                                                            <li>
+                                                                                <a href="Soluciones">Adm. Soluciones</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                    </xsl:for-each>
+                                                                </ul>
+                                                            </li>
+                                                        </xsl:if>
                                                         <xsl:if test="@id=300">
                                                             <li>
                                                                 <a href="Informes" class="sf-with-ul">Informes</a>
@@ -155,7 +203,7 @@
                                                         </xsl:if>
                                                         <xsl:if test="@id=500">
                                                             <li>
-                                                                <a href="Seguridad" class="sf-with-ul">Seguridad</a>
+                                                                <a href="Usuarios" class="sf-with-ul">Seguridad</a>
                                                                 <ul>
                                                                     <xsl:for-each select="/root/permisos/sitio[@id&gt;500]">
                                                                         <xsl:if test="@id=501">
@@ -264,6 +312,21 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td colspan="5">
+                                                                                            <h1 class="xsldtitulos">Informacion Adicional</h1>
+                                                                                            <div class="xsldetalle">
+                                                                                                <div class="xsldbox">Responsable:
+                                                                                                    <xsl:value-of select="person" />
+                                                                                                </div>
+                                                                                                <div>IP:
+                                                                                                    <xsl:value-of select="sip" />
+                                                                                                </div>
+                                                                                                <div class="xsldbox">Fecha Registro:
+                                                                                                    <xsl:value-of select="date" />
+                                                                                                </div>
+                                                                                                <div>Red:
+                                                                                                    <xsl:value-of select="netnm" />
+                                                                                                </div>
+                                                                                            </div>
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=204]">
@@ -277,6 +340,16 @@
                                                                                                             </span>
                                                                                                         </li>
                                                                                                     </xsl:if>
+                                                                                                </xsl:for-each>
+                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=201]">
+                                                                                                    <li>
+                                                                                                    <span class="formButtons">
+                                                                                                        <a id="formLink" rel="prettyPhoto[mod]" >
+                                                                                                            <xsl:attribute name="href">Trabajos?ins=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                            <img src="imgs/buttons/new.png" alt="Nuevo Trabajo" />
+                                                                                                        </a>Registrar Trabajo
+                                                                                                    </span>
+                                                                                                    </li>
                                                                                                 </xsl:for-each>
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=201]">
                                                                                                     <li>

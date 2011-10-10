@@ -120,6 +120,30 @@
                                                                 </ul>
                                                             </li>
                                                         </xsl:if>
+                                                        <xsl:if test="@id=600">
+                                                            <li>
+                                                                <a href="Taller" class="sf-with-ul">Taller</a>
+                                                                <ul>
+                                                                    <xsl:for-each select="/root/permisos/sitio[@id&gt;600]">
+                                                                        <xsl:if test="@id=601">
+                                                                            <li>
+                                                                                <a href="Dispositivos">Adm. Dispositivos</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=602">
+                                                                            <li>
+                                                                                <a href="Taller">Adm. Trabajos</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=603">
+                                                                            <li>
+                                                                                <a href="Soluciones">Adm. Soluciones</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                    </xsl:for-each>
+                                                                </ul>
+                                                            </li>
+                                                        </xsl:if>
                                                         <xsl:if test="@id=300">
                                                             <li>
                                                                 <a href="Informes" class="sf-with-ul">Informes</a>

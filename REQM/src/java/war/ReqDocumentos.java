@@ -56,7 +56,7 @@ public class ReqDocumentos extends HttpServlet {
                     session.setAttribute("ReqId", keycode);
                     UserManager user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(daoreqdocumentos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/reqdocumentos.xsl"));
+                            XMLModder.JoinDocs(daoreqdocumentos.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/reqdocumentos.xsl"));
                 } else {
                     response.sendRedirect("login.html");
                 }
@@ -100,7 +100,7 @@ public class ReqDocumentos extends HttpServlet {
                     SQLXML reqdocumentos = DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS, new Long(mod), DAOReqmDocumentos.F_DOCUMENTO);
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(reqdocumentos.getString(), new String[]{user.getPermisos(),}), path + "../web/xsl/reqdocumentos_form.xsl"));
+                            XMLModder.JoinDocs(reqdocumentos.getString(), new String[]{user.getPermisos(),}), path + "xsl/reqdocumentos_form.xsl"));
                 } else if (nuevo != null) {
                     PrintWriter out = response.getWriter();
                     UserManager user;
@@ -109,7 +109,7 @@ public class ReqDocumentos extends HttpServlet {
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS, (Long) session.getAttribute("ReqId"), DAOReqmDocumentos.F_NEW).getString(),
-                            new String[]{user.getPermisos()}), path + "../web/xsl/reqdocumentos_form.xsl"));
+                            new String[]{user.getPermisos()}), path + "xsl/reqdocumentos_form.xsl"));
                 } else if (down != null) {
                     DAOReqmDocumentos reqdoc = new DAOReqmDocumentos(DAOReqmDocumentos.REQUERIMIENTOS);
                     byte[] doc = reqdoc.getDocument(new Long(down));
@@ -128,7 +128,7 @@ public class ReqDocumentos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs("<root><key>" + upload + "</key></root>", new String[]{user.getPermisos()}), path + "../web/xsl/reqdocumentos_form.xsl"));
+                            XMLModder.JoinDocs("<root><key>" + upload + "</key></root>", new String[]{user.getPermisos()}), path + "xsl/reqdocumentos_form.xsl"));
                 } else {
                     processRequest(request, response);
                 }
@@ -175,7 +175,7 @@ public class ReqDocumentos extends HttpServlet {
                 reqdocumento.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS, (Long) session.getAttribute("ReqId"), DAOReqmDocumentos.F_LISTA).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/reqdocumentos.xsl"));
+                        XMLModder.JoinDocs(DAOReqmDocumentos.getXMLRecords(DAOReqmDocumentos.REQUERIMIENTOS, (Long) session.getAttribute("ReqId"), DAOReqmDocumentos.F_LISTA).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/reqdocumentos.xsl"));
 
             } else {
                 HashMap<String, Object> hash = new HashMap<String, Object>();

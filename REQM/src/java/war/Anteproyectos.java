@@ -40,30 +40,30 @@ public class Anteproyectos extends HttpServlet {
                     }
                     SQLXML anteproyectos = DAOAnteproyectos.getXMLRecords((Long) session.getAttribute("PersonaId"));
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(anteproyectos.getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/anteproyectos2.xsl"));
+                            XMLModder.JoinDocs(anteproyectos.getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/anteproyectos2.xsl"));
                 } else {
                     user = (UserManager) session.getAttribute("user");
                     if (request.getParameter("step") != null) {
                         long step = new Long("" + request.getParameter("step"));
                         if (step == 2) {
                             out.println(XMLModder.XSLTransform(
-                                    XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords((Long) session.getAttribute("PersonaId")).getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/anteproyectos2.xsl"));
+                                    XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords((Long) session.getAttribute("PersonaId")).getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/anteproyectos2.xsl"));
                         } else {
                             if (user.isbClient()) {
                                 out.println(XMLModder.XSLTransform(
-                                        XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords(user.getPersonaId()).getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/anteproyectos2.xsl"));
+                                        XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords(user.getPersonaId()).getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/anteproyectos2.xsl"));
                             } else {
                                 out.println(XMLModder.XSLTransform(
-                                        XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/anteproyectos.xsl"));
+                                        XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/anteproyectos.xsl"));
                             }
                         }
                     } else {
                         if (user.isbClient()) {
                             out.println(XMLModder.XSLTransform(
-                                    XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords(user.getPersonaId()).getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/anteproyectos2.xsl"));
+                                    XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords(user.getPersonaId()).getString(), new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/anteproyectos2.xsl"));
                         } else {
                             out.println(XMLModder.XSLTransform(
-                                    XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/anteproyectos.xsl"));
+                                    XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/anteproyectos.xsl"));
                         }
                     }
                 }
@@ -116,7 +116,7 @@ public class Anteproyectos extends HttpServlet {
                         out.println(XMLModder.XSLTransform(
                                 XMLModder.JoinDocs(personas.getString(),
                                new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
-                                    DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/anteproyectos_form.xsl"));
+                                    DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "xsl/anteproyectos_form.xsl"));
                     }
                 } else {
                     UserManager user = (UserManager) session.getAttribute("user");
@@ -126,7 +126,7 @@ public class Anteproyectos extends HttpServlet {
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(anteproyectos.getString(),
                            new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString(),DAOParams.getXMLRecords(DAOParams.TIPOS).getString(),
-                                DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "../web/xsl/anteproyectos_form.xsl"));
+                                DAOParams.getXMLRecords(DAOParams.CATEGORIAS).getString()}), path + "xsl/anteproyectos_form.xsl"));
                 }
 
             }
@@ -177,17 +177,17 @@ public class Anteproyectos extends HttpServlet {
                 daoap.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords((Long) session.getAttribute("PersonaId")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/anteproyectos2.xsl"));
+                        XMLModder.JoinDocs(DAOAnteproyectos.getXMLRecords((Long) session.getAttribute("PersonaId")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/anteproyectos2.xsl"));
             } else if (request.getParameter("srch1") != null) {
                 Conexion.autoConnect();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/anteproyectos.xsl"));
+                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/anteproyectos.xsl"));
             } else if (request.getParameter("srch2") != null) {
                 Conexion.autoConnect();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOAnteproyectos.searchXML((Long)session.getAttribute("PersonaId"),request.getParameter("inSearch")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/anteproyectos2.xsl"));
+                        XMLModder.JoinDocs(DAOAnteproyectos.searchXML((Long)session.getAttribute("PersonaId"),request.getParameter("inSearch")).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/anteproyectos2.xsl"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

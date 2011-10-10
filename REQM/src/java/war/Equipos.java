@@ -31,7 +31,7 @@ public class Equipos extends HttpServlet {
                 SQLXML personas = DAOParams.getXMLRecords(DAOParams.EQUIPOS);
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(personas.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/equipos.xsl"));
+                        XMLModder.JoinDocs(personas.getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/equipos.xsl"));
             } else {
                 Conexion.getConnection().disconnect();
                 request.getSession().invalidate();
@@ -69,7 +69,7 @@ public class Equipos extends HttpServlet {
                         Conexion.autoConnect();
                         user = (UserManager) session.getAttribute("user");
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs("",new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/equipos_form.xsl"));
+                                XMLModder.JoinDocs("",new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/equipos_form.xsl"));
                     }
                 } else {
                     UserManager user;
@@ -77,7 +77,7 @@ public class Equipos extends HttpServlet {
                     Conexion.autoConnect();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOParams.getXMLRecord(DAOParams.EQUIPOS,new Integer(mod)).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/equipos_form.xsl"));
+                            XMLModder.JoinDocs(DAOParams.getXMLRecord(DAOParams.EQUIPOS,new Integer(mod)).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/equipos_form.xsl"));
                 }
 
             }
@@ -120,7 +120,7 @@ public class Equipos extends HttpServlet {
                     daoequipo.delete();
                     user = (UserManager) session.getAttribute("user");
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOParams.getXMLRecords(DAOParams.EQUIPOS).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/equipos.xsl"));
+                            XMLModder.JoinDocs(DAOParams.getXMLRecords(DAOParams.EQUIPOS).getString(),new String[]{user.getPermisos(),DAOObservaciones.getXMLRecords(user.getUsuarioId(),DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/equipos.xsl"));
                 }
             }
         } catch (Exception ex) {

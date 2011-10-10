@@ -5,22 +5,22 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.SQLXML;
 
-public class DAOEquipos extends DAO implements IDAO {
+public class DAODispositivos extends DAO implements IDAO {
 //#Region VarDeclarations
 
-    public static final String tabla = "tblMEquipos";
+    public static final String tabla = "tblDispositivos";
     public static final int F_LISTA = 1, F_REGISTRO = 2, F_NEW = 3, F_REPORT = 4;
     private long lEquipoId, lPersonaId;
     private int iTipoFl,iRedFl;
-    private String sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm;
+    private String sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,sRedNm;
     private Date dtEquipoDt;
     //#End
 //#Region Builders
 
-    public DAOEquipos() {
+    public DAODispositivos() {
     }
 
-    public DAOEquipos(long lEquipoId, long lPersonaId, int iTipoFl, int iRedFl, String sResponsableNm, String sUsuarioNm, String sUsuarioPass, String sIPNm) {
+    public DAODispositivos(long lEquipoId, long lPersonaId, int iTipoFl, int iRedFl, String sResponsableNm, String sUsuarioNm, String sUsuarioPass, String sIPNm,String sRedNm) {
         this.lEquipoId = lEquipoId;
         this.lPersonaId = lPersonaId;
         this.iTipoFl = iTipoFl;
@@ -29,6 +29,7 @@ public class DAOEquipos extends DAO implements IDAO {
         this.sUsuarioNm = sUsuarioNm;
         this.sUsuarioPass = sUsuarioPass;
         this.sIPNm = sIPNm;
+        this.sRedNm=sRedNm;
     }
 
     //#End
@@ -52,12 +53,12 @@ public class DAOEquipos extends DAO implements IDAO {
 //#Region IUD
 
     public boolean insert() throws SQLException {
-        this.lEquipoId = insertRecord(tabla, new Object[]{lPersonaId,iTipoFl,sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,iRedFl});
+        this.lEquipoId = insertRecord(tabla, new Object[]{lPersonaId,iTipoFl,sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,iRedFl,sRedNm});
         return true;
     }
 
     public boolean update() throws SQLException {
-        return updateRecord(tabla, new Object[]{lEquipoId, lPersonaId});
+        return updateRecord(tabla, new Object[]{lEquipoId, lPersonaId,iTipoFl,sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,iRedFl,sRedNm});
     }
 
     public boolean delete() throws SQLException {
@@ -136,6 +137,14 @@ public class DAOEquipos extends DAO implements IDAO {
 
     public void setsUsuarioPass(String sUsuarioPass) {
         this.sUsuarioPass = sUsuarioPass;
+    }
+
+    public String getsRedNm() {
+        return sRedNm;
+    }
+
+    public void setsRedNm(String sRedNm) {
+        this.sRedNm = sRedNm;
     }
     
     //#End

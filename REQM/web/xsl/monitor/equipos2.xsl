@@ -46,7 +46,7 @@
                 <script type="text/javascript" src="js/viewer.popups.js"></script>
                 <script type="text/javascript">
                     $('form').submit(function(){
-                        this.post(Equipos);
+                        this.post(Dispositivos);
                     });
                 </script>
                 
@@ -178,7 +178,7 @@
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <form method="POST" action="Equipos" accept-charset="UTF-8" id="search-theme-form">
+                                        <form method="POST" action="Dispositivos" accept-charset="UTF-8" id="search-theme-form">
                                             <div>
                                                 <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"
@@ -206,7 +206,7 @@
                                                                         <li class="leaf first">
                                                                             <a href="Anteproyectos?step=1">Clientes</a>
                                                                         </li>
-                                                                        <li class="leaf"><div id="selected">Anteproyectos</div></li>
+                                                                        <li class="leaf"><div id="selected">Dispositivos</div></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -228,7 +228,7 @@
                                                                 <br />
                                                                 <div class="columns">
                                                                     <div class="column-left">
-                                                                        <form method="post" action="Equipos">
+                                                                        <form method="post" action="Dispositivos">
                                                                             <input type="hidden" id="keycode" name="keycode" value="" />
                                                                             <table id="report" width="500px">
                                                                                 <tr>
@@ -238,7 +238,7 @@
                                                                                     <th id="former">
                                                                                     <xsl:for-each select="/root/permisos/sitio[@id=201]">
                                                                                         <xsl:if test="./ins='true'">
-                                                                                            <a id="formNew" rel="prettyPhoto[new]" href="Equipos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
+                                                                                            <a id="formNew" rel="prettyPhoto[new]" href="Dispositivos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
                                                                                                 <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
                                                                                             </a>
                                                                                             <div>Nuevo</div>
@@ -283,7 +283,7 @@
                                                                                                         <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
-                                                                                                                    <xsl:attribute name="href">Equipos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                    <xsl:attribute name="href">Dispositivos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
                                                                                                                     <img src="imgs/buttons/edit.png" alt="Modificar Registro" />
                                                                                                                 </a>Modificar
                                                                                                             </span>

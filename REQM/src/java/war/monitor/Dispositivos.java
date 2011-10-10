@@ -5,7 +5,7 @@ import dao.DAOAnteproyectos;
 import dao.DAOObservaciones;
 import dao.DAOPFisicas;
 import dao.DAOParams;
-import dao.monitor.DAOEquipos;
+import dao.monitor.DAODispositivos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLXML;
@@ -17,9 +17,9 @@ import javax.servlet.http.HttpSession;
 import libs.UserManager;
 import libs.XMLModder;
 
-public class Equipos extends HttpServlet {
+public class Dispositivos extends HttpServlet {
 
-    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
+    private String path = "C:/Users/BlueFox/Documents/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +39,7 @@ public class Equipos extends HttpServlet {
                     } else {
                         session.setAttribute("PersonaId", new Long(keycode));
                     }
-                    SQLXML equipos = DAOAnteproyectos.getXMLRecords((Long) session.getAttribute("PersonaId"));
+                    SQLXML equipos = DAODispositivos.getXMLRecords((Long) session.getAttribute("PersonaId"),DAODispositivos.F_LISTA);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(equipos.getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/monitor/equipos2.xsl"));
                 } else {
@@ -48,11 +48,11 @@ public class Equipos extends HttpServlet {
                         long step = new Long("" + request.getParameter("step"));
                         if (step == 2) {
                             out.println(XMLModder.XSLTransform(
-                                    XMLModder.JoinDocs(DAOEquipos.getXMLRecords((Long) session.getAttribute("PersonaId"), DAOEquipos.F_LISTA).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/monitor/equipos2.xsl"));
+                                    XMLModder.JoinDocs(DAODispositivos.getXMLRecords((Long) session.getAttribute("PersonaId"), DAODispositivos.F_LISTA).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/monitor/equipos2.xsl"));
                         } else {
                             if (user.isbClient()) {
                                 out.println(XMLModder.XSLTransform(
-                                        XMLModder.JoinDocs(DAOEquipos.getXMLRecords(user.getPersonaId(), DAOEquipos.F_LISTA).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/monitor/equipos2.xsl"));
+                                        XMLModder.JoinDocs(DAODispositivos.getXMLRecords(user.getPersonaId(), DAODispositivos.F_LISTA).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/monitor/equipos2.xsl"));
                             } else {
                                 out.println(XMLModder.XSLTransform(
                                         XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/monitor/equipos.xsl"));
@@ -61,7 +61,7 @@ public class Equipos extends HttpServlet {
                     } else {
                         if (user.isbClient()) {
                             out.println(XMLModder.XSLTransform(
-                                    XMLModder.JoinDocs(DAOEquipos.getXMLRecords(user.getPersonaId(),DAOEquipos.F_LISTA).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/monitor/equipos2.xsl"));
+                                    XMLModder.JoinDocs(DAODispositivos.getXMLRecords(user.getPersonaId(),DAODispositivos.F_LISTA).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/monitor/equipos2.xsl"));
                         } else {
                             out.println(XMLModder.XSLTransform(
                                     XMLModder.JoinDocs(DAOPFisicas.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/monitor/equipos.xsl"));
@@ -101,10 +101,10 @@ public class Equipos extends HttpServlet {
                     UserManager user = (UserManager) session.getAttribute("user");
                     request.setCharacterEncoding("UTF-8");
                     Conexion.autoConnect();
-                    SQLXML equipos = DAOEquipos.getXMLRecords(new Long(request.getParameter("mod")),DAOEquipos.F_REGISTRO);
+                    SQLXML equipos = DAODispositivos.getXMLRecords(new Long(request.getParameter("mod")),DAODispositivos.F_REGISTRO);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(equipos.getString(),
-                            new String[]{user.getPermisos()}), path + "../web/xsl/equipos_form.xsl"));
+                            new String[]{user.getPermisos()}), path + "../web/xsl/monitor/equipos_form.xsl"));
 
                 } else if (ins != null) {
                     Conexion.autoConnect();
@@ -112,10 +112,10 @@ public class Equipos extends HttpServlet {
                         session.setAttribute("PersonaId", new Long(ins));
                     }
                     UserManager user = (UserManager) session.getAttribute("user");
-                    SQLXML personas = DAOPFisicas.getXMLRecords("" + session.getAttribute("PersonaId"));
+                    SQLXML personas = DAODispositivos.getXMLRecords((Long)session.getAttribute("PersonaId"),DAODispositivos.F_NEW);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(personas.getString(),
-                            new String[]{user.getPermisos()}), path + "../web/xsl/equipos_form.xsl"));
+                            new String[]{user.getPermisos()}), path + "../web/xsl/monitor/equipos_form.xsl"));
                 } else {
                     processRequest(request, response);
                 }
@@ -152,8 +152,8 @@ public class Equipos extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
-                DAOEquipos daoequipo = new DAOEquipos(new Long(request.getParameter("inCode")),new Long(request.getParameter("inFKey")),
-                        new Integer(request.getParameter("inType")), new Integer(request.getParameter("inNet")), request.getParameter("inPerson"), request.getParameter("inUser"), request.getParameter("inPass"),request.getParameter("inIP"));
+                DAODispositivos daoequipo = new DAODispositivos(new Long(request.getParameter("inCode")),new Long(request.getParameter("inFKey")),
+                        new Integer(request.getParameter("inType")), new Integer(request.getParameter("inNet")), request.getParameter("inPerson"), request.getParameter("inUser"), request.getParameter("inPass"),request.getParameter("inIP"),request.getParameter("inNetNm"));
                 if (daoequipo.getlEquipoId() == 0) {
                     daoequipo.insert();
                 } else {
@@ -162,12 +162,12 @@ public class Equipos extends HttpServlet {
                 response.sendRedirect("ok.html");
             } else if (request.getParameter("del.x") != null) {
                 Conexion.autoConnect();
-                DAOEquipos daoequipo = new DAOEquipos();
+                DAODispositivos daoequipo = new DAODispositivos();
                 daoequipo.setlEquipoId(new Long(request.getParameter("keycode")));
                 daoequipo.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOEquipos.getXMLRecords((Long) session.getAttribute("PersonaId"),DAOEquipos.F_LISTA).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/equipos2.xsl"));
+                        XMLModder.JoinDocs(DAODispositivos.getXMLRecords((Long) session.getAttribute("PersonaId"),DAODispositivos.F_LISTA).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/equipos2.xsl"));
             } else if (request.getParameter("srch1") != null) {
                 Conexion.autoConnect();
                 user = (UserManager) session.getAttribute("user");
@@ -177,7 +177,7 @@ public class Equipos extends HttpServlet {
                 Conexion.autoConnect();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOEquipos.searchXML((Long) session.getAttribute("PersonaId"), request.getParameter("inSearch")).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/equipos2.xsl"));
+                        XMLModder.JoinDocs(DAODispositivos.searchXML((Long) session.getAttribute("PersonaId"), request.getParameter("inSearch")).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "../web/xsl/equipos2.xsl"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

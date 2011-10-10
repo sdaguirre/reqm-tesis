@@ -51,7 +51,7 @@
                                             <div id="cont-col">
                                                 <div class="ind">
                                                     <xsl:choose>
-                                                        <xsl:when test="/root/row/fkey">
+                                                        <xsl:when test="/root/row/type">
                                                             <h2>Modificar Equipo</h2>
                                                         </xsl:when>
                                                         <xsl:otherwise>
@@ -65,14 +65,14 @@
                                                             <div class="services">
                                                                 <div class="columns">
                                                                     <div class="column-left">
-                                                                        <form method="post" action="Equipos">
+                                                                        <form method="post" action="Dispositivos">
                                                                             <table width="500px">
                                                                                 <colgroup>
                                                                                     <col width="20%" />
                                                                                     <col width="60%" />
                                                                                 </colgroup>
                                                                                 <xsl:choose>
-                                                                                    <xsl:when test="/root/row/fkey">
+                                                                                    <xsl:when test="/root/row/type">
                                                                                         <xsl:for-each select="/root/row">
                                                                                             <xsl:param name="type" select="type"/>
                                                                                             <xsl:param name="net" select="net"/>
@@ -157,7 +157,7 @@
                                                                                                 <td class="td-input">
                                                                                                     <input name="inPerson" type="text" maxlength="255" >
                                                                                                         <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="name" />
+                                                                                                            <xsl:value-of select="person" />
                                                                                                         </xsl:attribute>
                                                                                                     </input>
                                                                                                 </td>
@@ -169,7 +169,7 @@
                                                                                                 <td class="td-input">
                                                                                                     <input name="inUser" type="text" maxlength="255" >
                                                                                                         <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="name" />
+                                                                                                            <xsl:value-of select="user" />
                                                                                                         </xsl:attribute>
                                                                                                     </input>
                                                                                                 </td>
@@ -181,7 +181,7 @@
                                                                                                 <td class="td-input">
                                                                                                     <input name="inPass" type="text" maxlength="255" >
                                                                                                         <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="name" />
+                                                                                                            <xsl:value-of select="pass" />
                                                                                                         </xsl:attribute>
                                                                                                     </input>
                                                                                                 </td>
@@ -193,7 +193,7 @@
                                                                                                 <td class="td-input">
                                                                                                     <input name="inIP" type="text" maxlength="255" >
                                                                                                         <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="name" />
+                                                                                                            <xsl:value-of select="sip" />
                                                                                                         </xsl:attribute>
                                                                                                     </input>
                                                                                                 </td>
@@ -220,10 +220,22 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
+                                                                                                <td class="td-label">
+                                                                                                    <label for="inNetNm">Nombre de Red:</label>
+                                                                                                </td>
+                                                                                                <td class="td-input">
+                                                                                                    <input name="inNetNm" type="text" maxlength="255" >
+                                                                                                        <xsl:attribute name="value">
+                                                                                                            <xsl:value-of select="netnm" />
+                                                                                                        </xsl:attribute>
+                                                                                                    </input>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
                                                                                                 <td id="tdButton">
                                                                                                     <input type="hidden" name="inFKey">
                                                                                                         <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="fkey" />
+                                                                                                            <xsl:value-of select="clientkey" />
                                                                                                         </xsl:attribute>
                                                                                                     </input>
                                                                                                 </td>
@@ -249,7 +261,7 @@
                                                                                             <td class="td-input">
                                                                                                 <input name="inFKeyNm" type="text" maxlength="255" value="" readonly="true">
                                                                                                     <xsl:attribute name="value">
-                                                                                                        <xsl:value-of select="/root/clientnm" />
+                                                                                                        <xsl:value-of select="/root/row/clientnm" />
                                                                                                     </xsl:attribute>
                                                                                                 </input>
                                                                                             </td>
@@ -323,6 +335,26 @@
                                                                                                     <option value="2">Grupo de Trabajo
                                                                                                     </option>
                                                                                                 </select>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="td-label">
+                                                                                                <label for="inNetNm">Nombre de Red:</label>
+                                                                                            </td>
+                                                                                            <td class="td-input">
+                                                                                                <input name="inNetNm" type="text" maxlength="255" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td id="tdButton">
+                                                                                                <input type="hidden" name="inFKey">
+                                                                                                    <xsl:attribute name="value">
+                                                                                                        <xsl:value-of select="/root/row/clientkey" />
+                                                                                                    </xsl:attribute>
+                                                                                                </input>
+                                                                                            </td>
+                                                                                            <td class="td-input">
+                                                                                                <input class="formButtons" type="image" src="imgs/buttons/save.png" alt="Guardar" name="ok" value="true"/>Guardar
                                                                                             </td>
                                                                                         </tr>
                                                                                     </xsl:otherwise>

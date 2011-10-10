@@ -83,6 +83,10 @@
         <servlet-name>Observaciones</servlet-name>
         <servlet-class>war.Observaciones</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Dispositivos</servlet-name>
+        <servlet-class>war.monitor.Dispositivos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Reqm</servlet-name>
         <url-pattern>/Reqm</url-pattern>
@@ -162,6 +166,10 @@
     <servlet-mapping>
         <servlet-name>Observaciones</servlet-name>
         <url-pattern>/Observaciones</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Dispositivos</servlet-name>
+        <url-pattern>/Dispositivos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

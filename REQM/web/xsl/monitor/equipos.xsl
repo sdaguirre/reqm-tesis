@@ -46,7 +46,7 @@
                 <script type="text/javascript" src="js/viewer.popups.js"></script>
                 <script type="text/javascript">
                     $('form').submit(function(){
-                        this.post(Equipos);
+                        this.post(Dispositivos);
                     });
                 </script>
 
@@ -178,7 +178,7 @@
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <form method="POST" action="Equipos" accept-charset="UTF-8" id="search-theme-form">
+                                        <form method="POST" action="Dispositivos" accept-charset="UTF-8" id="search-theme-form">
                                             <div>
                                                 <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"
@@ -255,9 +255,9 @@
                                                                                                     <li>
                                                                                                         <span>
                                                                                                             <a id="formLink" >
-                                                                                                                <xsl:attribute name="href">Equipos?ins=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                <xsl:attribute name="href">Dispositivos?ins=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
                                                                                                                 <xsl:attribute name="rel">prettyPhoto[<xsl:value-of select="$key" />]</xsl:attribute>
-                                                                                                                <img src="imgs/buttons/add.png" alt="Nuevo Anteproyecto" />
+                                                                                                                <img src="imgs/buttons/add.png" alt="Nuevo Equipo" />
                                                                                                             </a>
                                                                                                             <span class="formButtons">Nuevo Equipo</span>
                                                                                                         </span>
@@ -267,7 +267,7 @@
                                                                                                     <li>
                                                                                                         <span class="formButtons">
                                                                                                             <a id="formLink" >
-                                                                                                                <xsl:attribute name="href">Equipos?fkey=<xsl:value-of select="$key" /></xsl:attribute>
+                                                                                                                <xsl:attribute name="href">Dispositivos?fkey=<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                                 <img src="imgs/buttons/open.png" alt="Ver Anteproyectos" />
                                                                                                             </a>Ver Equipos
                                                                                                         </span>

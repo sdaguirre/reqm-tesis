@@ -46,19 +46,19 @@ public class DAOPiezas extends DAO implements IDAO {
         return getProcessXML("gxml_", tabla, new Object[]{lKeyId, filter});
     }
 
-    public static SQLXML searchXML(String value) throws SQLException {
-        return getProcessXML("srch_", tabla, new Object[]{"%" + value + "%"});
+    public static SQLXML searchXML(long lDispositivoId,String value) throws SQLException {
+        return getProcessXML("srch_", tabla, new Object[]{lDispositivoId,"%" + value + "%"});
     }
     //#End
 //#Region IUD
 
     public boolean insert() throws SQLException {
-        this.lPiezaId = insertRecord(tabla, new Object[]{lEquipoId, iPPiezaId, sCodigoNm, iPMarcaId, sModeloNm, sPiezaDesc, dtGarantiaDt});
+        this.lPiezaId = insertRecord(tabla, new Object[]{lEquipoId, dtPiezaDt,iPPiezaId, sCodigoNm, iPMarcaId, sModeloNm, sPiezaDesc, dtGarantiaDt});
         return true;
     }
 
     public boolean update() throws SQLException {
-        return updateRecord(tabla, new Object[]{lPiezaId, lEquipoId, lEquipoId, iPPiezaId, sCodigoNm, iPMarcaId, sModeloNm, sPiezaDesc, dtGarantiaDt});
+        return updateRecord(tabla, new Object[]{lPiezaId, lEquipoId, dtPiezaDt, iPPiezaId, sCodigoNm, iPMarcaId, sModeloNm, sPiezaDesc, dtGarantiaDt});
     }
 
     public boolean delete() throws SQLException {

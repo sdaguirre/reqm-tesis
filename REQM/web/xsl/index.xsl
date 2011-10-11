@@ -52,7 +52,7 @@
 		                	<div id="header">
 		                    	<div class="head-row1">
 		                        	<div class="col1">
-                                        <a href="http://www.sd-bo.com" title="Home">
+                                        <a href="Reqm" title="Principal">
 		                            		<img src="imgs/SDLogo2.png" alt="Soluciones Digitales" class="logo" />
 		                            	</a>
 		                            </div>

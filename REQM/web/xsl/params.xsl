@@ -69,7 +69,7 @@
                             <div id="header">
                                 <div class="head-row1">
                                     <div class="col1">
-                                        <a href="http://www.sd-bo.com" title="Home">
+                                        <a href="Reqm" title="Principal">
                                             <img src="imgs/SDLogo2.png" alt="Soluciones Digitales" class="logo" />
                                         </a>
                                     </div>
@@ -273,6 +273,43 @@
                                                                                     <xsl:otherwise>
                                                                                     <li class="leaf last">
                                                                                         <a href="Params?prm=ptipos">Tipos de Proyecto</a>
+                                                                                    </li>
+                                                                                    </xsl:otherwise>
+                                                                                </xsl:choose>
+                                                                            </xsl:if>
+                                                                            <xsl:if test="@id=410">
+                                                                                <li>---------------------</li>
+                                                                                <xsl:choose>
+                                                                                    <xsl:when test="$prm='ppiezas'">
+                                                                                        <li class="leaf first"><div id="selected">Piezas</div></li>
+                                                                                    </xsl:when>
+                                                                                    <xsl:otherwise>
+                                                                                    <li class="leaf last">
+                                                                                        <a href="Params?prm=ppiezas">Piezas</a>
+                                                                                    </li>
+                                                                                    </xsl:otherwise>
+                                                                                </xsl:choose>
+                                                                            </xsl:if>
+                                                                            <xsl:if test="@id=411">
+                                                                                <xsl:choose>
+                                                                                    <xsl:when test="$prm='pmarcas'">
+                                                                                        <li class="leaf first"><div id="selected">Marcas</div></li>
+                                                                                    </xsl:when>
+                                                                                    <xsl:otherwise>
+                                                                                    <li class="leaf last">
+                                                                                        <a href="Params?prm=pmarcas">Marcas</a>
+                                                                                    </li>
+                                                                                    </xsl:otherwise>
+                                                                                </xsl:choose>
+                                                                            </xsl:if>
+                                                                            <xsl:if test="@id=412">
+                                                                                <xsl:choose>
+                                                                                    <xsl:when test="$prm='pmotivos'">
+                                                                                        <li class="leaf first"><div id="selected">Motivos Trabajo</div></li>
+                                                                                    </xsl:when>
+                                                                                    <xsl:otherwise>
+                                                                                    <li class="leaf last">
+                                                                                        <a href="Params?prm=pmotivos">Motivos de Trabajo</a>
                                                                                     </li>
                                                                                     </xsl:otherwise>
                                                                                 </xsl:choose>

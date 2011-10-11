@@ -68,7 +68,7 @@
                             <div id="header">
                                 <div class="head-row1">
                                     <div class="col1">
-                                        <a href="http://www.sd-bo.com" title="Home">
+                                        <a href="Reqm" title="Principal">
                                             <img src="imgs/SDLogo2.png" alt="Soluciones Digitales" class="logo" />
                                         </a>
                                     </div>
@@ -123,30 +123,6 @@
                                                                         <xsl:if test="@id=202">
                                                                             <li>
                                                                                 <a href="Proyectos">Adm. Proyectos</a>
-                                                                            </li>
-                                                                        </xsl:if>
-                                                                    </xsl:for-each>
-                                                                </ul>
-                                                            </li>
-                                                        </xsl:if>
-                                                        <xsl:if test="@id=600">
-                                                            <li>
-                                                                <a href="Taller" class="sf-with-ul">Taller</a>
-                                                                <ul>
-                                                                    <xsl:for-each select="/root/permisos/sitio[@id&gt;600]">
-                                                                        <xsl:if test="@id=601">
-                                                                            <li>
-                                                                                <a href="Dispositivos">Adm. Dispositivos</a>
-                                                                            </li>
-                                                                        </xsl:if>
-                                                                        <xsl:if test="@id=602">
-                                                                            <li>
-                                                                                <a href="Taller">Adm. Trabajos</a>
-                                                                            </li>
-                                                                        </xsl:if>
-                                                                        <xsl:if test="@id=603">
-                                                                            <li>
-                                                                                <a href="Soluciones">Adm. Soluciones</a>
                                                                             </li>
                                                                         </xsl:if>
                                                                     </xsl:for-each>
@@ -252,7 +228,7 @@
                                                                 <div class="content">
                                                                     <ul class="menu">
                                                                         <li class="leaf first">
-                                                                            <a href="Anteproyectos?step=1">Clientes</a>
+                                                                            <a href="Dispositivos?step=1">Clientes</a>
                                                                         </li>
                                                                         <li class="leaf"><div id="selected">Dispositivos</div></li>
                                                                     </ul>
@@ -304,7 +280,7 @@
                                                                                             <xsl:value-of select="type" />
                                                                                         </td>
                                                                                         <td>
-                                                                                            <xsl:value-of select="name" />
+                                                                                            <xsl:value-of select="person" />
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="arrow"></div>
@@ -314,18 +290,15 @@
                                                                                         <td colspan="5">
                                                                                             <h1 class="xsldtitulos">Informacion Adicional</h1>
                                                                                             <div class="xsldetalle">
-                                                                                                <div class="xsldbox">Responsable:
-                                                                                                    <xsl:value-of select="person" />
-                                                                                                </div>
-                                                                                                <div>IP:
+                                                                                                <div class="xsldbox">IP:
                                                                                                     <xsl:value-of select="sip" />
-                                                                                                </div>
-                                                                                                <div class="xsldbox">Fecha Registro:
-                                                                                                    <xsl:value-of select="date" />
                                                                                                 </div>
                                                                                                 <div>Red:
                                                                                                     <xsl:value-of select="netnm" />
                                                                                                 </div>
+                                                                                                <div style="padding-top:3px;">Fecha Registro:
+                                                                                                    <xsl:value-of select="date" />
+                                                                                                </div>                                                                                               
                                                                                             </div>
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
@@ -346,7 +319,7 @@
                                                                                                     <span class="formButtons">
                                                                                                         <a id="formLink" rel="prettyPhoto[mod]" >
                                                                                                             <xsl:attribute name="href">Trabajos?ins=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
-                                                                                                            <img src="imgs/buttons/new.png" alt="Nuevo Trabajo" />
+                                                                                                            <img src="imgs/buttons/add.png" alt="Nuevo Trabajo" />
                                                                                                         </a>Registrar Trabajo
                                                                                                     </span>
                                                                                                     </li>

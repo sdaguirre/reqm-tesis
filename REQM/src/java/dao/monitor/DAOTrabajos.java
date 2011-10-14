@@ -12,21 +12,23 @@ public class DAOTrabajos extends DAO implements IDAO {
     public static final int F_LISTA = 1, F_REGISTRO = 2, F_NEW = 3, F_REPORT = 4;
     private long lTrabajoId,lEquipoId;
     private Date dtTrabajoDt;
-    private int iPMotivoId,iEstadoFl,iNivelFl,iRecepcionId;
+    private int iPMotivoId,iEstadoFl,iPrioridadFl,iRecepcionId;
+    private String sTrabajo_nm, sTrabajo_desc;
     //#End
 //#Region Builders
 
     public DAOTrabajos() {
     }
 
-    public DAOTrabajos(long lTrabajoId, long lEquipoId, Date dtTrabajoDt, int iPMotivoId, int iEstadoFl, int iNivelFl, int sRecepcionId) {
+    public DAOTrabajos(long lTrabajoId, long lEquipoId, int iPMotivoId, int iEstadoFl, int iPrioridadFl, int iRecepcionId, String sTrabajo_nm, String sTrabajo_desc) {
         this.lTrabajoId = lTrabajoId;
         this.lEquipoId = lEquipoId;
-        this.dtTrabajoDt = dtTrabajoDt;
         this.iPMotivoId = iPMotivoId;
         this.iEstadoFl = iEstadoFl;
-        this.iNivelFl = iNivelFl;
-        this.iRecepcionId = sRecepcionId;
+        this.iPrioridadFl = iPrioridadFl;
+        this.iRecepcionId = iRecepcionId;
+        this.sTrabajo_nm = sTrabajo_nm;
+        this.sTrabajo_desc = sTrabajo_desc;
     }
 
     //#End
@@ -50,12 +52,12 @@ public class DAOTrabajos extends DAO implements IDAO {
 //#Region IUD
 
     public boolean insert() throws SQLException {
-        this.lTrabajoId = insertRecord(tabla, new Object[]{lEquipoId,iPMotivoId,iEstadoFl,iNivelFl,iRecepcionId});
+        this.lTrabajoId = insertRecord(tabla, new Object[]{lEquipoId,iPMotivoId,iPrioridadFl,sTrabajo_nm,sTrabajo_desc,iRecepcionId});
         return true;
     }
 
     public boolean update() throws SQLException {
-        return updateRecord(tabla, new Object[]{lTrabajoId,lEquipoId,iPMotivoId,iEstadoFl,iNivelFl,iRecepcionId});
+        return updateRecord(tabla, new Object[]{lTrabajoId,lEquipoId,iPMotivoId,iPrioridadFl,iEstadoFl,sTrabajo_nm,sTrabajo_desc,iRecepcionId});
     }
 
     public boolean delete() throws SQLException {
@@ -89,11 +91,11 @@ public class DAOTrabajos extends DAO implements IDAO {
     }
 
     public int getiNivelFl() {
-        return iNivelFl;
+        return iPrioridadFl;
     }
 
     public void setiNivelFl(int iNivelFl) {
-        this.iNivelFl = iNivelFl;
+        this.iPrioridadFl = iNivelFl;
     }
 
     public int getiPMotivoId() {

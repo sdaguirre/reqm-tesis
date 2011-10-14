@@ -251,30 +251,23 @@
                                                                     <div class="column-left">
                                                                         <form method="post" action="Taller">
                                                                             <input type="hidden" id="keycode" name="keycode" value="" />
-                                                                            <table id="report" width="500px">
+                                                                            <table id="report" width="600px">
                                                                                 <tr>
                                                                                     <th>Prioridad</th>
                                                                                     <th>Estado</th>
                                                                                     <th>Cliente</th>
                                                                                     <th>Motivo</th>
-                                                                                    <th id="former">
-                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=602]">
-                                                                                        <xsl:if test="./ins='true'">
-                                                                                            <a id="formNew" rel="prettyPhoto[new]" href="Piezas?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
-                                                                                                <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
-                                                                                            </a>
-                                                                                            <div>Nuevo</div>
-                                                                                        </xsl:if>
-                                                                                    </xsl:for-each>
-                                                                                    </th>
                                                                                 </tr>
                                                                                 <xsl:for-each select="/root/row">
                                                                                     <xsl:param name="key" select="@key"/>
                                                                                     <tr>
-                                                                                        <td>
+                                                                                        <td style="font-weight:bold;">
                                                                                             <xsl:value-of select="level" />
                                                                                         </td>
                                                                                         <td>
+                                                                                            <xsl:if test="stateflag=3">
+                                                                                               <xsl:attribute name="style">font-weight:bold</xsl:attribute>
+                                                                                            </xsl:if>
                                                                                             <xsl:value-of select="state" />
                                                                                         </td>
                                                                                         <td>
@@ -288,17 +281,17 @@
                                                                                         <td colspan="6">
                                                                                             <h1 class="xsldtitulos">Informacion Adicional</h1>
                                                                                             <div class="xsldetalle">
-                                                                                                <div class="xsldbox">Equipo<xsl:value-of select="fkeynm" /></div>
+                                                                                                <div class="xsldbox" style="padding-right:30px;">Equipo: <xsl:value-of select="fkeynm" /></div>
                                                                                                 <div style="padding-top:3px;">Fecha Trabajo:
                                                                                                     <xsl:value-of select="date" />
                                                                                                 </div>
-                                                                                                <div style="padding-top:3px;" class="xsldbox">Motivo:
+                                                                                                <div style="padding-top:3px;padding-right:30px;" class="xsldbox">Motivo:
                                                                                                     <xsl:value-of select="motive" />
                                                                                                 </div>
-                                                                                                <div>Receptor:
+                                                                                                <div style="padding-top:3px;">Receptor:
                                                                                                     <xsl:value-of select="user" />
                                                                                                 </div>
-                                                                                                <div style="padding-top:3px;">Detalle:
+                                                                                                <div style="padding-top:3px;padding-right:30px;">Detalle:
                                                                                                     <xsl:value-of select="name" />
                                                                                                 </div>                                                                                               
                                                                                             </div>

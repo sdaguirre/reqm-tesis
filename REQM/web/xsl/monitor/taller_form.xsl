@@ -51,7 +51,7 @@
                                             <div id="cont-col">
                                                 <div class="ind">
                                                     <xsl:choose>
-                                                        <xsl:when test="/root/row/type">
+                                                        <xsl:when test="/root/row/level">
                                                             <h2>Modificar Trabajo</h2>
                                                         </xsl:when>
                                                         <xsl:otherwise>
@@ -72,10 +72,11 @@
                                                                                     <col width="60%" />
                                                                                 </colgroup>
                                                                                 <xsl:choose>
-                                                                                    <xsl:when test="/root/row/type">
+                                                                                    <xsl:when test="/root/row/level">
                                                                                         <xsl:for-each select="/root/row">
-                                                                                            <xsl:param name="type" select="type"/>
-                                                                                            <xsl:param name="marca" select="marca"/>
+                                                                                            <xsl:param name="motive" select="motive"/>
+                                                                                            <xsl:param name="level" select="level"/>
+                                                                                            <xsl:param name="state" select="state"/>
                                                                                             <tr>
                                                                                                 <td class="td-label">
                                                                                                     <label for="inCode">Codigo:</label>
@@ -122,14 +123,9 @@
                                                                                                     <label for="inDate">Fecha Registro:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <input name="inDate" id="dateFieldA" class="embed" type="text" readonly="true" >
-                                                                                                        <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="date" />
-                                                                                                        </xsl:attribute>
+                                                                                                    <input name="inDate" class="embed" type="text" readonly="true" >
+                                                                                                        <xsl:attribute name="value"><xsl:value-of select="date"/></xsl:attribute>
                                                                                                     </input>
-                                                                                                    <div class="hiddenDiv">
-                                                                                                        <img class="trigger" id="calImg" src="imgs/buttons/calendar.png" alt="Fecha" />
-                                                                                                    </div>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
@@ -139,37 +135,37 @@
                                                                                                 <td class="td-input">
                                                                                                     <select name="inLevel" >
                                                                                                         <option value="1">
-                                                                                                            <xsl:if test="$type=1">
+                                                                                                            <xsl:if test="$level=1">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                             </xsl:if>Muy Baja
                                                                                                         </option>
                                                                                                         <option value="2">
-                                                                                                            <xsl:if test="$type=2">
+                                                                                                            <xsl:if test="$level=2">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                             </xsl:if>Baja
                                                                                                         </option>
                                                                                                         <option value="3">
-                                                                                                            <xsl:if test="$type=3">
+                                                                                                            <xsl:if test="$level=3">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                             </xsl:if>Normal
                                                                                                         </option>
                                                                                                         <option value="4">
-                                                                                                            <xsl:if test="$type=4">
+                                                                                                            <xsl:if test="$level=4">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                             </xsl:if>Alta
                                                                                                         </option>
                                                                                                         <option value="5">
-                                                                                                            <xsl:if test="$type=5">
+                                                                                                            <xsl:if test="$level=5">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                             </xsl:if>Muy Alta
                                                                                                         </option>
                                                                                                         <option value="6">
-                                                                                                            <xsl:if test="$type=6">
+                                                                                                            <xsl:if test="$level=6">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                             </xsl:if>Otros
@@ -184,19 +180,19 @@
                                                                                                 <td class="td-input">
                                                                                                     <select name="inState" >
                                                                                                         <option value="1">
-                                                                                                            <xsl:if test="$type=1">
+                                                                                                            <xsl:if test="$state=1">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                             </xsl:if>Pendiente
                                                                                                         </option>
                                                                                                         <option value="2">
-                                                                                                            <xsl:if test="$type=2">
+                                                                                                            <xsl:if test="$state=2">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                             </xsl:if>Analisis
                                                                                                         </option>
                                                                                                         <option value="3">
-                                                                                                            <xsl:if test="$type=3">
+                                                                                                            <xsl:if test="$state=3">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                             </xsl:if>Solucionado
@@ -216,7 +212,7 @@
                                                                                                                 <xsl:attribute name="value">
                                                                                                                     <xsl:value-of select="@key" />
                                                                                                                 </xsl:attribute>
-                                                                                                                <xsl:if test="$type=@key">
+                                                                                                                <xsl:if test="$motive=@key">
                                                                                                                     <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                     <xsl:attribute name="class">marked</xsl:attribute>
                                                                                                                 </xsl:if>
@@ -233,7 +229,7 @@
                                                                                                 <td class="td-input">
                                                                                                     <input name="inName" type="text" maxlength="255" >
                                                                                                         <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="serial" />
+                                                                                                            <xsl:value-of select="name" />
                                                                                                         </xsl:attribute>
                                                                                                     </input>
                                                                                                 </td>
@@ -296,7 +292,7 @@
                                                                                                 <select name="inLevel" >
                                                                                                     <option value="1">Muy Baja</option>
                                                                                                     <option value="2">Baja</option>
-                                                                                                    <option value="3">Normal</option>
+                                                                                                    <option value="3" selected="selected">Normal</option>
                                                                                                     <option value="4">Alta</option>
                                                                                                     <option value="5">Muy Alta</option>
                                                                                                 </select>

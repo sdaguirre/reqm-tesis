@@ -3,7 +3,6 @@ package war.monitor;
 import conexion.Conexion;
 import dao.DAOObservaciones;
 import dao.DAOParams;
-import dao.monitor.DAOPiezas;
 import dao.monitor.DAOTrabajos;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +18,7 @@ import libs.XMLModder;
 
 public class Taller extends HttpServlet {
 
-    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
+    private String path = "C:/Users/BlueFox/Documents/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -125,8 +124,8 @@ public class Taller extends HttpServlet {
                 user = (UserManager) session.getAttribute("user");
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
                 DAOTrabajos taller = new DAOTrabajos(new Long(request.getParameter("inCode")), new Long(request.getParameter("inFKey")),
-                        new java.sql.Date(dateFormatter.parse(request.getParameter("inDate")).getTime()),new Integer(request.getParameter("inMotivo")), new Integer(request.getParameter("inState")),
-                        Integer.parseInt(request.getParameter("inLevel")),Integer.parseInt(""+user.getUsuarioId()));
+                        new Integer(request.getParameter("inMotive")), new Integer(request.getParameter("inState")),
+                        Integer.parseInt(request.getParameter("inLevel")),Integer.parseInt(""+user.getUsuarioId()),request.getParameter("inName"), request.getParameter("inDesc"));
                 if (taller.getlTrabajoId() == 0) {
                     taller.insert();
                 } else {

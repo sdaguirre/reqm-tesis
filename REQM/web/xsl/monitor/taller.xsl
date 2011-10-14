@@ -46,7 +46,7 @@
                 <script type="text/javascript" src="js/viewer.popups.js"></script>
                 <script type="text/javascript">
                     $('form').submit(function(){
-                        this.post(Dispositivos);
+                        this.post(Taller);
                     });
                 </script>
                 
@@ -202,7 +202,7 @@
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <form method="POST" action="Dispositivos" accept-charset="UTF-8" id="search-theme-form">
+                                        <form method="POST" action="Taller" accept-charset="UTF-8" id="search-theme-form">
                                             <div>
                                                 <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"
@@ -227,10 +227,7 @@
                                                                 </div>
                                                                 <div class="content">
                                                                     <ul class="menu">
-                                                                        <li class="leaf first">
-                                                                            <a href="Dispositivos?step=1">Clientes</a>
-                                                                        </li>
-                                                                        <li class="leaf"><div id="selected">Dispositivos</div></li>
+                                                                        <li class="leaf"><div id="selected">Taller</div></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -240,29 +237,30 @@
                                             </div>
                                             <div id="cont-col">
                                                 <div class="ind">
-                                                    <h2>Administrador de Equipos</h2>
+                                                    <h2>Administrador de Taller</h2>
                                                     <!-- start main content -->
                                                     <div class="node">
                                                         <div class="taxonomy"></div>
                                                         <div class="content">
-                                                            <div class="services">Esta interfaz permite la administracion de equipos y dispositivos de un cliente.
+                                                            <div class="services">Esta interfaz permite visualizar todos los trabajos realizados del taller.
                                                                 <br />
                                                                 <a href="#" class="cont-more">mas ayuda</a>
                                                                 <br class="clear" />
                                                                 <br />
                                                                 <div class="columns">
                                                                     <div class="column-left">
-                                                                        <form method="post" action="Dispositivos">
+                                                                        <form method="post" action="Taller">
                                                                             <input type="hidden" id="keycode" name="keycode" value="" />
                                                                             <table id="report" width="500px">
                                                                                 <tr>
-                                                                                    <th>Codigo</th>
-                                                                                    <th>Tipo</th>
-                                                                                    <th>Nombre</th>
+                                                                                    <th>Prioridad</th>
+                                                                                    <th>Estado</th>
+                                                                                    <th>Cliente</th>
+                                                                                    <th>Motivo</th>
                                                                                     <th id="former">
-                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=601]">
+                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=602]">
                                                                                         <xsl:if test="./ins='true'">
-                                                                                            <a id="formNew" rel="prettyPhoto[new]" href="Dispositivos?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
+                                                                                            <a id="formNew" rel="prettyPhoto[new]" href="Piezas?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
                                                                                                 <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
                                                                                             </a>
                                                                                             <div>Nuevo</div>
@@ -274,62 +272,56 @@
                                                                                     <xsl:param name="key" select="@key"/>
                                                                                     <tr>
                                                                                         <td>
-                                                                                            <xsl:value-of select="$key" />
+                                                                                            <xsl:value-of select="level" />
                                                                                         </td>
                                                                                         <td>
-                                                                                            <xsl:value-of select="type" />
+                                                                                            <xsl:value-of select="state" />
                                                                                         </td>
                                                                                         <td>
-                                                                                            <xsl:value-of select="person" />
+                                                                                            <xsl:value-of select="clientnm" />
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="arrow"></div>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="5">
+                                                                                        <td colspan="6">
                                                                                             <h1 class="xsldtitulos">Informacion Adicional</h1>
                                                                                             <div class="xsldetalle">
-                                                                                                <div class="xsldbox">IP:
-                                                                                                    <xsl:value-of select="sip" />
-                                                                                                </div>
-                                                                                                <div>Red:
-                                                                                                    <xsl:value-of select="netnm" />
-                                                                                                </div>
-                                                                                                <div style="padding-top:3px;">Fecha Registro:
+                                                                                                <div class="xsldbox">Equipo<xsl:value-of select="fkeynm" /></div>
+                                                                                                <div style="padding-top:3px;">Fecha Trabajo:
                                                                                                     <xsl:value-of select="date" />
+                                                                                                </div>
+                                                                                                <div style="padding-top:3px;" class="xsldbox">Motivo:
+                                                                                                    <xsl:value-of select="motive" />
+                                                                                                </div>
+                                                                                                <div>Receptor:
+                                                                                                    <xsl:value-of select="user" />
+                                                                                                </div>
+                                                                                                <div style="padding-top:3px;">Detalle:
+                                                                                                    <xsl:value-of select="name" />
                                                                                                 </div>                                                                                               
                                                                                             </div>
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=604]">
+                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=603]">
                                                                                                     <xsl:if test="./sel='true'">
                                                                                                         <li>
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">Piezas?fkey=<xsl:value-of select="$key" /></xsl:attribute>
-                                                                                                                    <img src="imgs/buttons/document.png" alt="Ver Documentos Registrados" />
-                                                                                                                </a>Ver Piezas
+                                                                                                                    <xsl:attribute name="href">Soluciones?fkey=<xsl:value-of select="$key" /></xsl:attribute>
+                                                                                                                    <img src="imgs/buttons/document.png" alt="Ver Soluciones Registradas" />
+                                                                                                                </a>Ver Soluciones
                                                                                                             </span>
                                                                                                         </li>
                                                                                                     </xsl:if>
                                                                                                 </xsl:for-each>
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=602]">
                                                                                                     <li>
-                                                                                                    <span class="formButtons">
-                                                                                                        <a id="formLink" rel="prettyPhoto[mod]" >
-                                                                                                            <xsl:attribute name="href">Taller?ins=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
-                                                                                                            <img src="imgs/buttons/add.png" alt="Nuevo Trabajo" />
-                                                                                                        </a>Registrar Trabajo
-                                                                                                    </span>
-                                                                                                    </li>
-                                                                                                </xsl:for-each>
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=601]">
-                                                                                                    <li>
                                                                                                         <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" rel="prettyPhoto[mod]" >
-                                                                                                                    <xsl:attribute name="href">Dispositivos?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
+                                                                                                                    <xsl:attribute name="href">Taller?mod=<xsl:value-of select="$key" />&#38;iframe=true&#38;width=60%&#38;height=100%</xsl:attribute>
                                                                                                                     <img src="imgs/buttons/edit.png" alt="Modificar Registro" />
                                                                                                                 </a>Modificar
                                                                                                             </span>

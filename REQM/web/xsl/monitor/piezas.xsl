@@ -202,7 +202,7 @@
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <form method="POST" action="Dispositivos" accept-charset="UTF-8" id="search-theme-form">
+                                        <form method="POST" action="Piezas" accept-charset="UTF-8" id="search-theme-form">
                                             <div>
                                                 <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"
@@ -263,7 +263,7 @@
                                                                                     <th>Tipo</th>
                                                                                     <th>Nombre</th>
                                                                                     <th id="former">
-                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=201]">
+                                                                                    <xsl:for-each select="/root/permisos/sitio[@id=604]">
                                                                                         <xsl:if test="./ins='true'">
                                                                                             <a id="formNew" rel="prettyPhoto[new]" href="Piezas?ins=true&#38;iframe=true&#38;width=60%&#38;height=100%" >
                                                                                                 <img src="imgs/buttons/add.png" alt="Nuevo Registro" />
@@ -303,7 +303,7 @@
                                                                                             </div>
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
-                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=201]">
+                                                                                                <xsl:for-each select="/root/permisos/sitio[@id=604]">
                                                                                                     <li>
                                                                                                         <xsl:if test="./mod='true'">
                                                                                                             <span class="formButtons">

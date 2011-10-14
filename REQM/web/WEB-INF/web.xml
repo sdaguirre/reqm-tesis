@@ -91,6 +91,10 @@
         <servlet-name>Piezas</servlet-name>
         <servlet-class>war.monitor.Piezas</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Taller</servlet-name>
+        <servlet-class>war.monitor.Taller</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Reqm</servlet-name>
         <url-pattern>/Reqm</url-pattern>
@@ -178,6 +182,10 @@
     <servlet-mapping>
         <servlet-name>Piezas</servlet-name>
         <url-pattern>/Piezas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Taller</servlet-name>
+        <url-pattern>/Taller</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

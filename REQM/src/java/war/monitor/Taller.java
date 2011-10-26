@@ -18,7 +18,7 @@ import libs.XMLModder;
 
 public class Taller extends HttpServlet {
 
-    private String path = "C:/Users/BlueFox/Documents/NetBeansProjects/REQM/web/";
+    private String path = "C:/Users/Moncho/Documents/NetBeansProjects/REQM/web/";
     //private String path = "/home/bluefox/NetBeansProjects/REQM/web/";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

@@ -22,9 +22,21 @@ public class DAOCotizaciones extends DAO implements IDAO {
     public DAOCotizaciones() {
     }
 
-    public DAOCotizaciones(long lCotizacionId, long lPersonaId,Date dtCotizacionDt,String sCotizacionNm, FileItem bnCotizacionData) {
+    public DAOCotizaciones(long lReqmDocumentoId, FileItem bnReqmDocumentoData) {
+        this.lReqmDocumentoId = lReqmDocumentoId;
+        this.bnReqmDocumentoData = bnReqmDocumentoData;
+        if(bnReqmDocumentoData!=null){
+            String[] pathf = bnReqmDocumentoData.getName().split("\\.");
+            this.sReqmDocumentoExt = pathf[pathf.length - 1];
+            this.sReqmDocumentoMIME=bnReqmDocumentoData.getContentType();
+        }
+    }
+
+    public DAOCotizaciones(long lCotizacionId, long lPersonaId,int iEstadoFl,
+            Date dtCotizacionDt,String sCotizacionNm, FileItem bnCotizacionData) {
         this.lReqmDocumentoId = lCotizacionId;
         this.lFReqmId = lPersonaId;
+        this.iEstadoFl=iEstadoFl;
         this.dtReqmDocumentoDt = dtCotizacionDt;
         this.sReqmDocumentoNm = sCotizacionNm;
         if(bnCotizacionData!=null){
@@ -56,21 +68,21 @@ public class DAOCotizaciones extends DAO implements IDAO {
         }
     }
 
-    public static SQLXML search(String tabla,String value) throws SQLException {
-        return searchXMLRecords(tabla, "%" + value + "%");
+    public static SQLXML searchXML(long lPersonaId,String value) throws SQLException {
+        return getProcessXML("srch_", tabla, new Object[]{lPersonaId,"%" + value + "%"});
     }
     //#End
 //#Region IUD
 
     @Override
     public boolean insert() throws SQLException {
-        this.lReqmDocumentoId = insertRecord(tabla, new Object[]{lFReqmId, sReqmDocumentoNm, sReqmDocumentoExt,sReqmDocumentoMIME, bnReqmDocumentoData});
+        this.lReqmDocumentoId = insertRecord(tabla, new Object[]{lFReqmId, iEstadoFl,sReqmDocumentoNm, sReqmDocumentoExt,sReqmDocumentoMIME, bnReqmDocumentoData});
         return true;
     }
 
     @Override
     public boolean update() throws SQLException {
-        return updateRecord(tabla, new Object[]{lReqmDocumentoId, iEstadoFl,lFReqmId, dtReqmDocumentoDt, sReqmDocumentoNm});
+        return updateRecord(tabla, new Object[]{lReqmDocumentoId,lFReqmId,iEstadoFl, sReqmDocumentoNm});
     }
     
     public boolean upload() throws SQLException {

@@ -173,6 +173,11 @@
                                                                                 <a href="Soluciones">Adm. Soluciones</a>
                                                                             </li>
                                                                         </xsl:if>
+                                                                        <xsl:if test="@id=604">
+                                                                            <li>
+                                                                                <a href="Cotizaciones">Adm. Cotizaciones</a>
+                                                                            </li>
+                                                                        </xsl:if>
                                                                     </xsl:for-each>
                                                                 </ul>
                                                             </li>
@@ -276,7 +281,7 @@
                                                                                     <td colspan="5">
                                                                                         <h1 class="xsldtitulos">Opciones</h1>
                                                                                         <ul class="gallery clearfix">
-                                                                                            <xsl:for-each select="/root/permisos/sitio[@id=201]">
+                                                                                            <xsl:for-each select="/root/permisos/sitio[@id=605]">
                                                                                                 <xsl:if test="./sel='true'">
                                                                                                     <li>
                                                                                                         <span>
@@ -285,7 +290,7 @@
                                                                                                                 <xsl:attribute name="rel">prettyPhoto[<xsl:value-of select="$key" />]</xsl:attribute>
                                                                                                                 <img src="imgs/buttons/add.png" alt="Nuevo Equipo" />
                                                                                                             </a>
-                                                                                                            <span class="formButtons">Nuevo Equipo</span>
+                                                                                                            <span class="formButtons">Nueva Cotizacion</span>
                                                                                                         </span>
                                                                                                     </li>
                                                                                                 </xsl:if>
@@ -295,7 +300,7 @@
                                                                                                             <a id="formLink" >
                                                                                                                 <xsl:attribute name="href">Cotizaciones?fkey=<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                                 <img src="imgs/buttons/open.png" alt="Ver Anteproyectos" />
-                                                                                                            </a>Ver Equipos
+                                                                                                            </a>Ver Cotizaciones
                                                                                                         </span>
                                                                                                     </li>
                                                                                                 </xsl:if>

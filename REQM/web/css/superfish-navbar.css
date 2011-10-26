@@ -17,7 +17,7 @@
         font-size:11px;
 }
 .sf-navbar a {
-	border-top:		none;
+	border-top:none;
         text-decoration:none;
         text-align:center;
         color:#fff;
@@ -25,7 +25,7 @@
         font-size:11px;
 }
 .sf-navbar li ul {
-	width:			44em; /*IE6 soils itself without this*/
+	width:			54em; /*IE6 soils itself without this*/
 }
 .sf-navbar li li {
 	/*background: url("../imgs/bg-row.png");*/

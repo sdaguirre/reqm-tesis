@@ -140,6 +140,11 @@
                                                                                 <a href="Soluciones">Adm. Soluciones</a>
                                                                             </li>
                                                                         </xsl:if>
+                                                                        <xsl:if test="@id=604">
+                                                                            <li>
+                                                                                <a href="Cotizaciones">Adm. Cotizaciones</a>
+                                                                            </li>
+                                                                        </xsl:if>
                                                                     </xsl:for-each>
                                                                 </ul>
                                                             </li>

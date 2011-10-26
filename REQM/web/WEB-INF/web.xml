@@ -95,6 +95,10 @@
         <servlet-name>Taller</servlet-name>
         <servlet-class>war.monitor.Taller</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Cotizaciones</servlet-name>
+        <servlet-class>war.monitor.Cotizaciones</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Reqm</servlet-name>
         <url-pattern>/Reqm</url-pattern>
@@ -186,6 +190,10 @@
     <servlet-mapping>
         <servlet-name>Taller</servlet-name>
         <url-pattern>/Taller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cotizaciones</servlet-name>
+        <url-pattern>/Cotizaciones</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

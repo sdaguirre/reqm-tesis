@@ -273,7 +273,7 @@
                                                                                         <td>
                                                                                             <xsl:value-of select="clientnm" />
                                                                                         </td>
-                                                                                        <td>
+                                                                                        <td><span><xsl:value-of select="motive" /></span>
                                                                                             <div class="arrow"></div>
                                                                                         </td>
                                                                                     </tr>

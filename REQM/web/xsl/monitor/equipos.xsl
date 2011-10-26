@@ -153,7 +153,36 @@
                                                                 </ul>
                                                             </li>
                                                         </xsl:if>
-                                                        <xsl:if test="@id=600">                                                             <li>                                                                 <a href="Taller" class="sf-with-ul">Taller</a>                                                                 <ul>                                                                     <xsl:for-each select="/root/permisos/sitio[@id&gt;600]">                                                                         <xsl:if test="@id=601">                                                                             <li>                                                                                 <a href="Dispositivos">Adm. Dispositivos</a>                                                                             </li>                                                                         </xsl:if>                                                                         <xsl:if test="@id=602">                                                                             <li>                                                                                 <a href="Taller">Adm. Trabajos</a>                                                                             </li>                                                                         </xsl:if>                                                                         <xsl:if test="@id=603">                                                                             <li>                                                                                 <a href="Soluciones">Adm. Soluciones</a>                                                                             </li>                                                                         </xsl:if>                                                                     </xsl:for-each>                                                                 </ul>                                                             </li>                                                         </xsl:if>                                                         <xsl:if test="@id=500">
+                                                        <xsl:if test="@id=600">
+                                                            <li>
+                                                                <a href="Taller" class="sf-with-ul">Taller</a>
+                                                                <ul>
+                                                                    <xsl:for-each select="/root/permisos/sitio[@id&gt;600]">
+                                                                        <xsl:if test="@id=601">
+                                                                            <li>
+                                                                                <a href="Dispositivos">Adm. Dispositivos</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=602">
+                                                                            <li>
+                                                                                <a href="Taller">Adm. Trabajos</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=603">
+                                                                            <li>
+                                                                                <a href="Soluciones">Adm. Soluciones</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                        <xsl:if test="@id=605">
+                                                                            <li>
+                                                                                <a href="Cotizaciones">Adm. Cotizaciones</a>
+                                                                            </li>
+                                                                        </xsl:if>
+                                                                    </xsl:for-each>
+                                                                </ul>
+                                                            </li>
+                                                        </xsl:if>
+                                                        <xsl:if test="@id=500">
                                                             <li>
                                                                 <a href="Usuarios" class="sf-with-ul">Seguridad</a>
                                                                 <ul>
@@ -203,7 +232,9 @@
                                                                 </div>
                                                                 <div class="content">
                                                                     <ul class="menu">
-                                                                        <li class="leaf first"><div id="selected">Clientes</div></li>
+                                                                        <li class="leaf first">
+                                                                            <div id="selected">Clientes</div>
+                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                             </div>

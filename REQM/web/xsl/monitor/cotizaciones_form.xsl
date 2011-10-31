@@ -154,17 +154,12 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inDate">Fecha:</label>
+                                                                                                    <label for="inDesc">Descripcion:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
-                                                                                                    <input name="inDate" id="dateFieldA" class="embed" type="text" readonly="true" >
-                                                                                                        <xsl:attribute name="value">
-                                                                                                            <xsl:value-of select="date" />
-                                                                                                        </xsl:attribute>
-                                                                                                    </input>
-                                                                                                    <div class="hiddenDiv">
-                                                                                                        <img class="trigger" id="calImg" src="imgs/buttons/calendar.png" alt="Fecha" />
-                                                                                                    </div>
+                                                                                                    <textarea name="inDesc" cols="30" rows="5">
+                                                                                                        <xsl:value-of select="desc" />
+                                                                                                    </textarea>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
@@ -231,6 +226,14 @@
                                                                                             </td>
                                                                                             <td class="td-input">
                                                                                                 <input name="inName" type="text" maxlength="255" value="" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="td-label">
+                                                                                                <label for="inDesc">Descripcion:</label>
+                                                                                            </td>
+                                                                                            <td class="td-input">
+                                                                                                <textarea name="inDesc" cols="30" rows="5"/>
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>

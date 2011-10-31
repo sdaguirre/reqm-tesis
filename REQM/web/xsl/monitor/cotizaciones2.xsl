@@ -301,6 +301,9 @@
                                                                                                 <div>MIME:
                                                                                                     <xsl:value-of select="mime" />
                                                                                                 </div>
+                                                                                                <div>Detalle:
+                                                                                                    <xsl:value-of select="desc" />
+                                                                                                </div>
                                                                                             </div>
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
@@ -309,7 +312,7 @@
                                                                                                         <a id="formLink">
                                                                                                             <xsl:attribute name="href">Cotizaciones?down=<xsl:value-of select="$key" /></xsl:attribute>
                                                                                                             <img src="imgs/buttons/download.png" alt="Descargar Documento" />
-                                                                                                        </a>Descargar
+                                                                                                        </a>Abrir
                                                                                                     </span>
                                                                                                 </li>
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=605]">

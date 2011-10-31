@@ -152,6 +152,18 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
+                                                                                                    <label for="inRef">Referencia:</label>
+                                                                                                </td>
+                                                                                                <td class="td-input">
+                                                                                                    <input name="inRef" type="text" maxlength="255" >
+                                                                                                        <xsl:attribute name="value">
+                                                                                                            <xsl:value-of select="ref" />
+                                                                                                        </xsl:attribute>
+                                                                                                    </input>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="td-label">
                                                                                                     <label for="inPerson">Responsable:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
@@ -290,6 +302,14 @@
                                                                                                     <option value="6">Otros
                                                                                                     </option>
                                                                                                 </select>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="td-label">
+                                                                                                <label for="inRef">Referencia:</label>
+                                                                                            </td>
+                                                                                            <td class="td-input">
+                                                                                                <input name="inRef" type="text" maxlength="255" />
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>

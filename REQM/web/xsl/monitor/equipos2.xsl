@@ -290,6 +290,9 @@
                                                                                         <td colspan="5">
                                                                                             <h1 class="xsldtitulos">Informacion Adicional</h1>
                                                                                             <div class="xsldetalle">
+                                                                                                <div class="xsldbox">Referencia:
+                                                                                                    <xsl:value-of select="ref" />
+                                                                                                </div>
                                                                                                 <div class="xsldbox">IP:
                                                                                                     <xsl:value-of select="sip" />
                                                                                                 </div>

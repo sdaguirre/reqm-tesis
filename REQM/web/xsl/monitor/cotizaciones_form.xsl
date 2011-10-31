@@ -169,6 +169,7 @@
                                                                                                             <xsl:value-of select="fkey" />
                                                                                                         </xsl:attribute>
                                                                                                     </input>
+                                                                                                    <input type="hidden" name="inMod" Value="true" />
                                                                                                 </td>
                                                                                                 <td class="td-input">
                                                                                                     <input class="formButtons" type="image" src="imgs/buttons/save.png" alt="Guardar" name="ok" value="true"/>Guardar
@@ -182,7 +183,10 @@
                                                                                                 <label for="inCode">Codigo:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <input name="inCode" type="text" maxlength="25" readonly="true" value="00000" />
+                                                                                                <input name="inCode" type="text" maxlength="25" readonly="true"/>
+                                                                                                <xsl:attribute name="value">
+                                                                                                    <xsl:value-of select="/root/seq" />
+                                                                                                </xsl:attribute>
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
@@ -290,6 +294,7 @@
                                                                                                         <xsl:value-of select="@key" />
                                                                                                     </xsl:attribute>
                                                                                                 </input>
+                                                                                                <input type="hidden" name="inMod" Value="true" />
                                                                                             </td>
                                                                                             <td class="td-input">
                                                                                                 <input class="formButtons" type="image" src="imgs/buttons/save.png" alt="Guardar" name="ok" value="true"/>Guardar

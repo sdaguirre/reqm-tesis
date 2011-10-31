@@ -12,7 +12,7 @@ public class DAODispositivos extends DAO implements IDAO {
     public static final int F_LISTA = 1, F_REGISTRO = 2, F_NEW = 3, F_REPORT = 4;
     private long lEquipoId, lPersonaId;
     private int iTipoFl,iRedFl;
-    private String sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,sRedNm;
+    private String sDispositivoRef,sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,sRedNm;
     private Date dtEquipoDt;
     //#End
 //#Region Builders
@@ -20,11 +20,12 @@ public class DAODispositivos extends DAO implements IDAO {
     public DAODispositivos() {
     }
 
-    public DAODispositivos(long lEquipoId, long lPersonaId, int iTipoFl, int iRedFl, String sResponsableNm, String sUsuarioNm, String sUsuarioPass, String sIPNm,String sRedNm) {
+    public DAODispositivos(long lEquipoId, long lPersonaId, int iTipoFl, int iRedFl,String sDispositivoRef, String sResponsableNm, String sUsuarioNm, String sUsuarioPass, String sIPNm,String sRedNm) {
         this.lEquipoId = lEquipoId;
         this.lPersonaId = lPersonaId;
         this.iTipoFl = iTipoFl;
         this.iRedFl = iRedFl;
+        this.sDispositivoRef=sDispositivoRef;
         this.sResponsableNm = sResponsableNm;
         this.sUsuarioNm = sUsuarioNm;
         this.sUsuarioPass = sUsuarioPass;
@@ -53,12 +54,12 @@ public class DAODispositivos extends DAO implements IDAO {
 //#Region IUD
 
     public boolean insert() throws SQLException {
-        this.lEquipoId = insertRecord(tabla, new Object[]{lPersonaId,iTipoFl,sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,iRedFl,sRedNm});
+        this.lEquipoId = insertRecord(tabla, new Object[]{lPersonaId,iTipoFl,sDispositivoRef,sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,iRedFl,sRedNm});
         return true;
     }
 
     public boolean update() throws SQLException {
-        return updateRecord(tabla, new Object[]{lEquipoId, lPersonaId,iTipoFl,sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,iRedFl,sRedNm});
+        return updateRecord(tabla, new Object[]{lEquipoId, lPersonaId,iTipoFl,sDispositivoRef,sResponsableNm,sUsuarioNm,sUsuarioPass,sIPNm,iRedFl,sRedNm});
     }
 
     public boolean delete() throws SQLException {
@@ -145,6 +146,14 @@ public class DAODispositivos extends DAO implements IDAO {
 
     public void setsRedNm(String sRedNm) {
         this.sRedNm = sRedNm;
+    }
+
+    public String getsDispositivoRef() {
+        return sDispositivoRef;
+    }
+
+    public void setsDispositivoRef(String sDispositivoRef) {
+        this.sDispositivoRef = sDispositivoRef;
     }
     
     //#End

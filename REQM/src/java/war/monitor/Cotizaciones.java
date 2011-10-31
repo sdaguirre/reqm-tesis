@@ -4,7 +4,6 @@ import conexion.Conexion;
 import dao.DAOCotizaciones;
 import dao.DAOPFisicas;
 import dao.DAOObservaciones;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLXML;
@@ -112,7 +111,7 @@ public class Cotizaciones extends HttpServlet {
                     if (doc != null) {
                         response.setHeader("Content-Disposition", "attachment; filename=\"" + cotizacion.createDocName() + "\"");
                         response.setHeader("cache-control", "no-cache");
-                        response.setContentType(cotizacion.getsReqmDocumentoMIME());
+                        response.setContentType(cotizacion.getsCotizacionMIME());
                         response.getOutputStream().write(doc, 0, doc.length);
                         response.getOutputStream().flush();
                         response.getOutputStream().close();
@@ -162,11 +161,11 @@ public class Cotizaciones extends HttpServlet {
             if (request.getParameter("del.x") != null) {
                 Conexion.autoConnect();
                 DAOCotizaciones cotizacion = new DAOCotizaciones();
-                cotizacion.setlReqmDocumentoId(new Long(request.getParameter("keycode")));
+                cotizacion.setlCotizacionId(new Long(request.getParameter("keycode")));
                 cotizacion.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOCotizaciones.getXMLRecords((Long) session.getAttribute("PRId"), DAOCotizaciones.F_LISTA).getString(), new String[]{user.getPermisos(),
+                        XMLModder.JoinDocs(DAOCotizaciones.getXMLRecords((Long) session.getAttribute("PersonaId"), DAOCotizaciones.F_LISTA).getString(), new String[]{user.getPermisos(),
                             DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones2.xsl"));
             } else if (request.getParameter("srch1") != null) {
                 Conexion.autoConnect();
@@ -182,7 +181,6 @@ public class Cotizaciones extends HttpServlet {
                 HashMap<String, Object> hash = new HashMap<String, Object>();
                 DiskFileItemFactory factory = new DiskFileItemFactory();
                 factory.setSizeThreshold(4096);
-                factory.setRepository(new File("C:/"));
                 ServletFileUpload upload = new ServletFileUpload(factory);
                 upload.setSizeMax(5242880);
                 List<FileItem> items = upload.parseRequest(request);
@@ -197,13 +195,13 @@ public class Cotizaciones extends HttpServlet {
                     Conexion.autoConnect();
                     DAOCotizaciones cotizacion = null;
                     if (hash.get("inClient") != null) {
-                        cotizacion = new DAOCotizaciones(new Long((String) hash.get("inCode")), new Long((String) hash.get("inClient")), new Integer((String) hash.get("inState")), null, (String) hash.get("inName"), (FileItem) hash.get("inFile"));
+                        cotizacion = new DAOCotizaciones(new Long((String) hash.get("inCode")), new Long((String) hash.get("inClient")), new Integer((String) hash.get("inState")), null, (String) hash.get("inName"),(String) hash.get("inDesc"), (FileItem) hash.get("inFile"));
                     } else {
                         cotizacion = new DAOCotizaciones(new Long((String) hash.get("inCode")),(FileItem) hash.get("inFile"));
                     }
-                    if (cotizacion.getlReqmDocumentoId() == 0) {
+                    if (cotizacion.getlCotizacionId() == 0) {
                         cotizacion.insert();
-                    } else if (cotizacion.getlFReqmId() != 0 && cotizacion.getsReqmDocumentoNm() != null) {
+                    } else if (cotizacion.getlFReqmId() != 0 && cotizacion.getsCotizacionNm() != null) {
                         cotizacion.setiEstadoFl(new Integer((String) hash.get("inState")));
                         cotizacion.update();
                     } else {

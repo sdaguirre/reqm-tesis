@@ -195,7 +195,7 @@
                                                                                                             <xsl:if test="$state=3">
                                                                                                                 <xsl:attribute name="selected">selected</xsl:attribute>
                                                                                                                 <xsl:attribute name="class">marked</xsl:attribute>
-                                                                                                            </xsl:if>Solucionado
+                                                                                                            </xsl:if>Terminado
                                                                                                         </option>
                                                                                                     </select>
                                                                                                 </td>

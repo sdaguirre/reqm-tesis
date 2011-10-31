@@ -11,40 +11,41 @@ public class DAOCotizaciones extends DAO implements IDAO {
 
     public static final String tabla = "tblCotizaciones";
     public static final int F_LISTA = 1, F_DOCUMENTO = 2, F_NEW = 3;
-    private long lReqmDocumentoId, lFReqmId;
+    private long lCotizacionId, lFReqmId;
     private int iEstadoFl;
-    private Date dtReqmDocumentoDt;
-    private String sReqmDocumentoNm, sReqmDocumentoExt,sReqmDocumentoMIME;
-    private FileItem bnReqmDocumentoData;
+    private Date dtCotizacionDt;
+    private String sCotizacionNm, sCotizacionDesc,sCotizacionExt,sCotizacionMIME;
+    private FileItem bnCotizacionData;
     //#End
 //#Region Builders
 
     public DAOCotizaciones() {
     }
 
-    public DAOCotizaciones(long lReqmDocumentoId, FileItem bnReqmDocumentoData) {
-        this.lReqmDocumentoId = lReqmDocumentoId;
-        this.bnReqmDocumentoData = bnReqmDocumentoData;
-        if(bnReqmDocumentoData!=null){
-            String[] pathf = bnReqmDocumentoData.getName().split("\\.");
-            this.sReqmDocumentoExt = pathf[pathf.length - 1];
-            this.sReqmDocumentoMIME=bnReqmDocumentoData.getContentType();
+    public DAOCotizaciones(long lCotizacionId, FileItem bnCotizacionData) {
+        this.lCotizacionId = lCotizacionId;
+        this.bnCotizacionData = bnCotizacionData;
+        if(bnCotizacionData!=null){
+            String[] pathf = bnCotizacionData.getName().split("\\.");
+            this.sCotizacionExt = pathf[pathf.length - 1];
+            this.sCotizacionMIME=bnCotizacionData.getContentType();
         }
     }
 
     public DAOCotizaciones(long lCotizacionId, long lPersonaId,int iEstadoFl,
-            Date dtCotizacionDt,String sCotizacionNm, FileItem bnCotizacionData) {
-        this.lReqmDocumentoId = lCotizacionId;
+            Date dtCotizacionDt,String sCotizacionNm,String sCotizacionDesc, FileItem bnCotizacionData) {
+        this.lCotizacionId = lCotizacionId;
         this.lFReqmId = lPersonaId;
         this.iEstadoFl=iEstadoFl;
-        this.dtReqmDocumentoDt = dtCotizacionDt;
-        this.sReqmDocumentoNm = sCotizacionNm;
+        this.dtCotizacionDt = dtCotizacionDt;
+        this.sCotizacionNm = sCotizacionNm;
+        this.sCotizacionDesc = sCotizacionDesc;
         if(bnCotizacionData!=null){
             String[] pathf = bnCotizacionData.getName().split("\\.");
-            this.sReqmDocumentoExt = pathf[pathf.length - 1];
-            this.sReqmDocumentoMIME=bnCotizacionData.getContentType();
+            this.sCotizacionExt = pathf[pathf.length - 1];
+            this.sCotizacionMIME=bnCotizacionData.getContentType();
         }
-        this.bnReqmDocumentoData = bnCotizacionData;
+        this.bnCotizacionData = bnCotizacionData;
     }
 
     //#End
@@ -57,10 +58,10 @@ public class DAOCotizaciones extends DAO implements IDAO {
         byte[] doc=null;
         ResultSet rs = getProcessRecords("file_", tabla, new Object[]{lCotizacionId});
         if (rs.next()) {
-            dtReqmDocumentoDt = rs.getDate(1);
-            sReqmDocumentoNm = rs.getString(2);
-            sReqmDocumentoExt = rs.getString(3);
-            sReqmDocumentoMIME = rs.getString(4);
+            dtCotizacionDt = rs.getDate(1);
+            sCotizacionNm = rs.getString(2);
+            sCotizacionExt = rs.getString(3);
+            sCotizacionMIME = rs.getString(4);
             doc=rs.getBytes(5);
             return doc;
         } else {
@@ -76,41 +77,41 @@ public class DAOCotizaciones extends DAO implements IDAO {
 
     @Override
     public boolean insert() throws SQLException {
-        this.lReqmDocumentoId = insertRecord(tabla, new Object[]{lFReqmId, iEstadoFl,sReqmDocumentoNm, sReqmDocumentoExt,sReqmDocumentoMIME, bnReqmDocumentoData});
+        this.lCotizacionId = insertRecord(tabla, new Object[]{lFReqmId, iEstadoFl,sCotizacionNm,sCotizacionDesc, sCotizacionExt,sCotizacionMIME, bnCotizacionData});
         return true;
     }
 
     @Override
     public boolean update() throws SQLException {
-        return updateRecord(tabla, new Object[]{lReqmDocumentoId,lFReqmId,iEstadoFl, sReqmDocumentoNm});
+        return updateRecord(tabla, new Object[]{lCotizacionId,lFReqmId,iEstadoFl, sCotizacionNm,sCotizacionDesc});
     }
     
     public boolean upload() throws SQLException {
-        return updateRecord(tabla, new Object[]{lReqmDocumentoId,sReqmDocumentoExt,sReqmDocumentoMIME,bnReqmDocumentoData});
+        return updateRecord(tabla, new Object[]{lCotizacionId,sCotizacionExt,sCotizacionMIME,bnCotizacionData});
     }
 
     @Override
     public boolean delete() throws SQLException {
-        return deleteRecord(tabla, lReqmDocumentoId);
+        return deleteRecord(tabla, lCotizacionId);
     }
 
     //#End
 //#Region Accessors
 
-   public FileItem getBnReqmDocumentoData() {
-        return bnReqmDocumentoData;
+   public FileItem getBnCotizacionData() {
+        return bnCotizacionData;
     }
 
-    public void setBnReqmDocumentoData(FileItem bnReqmDocumentoData) {
-        this.bnReqmDocumentoData = bnReqmDocumentoData;
+    public void setBnCotizacionData(FileItem bnCotizacionData) {
+        this.bnCotizacionData = bnCotizacionData;
     }
 
-    public Date getDtReqmDocumentoDt() {
-        return dtReqmDocumentoDt;
+    public Date getDtCotizacionDt() {
+        return dtCotizacionDt;
     }
 
-    public void setDtReqmDocumentoDt(Date dtReqmDocumentoDt) {
-        this.dtReqmDocumentoDt = dtReqmDocumentoDt;
+    public void setDtCotizacionDt(Date dtCotizacionDt) {
+        this.dtCotizacionDt = dtCotizacionDt;
     }
 
     public long getlFReqmId() {
@@ -121,36 +122,36 @@ public class DAOCotizaciones extends DAO implements IDAO {
         this.lFReqmId = lFReqmId;
     }
 
-    public long getlReqmDocumentoId() {
-        return lReqmDocumentoId;
+    public long getlCotizacionId() {
+        return lCotizacionId;
     }
 
-    public void setlReqmDocumentoId(long lReqmDocumentoId) {
-        this.lReqmDocumentoId = lReqmDocumentoId;
+    public void setlCotizacionId(long lCotizacionId) {
+        this.lCotizacionId = lCotizacionId;
     }
 
-    public String getsReqmDocumentoExt() {
-        return sReqmDocumentoExt;
+    public String getsCotizacionExt() {
+        return sCotizacionExt;
     }
 
-    public void setsReqmDocumentoExt(String sReqmDocumentoExt) {
-        this.sReqmDocumentoExt = sReqmDocumentoExt;
+    public void setsCotizacionExt(String sCotizacionExt) {
+        this.sCotizacionExt = sCotizacionExt;
     }
 
-    public String getsReqmDocumentoMIME() {
-        return sReqmDocumentoMIME;
+    public String getsCotizacionMIME() {
+        return sCotizacionMIME;
     }
 
-    public void setsReqmDocumentoMIME(String sReqmDocumentoMIME) {
-        this.sReqmDocumentoMIME = sReqmDocumentoMIME;
+    public void setsCotizacionMIME(String sCotizacionMIME) {
+        this.sCotizacionMIME = sCotizacionMIME;
     }
 
-    public String getsReqmDocumentoNm() {
-        return sReqmDocumentoNm;
+    public String getsCotizacionNm() {
+        return sCotizacionNm;
     }
 
-    public void setsReqmDocumentoNm(String sReqmDocumentoNm) {
-        this.sReqmDocumentoNm = sReqmDocumentoNm;
+    public void setsCotizacionNm(String sCotizacionNm) {
+        this.sCotizacionNm = sCotizacionNm;
     }
 
     public int getiEstadoFl() {
@@ -160,17 +161,25 @@ public class DAOCotizaciones extends DAO implements IDAO {
     public void setiEstadoFl(int iEstadoFl) {
         this.iEstadoFl = iEstadoFl;
     }
+
+    public String getsCotizacionDesc() {
+        return sCotizacionDesc;
+    }
+
+    public void setsCotizacionDesc(String sCotizacionDesc) {
+        this.sCotizacionDesc = sCotizacionDesc;
+    }
     
     public String createDocName(){
         String doc="";
-        if(dtReqmDocumentoDt!=null){
-            doc+=dtReqmDocumentoDt.toString()+"-";
+        if(dtCotizacionDt!=null){
+            doc+=dtCotizacionDt.toString()+"-";
         }
-        String[] word = sReqmDocumentoNm.toUpperCase().split(" ");
+        String[] word = sCotizacionNm.toUpperCase().split(" ");
         for (String string : word) {
             doc+=string.charAt(0);
         }
-        doc+="."+sReqmDocumentoExt;
+        doc+="."+sCotizacionExt;
         return doc;
     }
     //#End

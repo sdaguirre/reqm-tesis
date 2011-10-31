@@ -199,7 +199,8 @@ public class Cotizaciones extends HttpServlet {
                     } else {
                         cotizacion = new DAOCotizaciones(new Long((String) hash.get("inCode")),(FileItem) hash.get("inFile"));
                     }
-                    if (cotizacion.getlCotizacionId() == 0) {
+                    String modder=""+hash.get("inMod");
+                    if (modder.equals("false")) {
                         cotizacion.insert();
                     } else if (cotizacion.getlFReqmId() != 0 && cotizacion.getsCotizacionNm() != null) {
                         cotizacion.setiEstadoFl(new Integer((String) hash.get("inState")));

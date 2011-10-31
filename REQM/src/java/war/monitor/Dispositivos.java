@@ -151,7 +151,7 @@ public class Dispositivos extends HttpServlet {
             if (request.getParameter("ok.x") != null) {
                 Conexion.autoConnect();
                 DAODispositivos daoequipo = new DAODispositivos(new Long(request.getParameter("inCode")),new Long(request.getParameter("inFKey")),
-                        new Integer(request.getParameter("inType")), new Integer(request.getParameter("inNet")), request.getParameter("inPerson"), request.getParameter("inUser"), request.getParameter("inPass"),request.getParameter("inIP"),request.getParameter("inNetNm"));
+                        new Integer(request.getParameter("inType")), new Integer(request.getParameter("inNet")),request.getParameter("inUser"), request.getParameter("inPerson"), request.getParameter("inUser"), request.getParameter("inPass"),request.getParameter("inIP"),request.getParameter("inNetNm"));
                 if (daoequipo.getlEquipoId() == 0) {
                     daoequipo.insert();
                 } else {

@@ -183,10 +183,11 @@
                                                                                                 <label for="inCode">Codigo:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
-                                                                                                <input name="inCode" type="text" maxlength="25" readonly="true"/>
+                                                                                                <input name="inCode" type="text" maxlength="25" readonly="true">
                                                                                                 <xsl:attribute name="value">
-                                                                                                    <xsl:value-of select="/root/seq" />
+                                                                                                    <xsl:value-of select="/root/row/seq" />
                                                                                                 </xsl:attribute>
+                                                                                                </input>
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
@@ -255,6 +256,7 @@
                                                                                                         <xsl:value-of select="@key" />
                                                                                                     </xsl:attribute>
                                                                                                 </input>
+                                                                                                <input type="hidden" name="inMod" value="false" />
                                                                                             </td>
                                                                                             <td class="td-input">
                                                                                                 <input class="formButtons" type="image" src="imgs/buttons/save.png" alt="Guardar" name="ok" value="true"/>Guardar

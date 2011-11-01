@@ -63,6 +63,9 @@ public class DAOTrabajos extends DAO implements IDAO {
     public boolean delete() throws SQLException {
         return deleteRecord(tabla, lTrabajoId);
     }
+    public static boolean nextIteration(long lTrabajoId) throws SQLException {
+        return processRecord("next_", tabla, new Object[]{lTrabajoId})>0;
+    }
     //#End
 //#Region Accessors
 

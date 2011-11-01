@@ -37,7 +37,7 @@ public class Taller extends HttpServlet {
                     SQLXML taller = DAOTrabajos.getXMLRecords((Long) session.getAttribute("DispositivoId"), DAOTrabajos.F_LISTA);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(taller.getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/taller.xsl"));
-                }else{
+                } else {
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(DAOTrabajos.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/taller.xsl"));
                 }
@@ -69,7 +69,6 @@ public class Taller extends HttpServlet {
             } else {
                 response.setContentType("text/html;charset=UTF-8");
                 String ins = request.getParameter("ins");
-                System.out.println(ins + " == " + request.getParameter("ins"));
                 if (request.getParameter("mod") != null) {
                     UserManager user = (UserManager) session.getAttribute("user");
                     request.setCharacterEncoding("UTF-8");
@@ -77,14 +76,21 @@ public class Taller extends HttpServlet {
                     SQLXML taller = DAOTrabajos.getXMLRecords(new Long(request.getParameter("mod")), DAOTrabajos.F_REGISTRO);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(taller.getString(),
-                            new String[]{user.getPermisos(),DAOParams.getXMLRecords(DAOParams.PM_MOTIVOS).getString()}), path + "xsl/monitor/taller_form.xsl"));
+                            new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.PM_MOTIVOS).getString()}), path + "xsl/monitor/taller_form.xsl"));
                 } else if (ins != null) {
                     Conexion.autoConnect();
                     UserManager user = (UserManager) session.getAttribute("user");
                     SQLXML taller = DAOTrabajos.getXMLRecords(new Long(ins), DAOTrabajos.F_NEW);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(taller.getString(),
-                            new String[]{user.getPermisos(),DAOParams.getXMLRecords(DAOParams.PM_MOTIVOS).getString()}), path + "xsl/monitor/taller_form.xsl"));
+                            new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.PM_MOTIVOS).getString()}), path + "xsl/monitor/taller_form.xsl"));
+                } else if (request.getParameter("next") != null) {
+                    Conexion.autoConnect();
+                    UserManager user = (UserManager) session.getAttribute("user");
+                    if (DAOTrabajos.nextIteration(new Long(request.getParameter("next")))) {
+                        out.println(XMLModder.XSLTransform(
+                                XMLModder.JoinDocs(DAOTrabajos.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/taller.xsl"));
+                    }
                 } else {
                     processRequest(request, response);
                 }
@@ -125,7 +131,7 @@ public class Taller extends HttpServlet {
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
                 DAOTrabajos taller = new DAOTrabajos(new Long(request.getParameter("inCode")), new Long(request.getParameter("inFKey")),
                         new Integer(request.getParameter("inMotive")), new Integer(request.getParameter("inState")),
-                        Integer.parseInt(request.getParameter("inLevel")),Integer.parseInt(""+user.getUsuarioId()),request.getParameter("inName"), request.getParameter("inDesc"));
+                        Integer.parseInt(request.getParameter("inLevel")), Integer.parseInt("" + user.getUsuarioId()), request.getParameter("inName"), request.getParameter("inDesc"));
                 if (taller.getlTrabajoId() == 0) {
                     taller.insert();
                 } else {

@@ -281,19 +281,19 @@
                                                                                         <td colspan="6">
                                                                                             <h1 class="xsldtitulos">Informacion Adicional</h1>
                                                                                             <div class="xsldetalle">
-                                                                                                <div class="xsldbox" style="padding-right:30px;">Equipo: <xsl:value-of select="fkeynm" /></div>
+                                                                                                <div style="padding-right:40px;">Equipo: <xsl:value-of select="type" /> - <xsl:value-of select="ref" /> - <xsl:value-of select="fkeynm" /></div>
+                                                                                                <div style="padding-top:3px;padding-right:100px;" class="xsldbox">Motivo:
+                                                                                                    <xsl:value-of select="motive" />
+                                                                                                </div>
                                                                                                 <div style="padding-top:3px;">Fecha Trabajo:
                                                                                                     <xsl:value-of select="date" />
                                                                                                 </div>
-                                                                                                <div style="padding-top:3px;padding-right:30px;" class="xsldbox">Motivo:
-                                                                                                    <xsl:value-of select="motive" />
+                                                                                                <div class="xsldbox" style="padding-top:3px;padding-right:100px;">Detalle:
+                                                                                                    <xsl:value-of select="name" />
                                                                                                 </div>
                                                                                                 <div style="padding-top:3px;">Receptor:
                                                                                                     <xsl:value-of select="user" />
                                                                                                 </div>
-                                                                                                <div style="padding-top:3px;padding-right:30px;">Detalle:
-                                                                                                    <xsl:value-of select="name" />
-                                                                                                </div>                                                                                               
                                                                                             </div>
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">
@@ -309,6 +309,30 @@
                                                                                                         </li>
                                                                                                     </xsl:if>
                                                                                                 </xsl:for-each>
+                                                                                                <xsl:choose>
+                                                                                                    <xsl:when test="stateflag=1">
+                                                                                                        <li>
+                                                                                                            <span class="formButtons">
+                                                                                                                <a id="formLink" >
+                                                                                                                    <xsl:attribute name="href">Taller?next=<xsl:value-of select="$key" /></xsl:attribute>
+                                                                                                                    <img src="imgs/buttons/graph.png" alt="Comenzar Analisis de Trabajo" />
+                                                                                                                </a>Comenzar Analisis
+                                                                                                            </span>
+                                                                                                        </li>
+                                                                                                    </xsl:when>
+                                                                                                    <xsl:when test="stateflag=2">
+                                                                                                        <li>
+                                                                                                            <span class="formButtons">
+                                                                                                                <a id="formLink" >
+                                                                                                                    <xsl:attribute name="href">Taller?next=<xsl:value-of select="$key" /></xsl:attribute>
+                                                                                                                    <img src="imgs/buttons/check.png" alt="Finalizar Trabajo" />
+                                                                                                                </a>Finalizar Trabajo
+                                                                                                            </span>
+                                                                                                        </li>
+                                                                                                    </xsl:when>
+                                                                                                    <xsl:otherwise>
+                                                                                                    </xsl:otherwise>
+                                                                                                </xsl:choose>
                                                                                                 <xsl:for-each select="/root/permisos/sitio[@id=602]">
                                                                                                     <li>
                                                                                                         <xsl:if test="./mod='true'">

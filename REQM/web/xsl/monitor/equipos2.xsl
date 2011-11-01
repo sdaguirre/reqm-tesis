@@ -290,18 +290,19 @@
                                                                                         <td colspan="5">
                                                                                             <h1 class="xsldtitulos">Informacion Adicional</h1>
                                                                                             <div class="xsldetalle">
-                                                                                                <div class="xsldbox">Referencia:
+                                                                                                <div>Referencia:
                                                                                                     <xsl:value-of select="ref" />
-                                                                                                </div>
-                                                                                                <div class="xsldbox">IP:
-                                                                                                    <xsl:value-of select="sip" />
-                                                                                                </div>
-                                                                                                <div>Red:
-                                                                                                    <xsl:value-of select="netnm" />
                                                                                                 </div>
                                                                                                 <div style="padding-top:3px;">Fecha Registro:
                                                                                                     <xsl:value-of select="date" />
                                                                                                 </div>                                                                                               
+                                                                                                <div class="xsldbox" style="padding-top:3px;">IP:
+                                                                                                    <xsl:value-of select="sip" />
+                                                                                                </div>
+                                                                                                <div style="padding-top:3px;">Red:
+                                                                                                    <xsl:value-of select="netnm" />
+                                                                                                </div>
+                                                                                                
                                                                                             </div>
                                                                                             <h1 class="xsldtitulos">Opciones</h1>
                                                                                             <ul class="gallery clearfix">

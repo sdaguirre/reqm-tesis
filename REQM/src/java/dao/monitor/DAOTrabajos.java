@@ -9,7 +9,7 @@ public class DAOTrabajos extends DAO implements IDAO {
 //#Region VarDeclarations
 
     public static final String tabla = "tblTrabajos";
-    public static final int F_LISTA = 1, F_REGISTRO = 2, F_NEW = 3, F_REPORT = 4;
+    public static final int F_LISTA = 1, F_REGISTRO = 2, F_NEW = 3, F_REPORT = 4,F_FILTRO=5;
     private long lTrabajoId,lEquipoId;
     private Date dtTrabajoDt;
     private int iPMotivoId,iEstadoFl,iPrioridadFl,iRecepcionId;

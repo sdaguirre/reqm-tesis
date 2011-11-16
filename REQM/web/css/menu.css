@@ -1,4 +1,7 @@
 /* CSS Document for primary links */
+.this{
+    padding-right: 4px;
+}
 .yuimenubar{visibility:visible;position:static;}
 .yuimenu .yuimenu,.yuimenubar .yuimenu{visibility:hidden;position:absolute;top:-10000px;left:-10000px;}
 .yui-menu-shadow{position:absolute;visibility:hidden;z-index:-1;}

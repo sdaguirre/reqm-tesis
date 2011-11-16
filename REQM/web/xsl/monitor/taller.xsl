@@ -5,6 +5,7 @@
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
                 indent="yes" />
     <xsl:template match="/">
+        <xsl:param name="filter" select="/root/filter"/>
         <html dir="ltr" xml:lang="es" xmlns="http://www.w3.org/1999/xhtml" lang="es">
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -149,6 +150,11 @@
                                                                                 <a href="Soluciones">Adm. Soluciones</a>
                                                                             </li>
                                                                         </xsl:if>
+                                                                        <xsl:if test="@id=605">
+                                                                            <li>
+                                                                                <a href="Cotizaciones">Adm. Cotizaciones</a>
+                                                                            </li>
+                                                                        </xsl:if>
                                                                     </xsl:for-each>
                                                                 </ul>
                                                             </li>
@@ -227,7 +233,30 @@
                                                                 </div>
                                                                 <div class="content">
                                                                     <ul class="menu">
-                                                                        <li class="leaf"><div id="selected">Taller</div></li>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="$filter>1">
+                                                                                <li class="leaf first"><a href="Taller?filter=1">Pendientes</a></li>
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <li class="leaf first"><div id="selected">Pendientes</div></li>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="$filter='2'">
+                                                                                <li class="leaf"><div id="selected">En proceso</div></li>
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <li class="leaf"><a href="Taller?filter=2">En proceso</a></li>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="$filter='3'">
+                                                                                <li class="leaf"><div id="selected">Terminados</div></li>
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <li class="leaf"><a href="Taller?filter=3">Terminados</a></li>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
                                                                     </ul>
                                                                 </div>
                                                             </div>

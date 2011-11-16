@@ -29,9 +29,7 @@
                 <script type="text/javascript" src="js/Myriad_Pro_400.js"></script>
                 <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
                 <script type="text/javascript" src="js/jquery-ui-1.8.1.min.js"></script>
-                <script type="text/javascript" src="js/jquery.datepick.js"></script>
-                <script type="text/javascript" src="js/jquery.datepick-es.js"></script>
-                <script type="text/javascript" src="js/DateField.js"></script>
+                <script type="text/javascript" src="js/jquery.extrafields.js"></script>
             </head>
             <body class="yui-skin-sam" id="body">
                 <div class="min-width">
@@ -321,6 +319,16 @@
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
+                                                                                            <td colspan="2" style="padding-bottom:10px;
+                                                                                            border-bottom-width: 2px;border-bottom-style: dashed;">
+                                                                                                <a id="executer">+ Mas detalles</a>
+                                                                                        <div id="extras" style="padding-top:10px;">
+                                                                                            <table width="500px">
+                                                                                                <colgroup>
+                                                                                                    <col width="20%" />
+                                                                                                    <col width="60%" />
+                                                                                                </colgroup>
+                                                                                        <tr>
                                                                                             <td class="td-label">
                                                                                                 <label for="inUser">Usuario:</label>
                                                                                             </td>
@@ -365,6 +373,9 @@
                                                                                                 <input name="inNetNm" type="text" maxlength="255" />
                                                                                             </td>
                                                                                         </tr>
+                                                                                        </table>
+                                                                                        </div>
+                                                                                        </td></tr>
                                                                                         <tr>
                                                                                             <td id="tdButton">
                                                                                                 <input type="hidden" name="inFKey">

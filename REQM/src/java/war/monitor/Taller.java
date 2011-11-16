@@ -39,7 +39,7 @@ public class Taller extends HttpServlet {
                             XMLModder.JoinDocs(taller.getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/taller.xsl"));
                 } else {
                     out.println(XMLModder.XSLTransform(
-                            XMLModder.JoinDocs(DAOTrabajos.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/taller.xsl"));
+                            XMLModder.JoinDocs(DAOTrabajos.getXMLRecords(1,DAOTrabajos.F_FILTRO).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/taller.xsl"));
                 }
             } else {
                 Conexion.getConnection().disconnect();
@@ -91,6 +91,12 @@ public class Taller extends HttpServlet {
                         out.println(XMLModder.XSLTransform(
                                 XMLModder.JoinDocs(DAOTrabajos.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/taller.xsl"));
                     }
+                } else if (request.getParameter("filter") != null) {
+                    long filter = new Long(request.getParameter("filter"));
+                    Conexion.autoConnect();
+                    UserManager user = (UserManager) session.getAttribute("user");
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(DAOTrabajos.getXMLRecords(filter, DAOTrabajos.F_FILTRO).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString(), "<filter>" + filter + "</filter>"}), path + "xsl/monitor/taller.xsl"));
                 } else {
                     processRequest(request, response);
                 }

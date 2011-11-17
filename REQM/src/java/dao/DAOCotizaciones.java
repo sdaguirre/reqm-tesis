@@ -10,7 +10,7 @@ public class DAOCotizaciones extends DAO implements IDAO {
 //#Region VarDeclarations
 
     public static final String tabla = "tblCotizaciones";
-    public static final int F_LISTA = 1, F_DOCUMENTO = 2, F_NEW = 3;
+    public static final int F_LISTA_CLIENT = 1, F_DOCUMENTO = 2, F_NEW = 3,F_LISTA_COT=4;
     private long lCotizacionId, lFReqmId;
     private int iEstadoFl;
     private Date dtCotizacionDt;
@@ -71,6 +71,9 @@ public class DAOCotizaciones extends DAO implements IDAO {
 
     public static SQLXML searchXML(long lPersonaId,String value) throws SQLException {
         return getProcessXML("srch_", tabla, new Object[]{lPersonaId,"%" + value + "%"});
+    }
+    public static SQLXML searchXML(String value) throws SQLException {
+        return getProcessXML("srch_", tabla, new Object[]{"%" + value + "%"});
     }
     //#End
 //#Region IUD

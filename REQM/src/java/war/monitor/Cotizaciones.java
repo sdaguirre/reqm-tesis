@@ -43,18 +43,18 @@ public class Cotizaciones extends HttpServlet {
                     } else {
                         session.setAttribute("PersonaId", new Long(keycode));
                     }
-                    SQLXML proyectos = DAOCotizaciones.getXMLRecords(new Long(keycode), DAOCotizaciones.F_LISTA);
+                    SQLXML proyectos = DAOCotizaciones.getXMLRecords(new Long(keycode), DAOCotizaciones.F_LISTA_CLIENT);
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(proyectos.getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones2.xsl"));
                 } else {
                     user = (UserManager) session.getAttribute("user");
                     if (user.isbClient()) {
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(DAOCotizaciones.getXMLRecords(user.getPersonaId(), DAOCotizaciones.F_LISTA).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones2.xsl"));
+                                XMLModder.JoinDocs(DAOCotizaciones.getXMLRecords(user.getPersonaId(), DAOCotizaciones.F_LISTA_CLIENT).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones2.xsl"));
                     } else {
                         SQLXML personas = DAOPFisicas.getXMLRecords();
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(personas.getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones.xsl"));
+                                XMLModder.JoinDocs(personas.getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones_a.xsl"));
                     }
                 }
             } else {
@@ -83,7 +83,7 @@ public class Cotizaciones extends HttpServlet {
                 response.sendRedirect("login.html");
             } else {
                 response.setContentType("text/html;charset=UTF-8");
-                String mod = request.getParameter("mod"), nuevo = request.getParameter("ins"), down = request.getParameter("down"), upload = request.getParameter("upl");
+                String mod = request.getParameter("mod"), nuevo = request.getParameter("ins"), down = request.getParameter("down"), upload = request.getParameter("upl"),filtro=request.getParameter("filter");
                 if (mod != null) {
                     PrintWriter out = response.getWriter();
                     UserManager user;
@@ -94,7 +94,7 @@ public class Cotizaciones extends HttpServlet {
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(cotizacion.getString(), new String[]{user.getPermisos(),}), path + "xsl/monitor/cotizaciones_form.xsl"));
                 } else if (nuevo != null) {
-                    if(!nuevo.equals("true")){
+                    if (!nuevo.equals("true")) {
                         session.setAttribute("PersonaId", new Long(nuevo));
                     }
                     PrintWriter out = response.getWriter();
@@ -105,6 +105,15 @@ public class Cotizaciones extends HttpServlet {
                     out.println(XMLModder.XSLTransform(
                             XMLModder.JoinDocs(DAOCotizaciones.getXMLRecords((Long) session.getAttribute("PersonaId"), DAOCotizaciones.F_NEW).getString(),
                             new String[]{user.getPermisos()}), path + "xsl/monitor/cotizaciones_form.xsl"));
+                } else if (filtro != null) {
+                    PrintWriter out = response.getWriter();
+                    UserManager user;
+                    request.setCharacterEncoding("UTF-8");
+                    Conexion.autoConnect();
+                    user = (UserManager) session.getAttribute("user");
+                    out.println(XMLModder.XSLTransform(
+                            XMLModder.JoinDocs(DAOCotizaciones.getXMLRecords(0, DAOCotizaciones.F_LISTA_COT).getString(),
+                            new String[]{user.getPermisos(),"<filter>"+2+"</filter>"}), path + "xsl/monitor/cotizaciones_b.xsl"));
                 } else if (down != null) {
                     DAOCotizaciones cotizacion = new DAOCotizaciones();
                     byte[] doc = cotizacion.getDocument(new Long(down));
@@ -133,7 +142,6 @@ public class Cotizaciones extends HttpServlet {
             ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex.getCause());
         } finally {
-
         }
     }
 
@@ -165,19 +173,24 @@ public class Cotizaciones extends HttpServlet {
                 cotizacion.delete();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOCotizaciones.getXMLRecords((Long) session.getAttribute("PersonaId"), DAOCotizaciones.F_LISTA).getString(), new String[]{user.getPermisos(),
+                        XMLModder.JoinDocs(DAOCotizaciones.getXMLRecords((Long) session.getAttribute("PersonaId"), DAOCotizaciones.F_LISTA_CLIENT).getString(), new String[]{user.getPermisos(),
                             DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones2.xsl"));
-            } else if (request.getParameter("srch1") != null) {
+            } else if (request.getParameter("srcha") != null) {
                 Conexion.autoConnect();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
-                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones.xsl"));
+                        XMLModder.JoinDocs(DAOPFisicas.searchXML(request.getParameter("inSearch")).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones_a.xsl"));
+            } else if (request.getParameter("srchb") != null) {
+                Conexion.autoConnect();
+                user = (UserManager) session.getAttribute("user");
+                out.println(XMLModder.XSLTransform(
+                        XMLModder.JoinDocs(DAOCotizaciones.searchXML(request.getParameter("inSearch")).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones_b.xsl"));
             } else if (request.getParameter("srch2") != null) {
                 Conexion.autoConnect();
                 user = (UserManager) session.getAttribute("user");
                 out.println(XMLModder.XSLTransform(
                         XMLModder.JoinDocs(DAOCotizaciones.searchXML((Long) session.getAttribute("PersonaId"), request.getParameter("inSearch")).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/cotizaciones2.xsl"));
-            }else{
+            } else {
                 HashMap<String, Object> hash = new HashMap<String, Object>();
                 DiskFileItemFactory factory = new DiskFileItemFactory();
                 factory.setSizeThreshold(4096);
@@ -195,11 +208,11 @@ public class Cotizaciones extends HttpServlet {
                     Conexion.autoConnect();
                     DAOCotizaciones cotizacion = null;
                     if (hash.get("inClient") != null) {
-                        cotizacion = new DAOCotizaciones(new Long((String) hash.get("inCode")), new Long((String) hash.get("inClient")), new Integer((String) hash.get("inState")), null, (String) hash.get("inName"),(String) hash.get("inDesc"), (FileItem) hash.get("inFile"));
+                        cotizacion = new DAOCotizaciones(new Long((String) hash.get("inCode")), new Long((String) hash.get("inClient")), new Integer((String) hash.get("inState")), null, (String) hash.get("inName"), (String) hash.get("inDesc"), (FileItem) hash.get("inFile"));
                     } else {
-                        cotizacion = new DAOCotizaciones(new Long((String) hash.get("inCode")),(FileItem) hash.get("inFile"));
+                        cotizacion = new DAOCotizaciones(new Long((String) hash.get("inCode")), (FileItem) hash.get("inFile"));
                     }
-                    String modder=""+hash.get("inMod");
+                    String modder = "" + hash.get("inMod");
                     if (modder.equals("false")) {
                         cotizacion.insert();
                     } else if (cotizacion.getlFReqmId() != 0 && cotizacion.getsCotizacionNm() != null) {

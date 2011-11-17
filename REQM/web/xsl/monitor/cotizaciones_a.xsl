@@ -5,6 +5,7 @@
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
                 indent="yes" />
     <xsl:template match="/">
+        <xsl:param name="filter" select="/root/filter"/>
         <html dir="ltr" xml:lang="es" xmlns="http://www.w3.org/1999/xhtml" lang="es">
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -25,7 +26,6 @@
                 <link type="text/css" rel="stylesheet" media="all" href="css/tableview.css"  />
                 <link type="text/css" rel="stylesheet" media="all" href="css/superfish-navbar.css"  />
                 <link type="text/css" rel="stylesheet" media="all" href="css/prettyPhoto.css"/>
-
                 <!--script-->
                 <script type="text/javascript" src="js/yahoo-dom-event.js"></script>
                 <script type="text/javascript" src="js/animation-min.js"></script>
@@ -49,7 +49,6 @@
                         this.post(Cotizaciones);
                     });
                 </script>
-
                 <script type="text/javascript" src="js/hoverIntent.js"></script>
                 <script type="text/javascript" src="js/superfish.js"></script>
                 <script type="text/javascript">
@@ -212,7 +211,7 @@
                                                 <input maxlength="128" name="inSearch" id="edit-search-theme-form-1"
                                                        size="15" title="Ingrese las palabras a buscar." class="form-text"
                                                        type="text" />
-                                                <input name="srch1" class="form-submit" value="" type="submit" />
+                                                <input name="srcha" class="form-submit" value="" type="submit" />
                                             </div>
                                         </form>
                                     </div>
@@ -228,13 +227,12 @@
                                                         <div class="block block-user" id="block-user-1">
                                                             <div class="block-top">
                                                                 <div class="title">
-                                                                    <h3>Secci&#243;n</h3>
+                                                                    <h3>Filtro</h3>
                                                                 </div>
                                                                 <div class="content">
                                                                     <ul class="menu">
-                                                                        <li class="leaf first">
-                                                                            <div id="selected">Clientes</div>
-                                                                        </li>
+                                                                        <li class="leaf first"><div id="selected">Por Clientes</div></li>
+                                                                        <li class="leaf"><a href="Cotizaciones?filter=2">Por Cotizaciones</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -257,7 +255,7 @@
                                                                 <div class="columns">
                                                                     <div class="column-left">
                                                                         <input type="hidden" id="keycode" name="keycode" value="" />
-                                                                        <table id="report" width="500px">
+                                                                        <table id="report" width="550px">
                                                                             <tr>
                                                                                 <th>Codigo</th>
                                                                                 <th>Nombre</th>

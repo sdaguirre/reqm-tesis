@@ -255,6 +255,14 @@
                                                                                 <li class="leaf"><a href="Taller?filter=3">Terminados</a></li>
                                                                             </xsl:otherwise>
                                                                         </xsl:choose>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="$filter='4'">
+                                                                                <li class="leaf"><div id="selected">Entregados</div></li>
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <li class="leaf"><a href="Taller?filter=4">Entregados</a></li>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -351,9 +359,19 @@
                                                                                                         <li>
                                                                                                             <span class="formButtons">
                                                                                                                 <a id="formLink" >
-                                                                                                                    <xsl:attribute name="href">Taller?next=<xsl:value-of select="$key" /></xsl:attribute>
+                                                                                                                    <xsl:attribute name="href">Taller?next=<xsl:value-of select="$key" />&#38;filter=<xsl:value-of select="$filter"/></xsl:attribute>
                                                                                                                     <img src="imgs/buttons/check.png" alt="Finalizar Trabajo" />
                                                                                                                 </a>Finalizar Trabajo
+                                                                                                            </span>
+                                                                                                        </li>
+                                                                                                    </xsl:when>
+                                                                                                    <xsl:when test="stateflag=3">
+                                                                                                        <li>
+                                                                                                            <span class="formButtons">
+                                                                                                                <a id="formLink" >
+                                                                                                                    <xsl:attribute name="href">Taller?next=<xsl:value-of select="$key" />&#38;filter=<xsl:value-of select="$filter"/></xsl:attribute>
+                                                                                                                    <img src="imgs/buttons/check.png" alt="Entregar Dispositivo" />
+                                                                                                                </a>Entregar Dispositivo
                                                                                                             </span>
                                                                                                         </li>
                                                                                                     </xsl:when>

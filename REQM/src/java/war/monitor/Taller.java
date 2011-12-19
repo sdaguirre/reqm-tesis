@@ -86,10 +86,12 @@ public class Taller extends HttpServlet {
                             new String[]{user.getPermisos(), DAOParams.getXMLRecords(DAOParams.PM_MOTIVOS).getString()}), path + "xsl/monitor/taller_form.xsl"));
                 } else if (request.getParameter("next") != null) {
                     Conexion.autoConnect();
+                    String str=request.getParameter("filter");
+                    long filter = new Long((str!=null?str:"1"));
                     UserManager user = (UserManager) session.getAttribute("user");
                     if (DAOTrabajos.nextIteration(new Long(request.getParameter("next")))) {
                         out.println(XMLModder.XSLTransform(
-                                XMLModder.JoinDocs(DAOTrabajos.getXMLRecords().getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString()}), path + "xsl/monitor/taller.xsl"));
+                                XMLModder.JoinDocs(DAOTrabajos.getXMLRecords(filter,DAOTrabajos.F_FILTRO).getString(), new String[]{user.getPermisos(), DAOObservaciones.getXMLRecords(user.getUsuarioId(), DAOObservaciones.F_NOTIFY).getString(), "<filter>" + filter + "</filter>"}), path + "xsl/monitor/taller.xsl"));
                     }
                 } else if (request.getParameter("filter") != null) {
                     long filter = new Long(request.getParameter("filter"));

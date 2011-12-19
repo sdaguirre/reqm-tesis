@@ -224,7 +224,7 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td class="td-label">
-                                                                                                    <label for="inName">Nombre:</label>
+                                                                                                    <label for="inName">Caso:</label>
                                                                                                 </td>
                                                                                                 <td class="td-input">
                                                                                                     <input name="inName" type="text" maxlength="255" >
@@ -318,7 +318,7 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inName">Nombre:</label>
+                                                                                                <label for="inName">Caso:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
                                                                                                 <input name="inName" type="text" maxlength="255" />
@@ -326,7 +326,7 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td class="td-label">
-                                                                                                <label for="inDesc">Descripcion:</label>
+                                                                                                <label for="inDesc">Detalle:</label>
                                                                                             </td>
                                                                                             <td class="td-input">
                                                                                                 <textarea name="inDesc" cols="30" rows="10">

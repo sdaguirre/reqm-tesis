@@ -256,13 +256,10 @@
                                                                                     <th>Codigo</th>
                                                                                     <th>Fecha</th>
                                                                                     <th>Cliente</th>
-                                                                                    <th>Nombre</th>
+                                                                                    <th>Estado</th>
                                                                                     <th id="former"></th>
                                                                                 </tr>
-                                                                                <xsl:for-each select="/root/row">
-                                                                                    <xsl:sort order="descending" select="substring(date,7,4)" />
-                                                                                    <xsl:sort order="descending" select="substring(date,4,2)" />
-                                                                                    <xsl:sort order="descending" select="substring(date,1,2)" />
+                                                                                <xsl:for-each select="/root/row">                                                                                    
                                                                                     <xsl:param name="key" select="@key"/>
                                                                                     <tr>
                                                                                         <td>
@@ -275,7 +272,7 @@
                                                                                             <xsl:value-of select="fkeynm" />
                                                                                         </td>
                                                                                         <td>
-                                                                                            <xsl:value-of select="name" />
+                                                                                            <xsl:value-of select="state" />
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="arrow"></div>
@@ -285,6 +282,9 @@
                                                                                         <td colspan="5">
                                                                                             <h1 class="xsldtitulos">Informaci&#243;n Adicional</h1>
                                                                                             <div class="xsldetalle">
+                                                                                                <div>Responsable:
+                                                                                                    <xsl:value-of select="name" />
+                                                                                                </div>
                                                                                                 <div class="xsldbox">Extensi&#243;n:
                                                                                                     <xsl:value-of select="ext" />
                                                                                                 </div>

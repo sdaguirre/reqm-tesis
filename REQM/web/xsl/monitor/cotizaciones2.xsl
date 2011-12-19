@@ -285,7 +285,7 @@
                                                                                             <xsl:value-of select="date" />
                                                                                         </td>
                                                                                         <td>
-                                                                                            <xsl:value-of select="name" />
+                                                                                            <xsl:value-of select="state" />
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="arrow"></div>
@@ -295,6 +295,9 @@
                                                                                         <td colspan="5">
                                                                                             <h1 class="xsldtitulos">Informaci&#243;n Adicional</h1>
                                                                                             <div class="xsldetalle">
+                                                                                                <div>Responsable:
+                                                                                                    <xsl:value-of select="name" />
+                                                                                                </div>
                                                                                                 <div class="xsldbox">Extensi&#243;n:
                                                                                                     <xsl:value-of select="ext" />
                                                                                                 </div>

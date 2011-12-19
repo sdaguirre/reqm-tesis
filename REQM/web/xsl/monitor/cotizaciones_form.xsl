@@ -137,6 +137,13 @@
                                                                                                             </xsl:if>
                                                                                                             Aceptado
                                                                                                         </option>
+                                                                                                        <option value="4">
+                                                                                                            <xsl:if test="$type=4">
+                                                                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                                                                                <xsl:attribute name="class">marked</xsl:attribute>
+                                                                                                            </xsl:if>
+                                                                                                            Rechazado
+                                                                                                        </option>
                                                                                                     </select>
                                                                                                 </td>
                                                                                             </tr>
@@ -221,6 +228,8 @@
                                                                                                     <option value="2">Enviado
                                                                                                     </option>
                                                                                                     <option value="3">Aceptado
+                                                                                                    </option>
+                                                                                                    <option value="4">Rechazado
                                                                                                     </option>
                                                                                                 </select>
                                                                                             </td>

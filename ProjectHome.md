@@ -1,0 +1,1 @@
+Aplicación Web para la gestión de requerimientos, basado en el modelo CMMI, modulo REQM y RD de la constelación DEV de ingeniería
